@@ -314,6 +314,15 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getBelief_Name() {
+        return (EAttribute)beliefEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public DemocdslFactory getDemocdslFactory() {
         return (DemocdslFactory)getEFactoryInstance();
     }
@@ -362,6 +371,7 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
 
         beliefEClass = createEClass(BELIEF);
         createEAttribute(beliefEClass, BELIEF__VALUE);
+        createEAttribute(beliefEClass, BELIEF__NAME);
     }
 
     /**
@@ -419,6 +429,7 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
 
         initEClass(beliefEClass, Belief.class, "Belief", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getBelief_Value(), ecorePackage.getEInt(), "value", null, 0, 1, Belief.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getBelief_Name(), ecorePackage.getEString(), "name", null, 0, 1, Belief.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);

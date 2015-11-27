@@ -323,13 +323,22 @@ public interface DemocdslPackage extends EPackage {
     int BELIEF__VALUE = 0;
 
     /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int BELIEF__NAME = 1;
+
+    /**
      * The number of structural features of the '<em>Belief</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int BELIEF_FEATURE_COUNT = 1;
+    int BELIEF_FEATURE_COUNT = 2;
 
     /**
      * The number of operations of the '<em>Belief</em>' class.
@@ -568,6 +577,17 @@ public interface DemocdslPackage extends EPackage {
     EAttribute getBelief_Value();
 
     /**
+     * Returns the meta object for the attribute '{@link ca.mcgill.emf.democdsl.Belief#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see ca.mcgill.emf.democdsl.Belief#getName()
+     * @see #getBelief()
+     * @generated
+     */
+    EAttribute getBelief_Name();
+
+    /**
      * Returns the factory that creates the instances of the model.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -767,6 +787,14 @@ public interface DemocdslPackage extends EPackage {
          * @generated
          */
         EAttribute BELIEF__VALUE = eINSTANCE.getBelief_Value();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute BELIEF__NAME = eINSTANCE.getBelief_Name();
 
     }
 

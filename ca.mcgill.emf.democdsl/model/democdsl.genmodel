@@ -32,6 +32,7 @@
     </genClasses>
     <genClasses ecoreClass="democdsl.ecore#//Belief">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//Belief/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//Belief/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

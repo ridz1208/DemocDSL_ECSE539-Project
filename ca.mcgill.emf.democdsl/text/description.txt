@@ -32,3 +32,4 @@ Package democdsl <http://www.example.org/democdsl>
 
   Class Belief
     Attribute value : EInt
+    Attribute name : EString

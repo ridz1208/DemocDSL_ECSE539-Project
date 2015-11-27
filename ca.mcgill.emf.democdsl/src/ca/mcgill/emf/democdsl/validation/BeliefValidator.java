@@ -15,4 +15,6 @@ public interface BeliefValidator {
     boolean validate();
 
     boolean validateValue(int value);
+
+    boolean validateName(String value);
 }

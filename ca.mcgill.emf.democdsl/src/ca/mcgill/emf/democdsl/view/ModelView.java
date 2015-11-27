@@ -6,6 +6,8 @@ package ca.mcgill.emf.democdsl.view;
 import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -37,8 +39,8 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     /*
      * Moving attributes
      */
-    private ArrayList<RectangularShape> elements = new ArrayList<RectangularShape>();
-    private ArrayList<RectangularShape> movedElements = new ArrayList<RectangularShape>();
+    private ArrayList<Object> elements = new ArrayList<Object>();
+    private ArrayList<Object> movedElements = new ArrayList<Object>();
 
     /**
      * Constructor
@@ -55,6 +57,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     final static Color fg = Color.black;
     final static Color red = Color.red;
     final static Color white = Color.white;
+    final static Color selected = Color.cyan;
 
     final static BasicStroke stroke = new BasicStroke(2.0f);
     final static BasicStroke wideStroke = new BasicStroke(8.0f);
@@ -175,27 +178,53 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     }
     
     public void refresh() {
-        for(RectangularShape r : elements) {
-            g2.setColor(Color.BLACK);
-            g2.draw(r);
+        for(Object r : elements) {
+            DemocIcon i = (DemocIcon)r;
+            g2.setColor(fg);
+            i.draw();
         }
     }
     
     public void createConstituent(){
-        // draw Rectangle2D.Double
-        g2.setStroke(stroke);
         Dimension d = getSize();
-        Double rectWidth = d.getWidth()/20.0;
-        Double rectHeight = d.getWidth()/20.0;
+        Double w = d.getWidth()/20.0;
+        Double h = d.getWidth()/20.0;
         Double x = d.getWidth()/2.0;
-        Double y = d.getWidth()/2.0;
+        Double y = d.getHeight()/2.0;
         
-        Rectangle2D constRect = new Rectangle2D.Double(x, y, rectWidth*2.0, rectHeight);
-        elements.add(constRect);
+        ConstituentIcon consti = new ConstituentIcon("Rida", 100, new Rectangle2D.Double(x, y, w*2.0, h));
+        elements.add(consti);
         repaint();
         
-        Double yString = y+rectHeight/2.0;
-        g2.drawString("Constituent", x.intValue(), yString.intValue()); 
+    }
+
+
+    public void createIdeology() {
+        Dimension d = getSize();
+        Double w = d.getWidth()/20.0;
+        Double h = d.getWidth()/20.0;
+        Double x = d.getWidth()/2.0;
+        Double y = d.getHeight()/2.0;
+        
+        IdeologyIcon ideo = new IdeologyIcon("Liberalism", 
+                new RoundRectangle2D.Double(x, y, w*2.0, h, 20, 20));
+        elements.add(ideo);
+        
+        repaint();
+        
+    }
+    
+    public void createBelief(){
+        Dimension d = getSize();
+        Double w = d.getWidth()/20.0;
+        Double h = d.getWidth()/20.0;
+        Double x = d.getWidth()/2.0;
+        Double y = d.getHeight()/2.0;
+        
+        BeliefIcon belief = new BeliefIcon("low tax", 8, new Ellipse2D.Double(x, y, w*2.0, h));
+        elements.add(belief);
+        
+        repaint();
         
     }
     
@@ -206,9 +235,11 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     public static void main(String s[]) {
         JFrame f = new JFrame("Model View");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JApplet applet = new ModelView();
+        final JApplet applet = new ModelView();
         f.getContentPane().add("Center", applet);
 
+        JPanel p = new JPanel();
+        
         JButton addConst = new JButton();
         addConst.setText("Add Constituent");
         addConst.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +248,26 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
             }
             
         });
-        f.getContentPane().add("North", addConst);
+        p.add(addConst);
+        JButton addIdeology = new JButton();
+        addIdeology.setText("Add Ideology");
+        addIdeology.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ((ModelView) applet).createIdeology();
+            }
+            
+        });
+        p.add(addIdeology);
+        JButton addBelief = new JButton();
+        addBelief.setText("Add Belief");
+        addBelief.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ((ModelView) applet).createBelief();
+            }
+            
+        });
+        p.add(addBelief);
+        f.getContentPane().add("North", p);
         
         applet.init();
         f.pack();
@@ -228,14 +278,18 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     @Override
     public void mouseDragged(MouseEvent e) {
         System.out.println("DRAG");
-        for (RectangularShape r : movedElements) {
+        for (Object r : elements) {
+            DemocIcon i = (DemocIcon)r;
+            if(i.isSelected == false) {
+                continue;
+            }
             //TODO change this if we use not only rectangles
-            if (r instanceof Rectangle2D) {
-                ((Rectangle2D) r).setRect(e.getX(), e.getY(), r.getWidth(), r.getHeight());
-            } else if (r instanceof RoundRectangle2D) {
-                //TODO
-            }else if (r instanceof Ellipse2D) {
-                //TODO
+            if (r instanceof ConstituentIcon) {
+                ((ConstituentIcon) r).move(e.getX(), e.getY());
+            } else if (r instanceof IdeologyIcon) {
+                ((IdeologyIcon)r).move(e.getX(), e.getY());
+            }else if (r instanceof BeliefIcon) {
+                ((BeliefIcon)r).move(e.getX(), e.getY());
             }else{
 
             }
@@ -248,19 +302,30 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("CLICK");
-        for (RectangularShape r : elements) {
-            if(r.contains(new Point(e.getX(), e.getY()))) {
-                movedElements.add(r);
-            }
-        }
+        
         
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("CLICK RELEASE");
-        movedElements.clear();
+        //deselect everything
+        for (Object r : elements) {
+            DemocIcon i = (DemocIcon)r;
+            i.isSelected = false;
+        }
+        
+        //select those clicked
+        for (Object r : elements) {
+            DemocIcon i = (DemocIcon)r;
+            if(i.shape.contains(new Point(e.getX(), e.getY()))) {
+                System.out.println(e.getX() + ", "+ e.getY());
+                i.isSelected = true;
+            }
+        }
+        
+
+        repaint();
+        
         
     }    
     
@@ -288,6 +353,138 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         
     }
 
+    
+    
+    /**
+     * Helper classes for icons
+     */
+    public abstract class DemocIcon {
+        /**
+         * Abstract class for a model icon
+         */
+        protected String name;
+        protected RectangularShape shape;
+        protected boolean isSelected = false;
+        
+        public DemocIcon(String name) {
+            this.name = name;
+        }
+        public void move(double x, double y) {
+        }
+        
+        public void draw() {
+            g2.setStroke(stroke);
+            g2.draw(shape);
+            if(isSelected) {
+                g2.setPaint(selected);
+                g2.fill(shape);
+                g2.setPaint(fg);
+            }
+            else {
+                g2.setPaint(white);
+                g2.fill(shape);
+                g2.setPaint(fg);
+            }
+            
+            double xString = shape.getCenterX() - + shape.getWidth() / 6.0;
+            double yString = shape.getCenterY();
+            g2.drawString(name, (int)xString, (int)yString);
+        }
+    }
+    
+    public class ConstituentIcon extends DemocIcon {
 
+        protected int independence;
+        
+        /**
+         * Constituent model Icon
+         * @param name name of the constituent
+         * @param independ independence of the constituent
+         * @param e shape of the constituent
+         */
+        public ConstituentIcon(String name, int independ, Rectangle2D e) {
+            super(name);
+            this.independence = independ;
+            this.shape = e;
+        }
+        
+        
+        public void move(double x, double y) {
+            shape = new Rectangle2D.Double(x, y, shape.getWidth(), shape.getHeight());
+        }
+        
+        @Override
+        public void draw() {
+            super.draw();
+            
+            double xString = shape.getCenterX() - shape.getWidth() / 6.0;
+            double yString = shape.getCenterY() + shape.getHeight() / 6.0;
+            g2.drawString("ind: "+independence, (int)xString, (int)yString);
+        }
+        
+
+    }
+    
+    public class IdeologyIcon extends DemocIcon{
+
+        /**
+         * Ideology Icon
+         * @param name name of the ideology
+         * @param v value of the ideology
+         * @param e shape
+         */
+        public IdeologyIcon(String name, RoundRectangle2D e) {
+            super(name);
+            this.shape = e;
+        }
+        
+        
+        public void move(double x, double y) {
+            shape = new RoundRectangle2D.Double(x, y, shape.getWidth(), shape.getHeight(), 
+                    ((RoundRectangle2D)shape).getArcWidth(), ((RoundRectangle2D)shape).getArcHeight());
+      
+        }
+        
+        @Override
+        public void draw() {
+            super.draw();
+            
+        }
+        
+
+    }
+    
+    public class BeliefIcon extends DemocIcon{
+        protected int value;
+        protected boolean isSelected = false;
+        
+        /**
+         * Belief model icon
+         * @param name name of the belief
+         * @param v value of the belief
+         * @param e shape of the belief
+         */
+        public BeliefIcon(String name, int v, Ellipse2D e) {
+            super(name);
+            this.shape = e;
+            this.value = v;
+        }
+        
+        public void move(double x, double y) {
+            shape = new Ellipse2D.Double(x, y, shape.getWidth(), shape.getHeight());
+            
+        }
+        
+        @Override
+        public void draw() {
+            super.draw();
+            
+            
+            double xString = shape.getCenterX()  - shape.getWidth() / 6.0;
+            double yString = shape.getCenterY() + shape.getHeight() / 6.0;;
+            g2.drawString("val: "+value, (int)xString, (int)yString);
+        }
+        
+    }
 
 }
