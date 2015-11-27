@@ -9,9 +9,10 @@
       ecorePackage="democdsl.ecore#/">
     <genClasses ecoreClass="democdsl.ecore#//DemocDSL">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//DemocDSL/constituents"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//DemocDSL/parties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//DemocDSL/ideologies"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//DemocDSL/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//DemocDSL/influences"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//DemocDSL/beliefs"/>
     </genClasses>
     <genClasses ecoreClass="democdsl.ecore#//Constituent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//Constituent/name"/>

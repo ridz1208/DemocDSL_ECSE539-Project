@@ -243,9 +243,25 @@
             <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RYcbVJSNEeW4ztMoE6b26Q" id="(0.3050847457627119,1.0)"/>
             <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RYcbVZSNEeW4ztMoE6b26Q" id="(0.4067796610169492,0.0)"/>
           </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_wEe3UJU8EeW4ztMoE6b26Q" type="4001" element="_wDcVgJU8EeW4ztMoE6b26Q" source="_anKoMJFtEeWcI8_aeHVuUw" target="_PTH2MJFvEeWcI8_aeHVuUw">
+            <children xmi:type="notation:Node" xmi:id="_wEfeYJU8EeW4ztMoE6b26Q" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wEfeYZU8EeW4ztMoE6b26Q" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_wEfeYpU8EeW4ztMoE6b26Q" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wEfeY5U8EeW4ztMoE6b26Q" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_wEfeZJU8EeW4ztMoE6b26Q" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wEfeZZU8EeW4ztMoE6b26Q" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_wEe3UZU8EeW4ztMoE6b26Q" routing="Rectilinear"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_wEe3UpU8EeW4ztMoE6b26Q" fontColor="7490599" fontName="Segoe UI" fontHeight="8"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_wEe3U5U8EeW4ztMoE6b26Q" points="[0, 0, -158, -348]$[302, 0, 144, -348]$[302, 398, 144, 50]$[192, 398, 34, 50]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_wEfeZpU8EeW4ztMoE6b26Q" id="(1.0,0.19672131147540983)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_wEfeZ5U8EeW4ztMoE6b26Q" id="(0.711864406779661,0.0)"/>
+          </edges>
         </data>
       </ownedAnnotationEntries>
-      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_ampq0JFtEeWcI8_aeHVuUw" name="DemocDSL" tooltipText="" outgoingEdges="_oHui0JFwEeWcI8_aeHVuUw _ozVroJFwEeWcI8_aeHVuUw _RYEn4JSNEeW4ztMoE6b26Q" width="12" height="10">
+      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_ampq0JFtEeWcI8_aeHVuUw" name="DemocDSL" tooltipText="" outgoingEdges="_oHui0JFwEeWcI8_aeHVuUw _ozVroJFwEeWcI8_aeHVuUw _RYEn4JSNEeW4ztMoE6b26Q _wDcVgJU8EeW4ztMoE6b26Q" width="12" height="10">
         <target xmi:type="ecore:EClass" href="democdsl.ecore#//DemocDSL"/>
         <semanticElements xmi:type="ecore:EClass" href="democdsl.ecore#//DemocDSL"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -329,7 +345,7 @@
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
         </ownedElements>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_PS_TUJFvEeWcI8_aeHVuUw" name="Belief" tooltipText="" incomingEdges="_TYsvAJFwEeWcI8_aeHVuUw _cBFhIJFwEeWcI8_aeHVuUw" width="12" height="10">
+      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_PS_TUJFvEeWcI8_aeHVuUw" name="Belief" tooltipText="" incomingEdges="_TYsvAJFwEeWcI8_aeHVuUw _cBFhIJFwEeWcI8_aeHVuUw _wDcVgJU8EeW4ztMoE6b26Q" width="12" height="10">
         <target xmi:type="ecore:EClass" href="democdsl.ecore#//Belief"/>
         <semanticElements xmi:type="ecore:EClass" href="democdsl.ecore#//Belief"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -413,9 +429,9 @@
         </ownedStyle>
         <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_ozVroJFwEeWcI8_aeHVuUw" name="[0..*] parties" sourceNode="_ampq0JFtEeWcI8_aeHVuUw" targetNode="_IlybgJFvEeWcI8_aeHVuUw">
-        <target xmi:type="ecore:EReference" href="democdsl.ecore#//DemocDSL/parties"/>
-        <semanticElements xmi:type="ecore:EReference" href="democdsl.ecore#//DemocDSL/parties"/>
+      <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_ozVroJFwEeWcI8_aeHVuUw" name="[0..*] ideologies" sourceNode="_ampq0JFtEeWcI8_aeHVuUw" targetNode="_IlybgJFvEeWcI8_aeHVuUw">
+        <target xmi:type="ecore:EReference" href="democdsl.ecore#//DemocDSL/ideologies"/>
+        <semanticElements xmi:type="ecore:EReference" href="democdsl.ecore#//DemocDSL/ideologies"/>
         <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_ozWSsJFwEeWcI8_aeHVuUw" description="_stMHgJFvEeWcI8_aeHVuUw" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
           <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_ozWSsZFwEeWcI8_aeHVuUw" showIcon="false">
             <customFeatures>labelSize</customFeatures>
@@ -456,6 +472,19 @@
             <customFeatures>labelSize</customFeatures>
           </centerLabelStyle>
           <endLabelStyle xmi:type="diagram:EndLabelStyle" xmi:id="_RYFO8pSNEeW4ztMoE6b26Q" showIcon="false" labelColor="39,76,114">
+            <customFeatures>labelSize</customFeatures>
+          </endLabelStyle>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_wDcVgJU8EeW4ztMoE6b26Q" name="[0..*] beliefs" sourceNode="_ampq0JFtEeWcI8_aeHVuUw" targetNode="_PS_TUJFvEeWcI8_aeHVuUw">
+        <target xmi:type="ecore:EReference" href="democdsl.ecore#//DemocDSL/beliefs"/>
+        <semanticElements xmi:type="ecore:EReference" href="democdsl.ecore#//DemocDSL/beliefs"/>
+        <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_wDdjoJU8EeW4ztMoE6b26Q" description="_stMHgJFvEeWcI8_aeHVuUw" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
+          <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_wDdjoZU8EeW4ztMoE6b26Q" showIcon="false">
+            <customFeatures>labelSize</customFeatures>
+          </centerLabelStyle>
+          <endLabelStyle xmi:type="diagram:EndLabelStyle" xmi:id="_wDdjopU8EeW4ztMoE6b26Q" showIcon="false" labelColor="39,76,114">
             <customFeatures>labelSize</customFeatures>
           </endLabelStyle>
         </ownedStyle>

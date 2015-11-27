@@ -4,30 +4,48 @@
 package ca.mcgill.emf.democdsl.view;
 
 import javax.swing.JApplet;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * View for the model concrete syntax
  * @author Yanis
  *
  */
-public class ModelView extends JApplet {
+public class ModelView extends JApplet implements MouseMotionListener, MouseListener{
 
     /**
      * 
      */
     private static final long serialVersionUID = -1385748433095965892L;
+    
+    private Graphics2D g2;
+    Dimension d;
+    
+    /*
+     * Moving attributes
+     */
+    private ArrayList<RectangularShape> elements = new ArrayList<RectangularShape>();
+    private ArrayList<RectangularShape> movedElements = new ArrayList<RectangularShape>();
 
     /**
      * Constructor
      */
     public ModelView() {
-        // TODO Auto-generated constructor stub
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
     
     final static int maxCharHeight = 15;
@@ -53,6 +71,7 @@ public class ModelView extends JApplet {
         //Initialize drawing colors
         setBackground(bg);
         setForeground(fg);
+        
     }
 
     FontMetrics pickFont(Graphics2D g2,
@@ -87,9 +106,9 @@ public class ModelView extends JApplet {
     }
 
     public void paint(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
+        g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        Dimension d = getSize();
+        d = getSize();
         int gridWidth = d.width / 6;
         int gridHeight = d.height / 2;
 
@@ -140,41 +159,46 @@ public class ModelView extends JApplet {
         y += gridHeight;
         stringY += gridHeight;
 
+        // blank the canvas
+        g2.setColor(Color.WHITE);
+        Double dWidth = d.getWidth();
+        Double dHeight = d.getHeight();
+        g2.fillRect(0,0,dWidth.intValue(),dHeight.intValue());
         
-        x += gridWidth;
 
-        // fill Rectangle2D.Double (red)
-        g2.setPaint(red);
-        g2.fill(new Rectangle2D.Double(x, y, rectWidth, rectHeight));
-        g2.setPaint(fg);
-        g2.drawString("Filled Rectangle2D", x, stringY);
-        x += gridWidth;        
-
-        // fill RoundRectangle2D.Double
-        GradientPaint redtowhite = new GradientPaint(x,y,red,x+rectWidth, y,white);
-        g2.setPaint(redtowhite);
-        g2.fill(new RoundRectangle2D.Double(x, y, rectWidth, 
-                                            rectHeight, 10, 10));
-        g2.setPaint(fg);
-        g2.drawString("Filled RoundRectangle2D", x, stringY);
-        x += gridWidth;
-
+        g2.setColor(Color.BLACK);
         
-        g2.setPaint(fg);
-        g2.drawString("Filled Arc2D", x, stringY);
-        x += gridWidth;
-
-        // fill Ellipse2D.Double
-        redtowhite = new GradientPaint(x,y,red,x+rectWidth, y,white);
-        g2.setPaint(redtowhite);
-        g2.fill (new Ellipse2D.Double(x, y, rectWidth, rectHeight));
-        g2.setPaint(fg);
-        g2.drawString("Filled Ellipse2D", x, stringY);
-        x += gridWidth;
-
+        
+        refresh();
 
 
     }
+    
+    public void refresh() {
+        for(RectangularShape r : elements) {
+            g2.setColor(Color.BLACK);
+            g2.draw(r);
+        }
+    }
+    
+    public void createConstituent(){
+        // draw Rectangle2D.Double
+        g2.setStroke(stroke);
+        Dimension d = getSize();
+        Double rectWidth = d.getWidth()/20.0;
+        Double rectHeight = d.getWidth()/20.0;
+        Double x = d.getWidth()/2.0;
+        Double y = d.getWidth()/2.0;
+        
+        Rectangle2D constRect = new Rectangle2D.Double(x, y, rectWidth*2.0, rectHeight);
+        elements.add(constRect);
+        repaint();
+        
+        Double yString = y+rectHeight/2.0;
+        g2.drawString("Constituent", x.intValue(), yString.intValue()); 
+        
+    }
+    
     
     /*
      * Temporary main method, we need an app later
@@ -184,11 +208,86 @@ public class ModelView extends JApplet {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JApplet applet = new ModelView();
         f.getContentPane().add("Center", applet);
+
+        JButton addConst = new JButton();
+        addConst.setText("Add Constituent");
+        addConst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ((ModelView) applet).createConstituent();
+            }
+            
+        });
+        f.getContentPane().add("North", addConst);
+        
         applet.init();
         f.pack();
-        f.setSize(new Dimension(550,100));
+        f.setSize(new Dimension(1024,768));
         f.setVisible(true);
     }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        System.out.println("DRAG");
+        for (RectangularShape r : movedElements) {
+            //TODO change this if we use not only rectangles
+            if (r instanceof Rectangle2D) {
+                ((Rectangle2D) r).setRect(e.getX(), e.getY(), r.getWidth(), r.getHeight());
+            } else if (r instanceof RoundRectangle2D) {
+                //TODO
+            }else if (r instanceof Ellipse2D) {
+                //TODO
+            }else{
+
+            }
+        }
+        repaint();
+        //refresh();
+         
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println("CLICK");
+        for (RectangularShape r : elements) {
+            if(r.contains(new Point(e.getX(), e.getY()))) {
+                movedElements.add(r);
+            }
+        }
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        System.out.println("CLICK RELEASE");
+        movedElements.clear();
+        
+    }    
+    
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
 
 
 }

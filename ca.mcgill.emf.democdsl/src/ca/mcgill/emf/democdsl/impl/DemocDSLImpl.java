@@ -2,6 +2,7 @@
  */
 package ca.mcgill.emf.democdsl.impl;
 
+import ca.mcgill.emf.democdsl.Belief;
 import ca.mcgill.emf.democdsl.Constituent;
 import ca.mcgill.emf.democdsl.DemocDSL;
 import ca.mcgill.emf.democdsl.DemocdslPackage;
@@ -33,9 +34,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link ca.mcgill.emf.democdsl.impl.DemocDSLImpl#getConstituents <em>Constituents</em>}</li>
- *   <li>{@link ca.mcgill.emf.democdsl.impl.DemocDSLImpl#getParties <em>Parties</em>}</li>
+ *   <li>{@link ca.mcgill.emf.democdsl.impl.DemocDSLImpl#getIdeologies <em>Ideologies</em>}</li>
  *   <li>{@link ca.mcgill.emf.democdsl.impl.DemocDSLImpl#getName <em>Name</em>}</li>
  *   <li>{@link ca.mcgill.emf.democdsl.impl.DemocDSLImpl#getInfluences <em>Influences</em>}</li>
+ *   <li>{@link ca.mcgill.emf.democdsl.impl.DemocDSLImpl#getBeliefs <em>Beliefs</em>}</li>
  * </ul>
  *
  * @generated
@@ -52,14 +54,14 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
     protected EList<Constituent> constituents;
 
     /**
-     * The cached value of the '{@link #getParties() <em>Parties</em>}' containment reference list.
+     * The cached value of the '{@link #getIdeologies() <em>Ideologies</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getParties()
+     * @see #getIdeologies()
      * @generated
      * @ordered
      */
-    protected EList<Ideology> parties;
+    protected EList<Ideology> ideologies;
 
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -90,6 +92,16 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
      * @ordered
      */
     protected EList<Influence> influences;
+
+    /**
+     * The cached value of the '{@link #getBeliefs() <em>Beliefs</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBeliefs()
+     * @generated
+     * @ordered
+     */
+    protected EList<Belief> beliefs;
 
     /**
      * <!-- begin-user-doc -->
@@ -127,11 +139,11 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<Ideology> getParties() {
-        if (parties == null) {
-            parties = new EObjectContainmentEList<Ideology>(Ideology.class, this, DemocdslPackage.DEMOC_DSL__PARTIES);
+    public EList<Ideology> getIdeologies() {
+        if (ideologies == null) {
+            ideologies = new EObjectContainmentEList<Ideology>(Ideology.class, this, DemocdslPackage.DEMOC_DSL__IDEOLOGIES);
         }
-        return parties;
+        return ideologies;
     }
 
     /**
@@ -172,15 +184,29 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList<Belief> getBeliefs() {
+        if (beliefs == null) {
+            beliefs = new EObjectContainmentEList<Belief>(Belief.class, this, DemocdslPackage.DEMOC_DSL__BELIEFS);
+        }
+        return beliefs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case DemocdslPackage.DEMOC_DSL__CONSTITUENTS:
                 return ((InternalEList<?>)getConstituents()).basicRemove(otherEnd, msgs);
-            case DemocdslPackage.DEMOC_DSL__PARTIES:
-                return ((InternalEList<?>)getParties()).basicRemove(otherEnd, msgs);
+            case DemocdslPackage.DEMOC_DSL__IDEOLOGIES:
+                return ((InternalEList<?>)getIdeologies()).basicRemove(otherEnd, msgs);
             case DemocdslPackage.DEMOC_DSL__INFLUENCES:
                 return ((InternalEList<?>)getInfluences()).basicRemove(otherEnd, msgs);
+            case DemocdslPackage.DEMOC_DSL__BELIEFS:
+                return ((InternalEList<?>)getBeliefs()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -195,12 +221,14 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
         switch (featureID) {
             case DemocdslPackage.DEMOC_DSL__CONSTITUENTS:
                 return getConstituents();
-            case DemocdslPackage.DEMOC_DSL__PARTIES:
-                return getParties();
+            case DemocdslPackage.DEMOC_DSL__IDEOLOGIES:
+                return getIdeologies();
             case DemocdslPackage.DEMOC_DSL__NAME:
                 return getName();
             case DemocdslPackage.DEMOC_DSL__INFLUENCES:
                 return getInfluences();
+            case DemocdslPackage.DEMOC_DSL__BELIEFS:
+                return getBeliefs();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -218,9 +246,9 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
                 getConstituents().clear();
                 getConstituents().addAll((Collection<? extends Constituent>)newValue);
                 return;
-            case DemocdslPackage.DEMOC_DSL__PARTIES:
-                getParties().clear();
-                getParties().addAll((Collection<? extends Ideology>)newValue);
+            case DemocdslPackage.DEMOC_DSL__IDEOLOGIES:
+                getIdeologies().clear();
+                getIdeologies().addAll((Collection<? extends Ideology>)newValue);
                 return;
             case DemocdslPackage.DEMOC_DSL__NAME:
                 setName((String)newValue);
@@ -228,6 +256,10 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
             case DemocdslPackage.DEMOC_DSL__INFLUENCES:
                 getInfluences().clear();
                 getInfluences().addAll((Collection<? extends Influence>)newValue);
+                return;
+            case DemocdslPackage.DEMOC_DSL__BELIEFS:
+                getBeliefs().clear();
+                getBeliefs().addAll((Collection<? extends Belief>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -244,14 +276,17 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
             case DemocdslPackage.DEMOC_DSL__CONSTITUENTS:
                 getConstituents().clear();
                 return;
-            case DemocdslPackage.DEMOC_DSL__PARTIES:
-                getParties().clear();
+            case DemocdslPackage.DEMOC_DSL__IDEOLOGIES:
+                getIdeologies().clear();
                 return;
             case DemocdslPackage.DEMOC_DSL__NAME:
                 setName(NAME_EDEFAULT);
                 return;
             case DemocdslPackage.DEMOC_DSL__INFLUENCES:
                 getInfluences().clear();
+                return;
+            case DemocdslPackage.DEMOC_DSL__BELIEFS:
+                getBeliefs().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -267,12 +302,14 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
         switch (featureID) {
             case DemocdslPackage.DEMOC_DSL__CONSTITUENTS:
                 return constituents != null && !constituents.isEmpty();
-            case DemocdslPackage.DEMOC_DSL__PARTIES:
-                return parties != null && !parties.isEmpty();
+            case DemocdslPackage.DEMOC_DSL__IDEOLOGIES:
+                return ideologies != null && !ideologies.isEmpty();
             case DemocdslPackage.DEMOC_DSL__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case DemocdslPackage.DEMOC_DSL__INFLUENCES:
                 return influences != null && !influences.isEmpty();
+            case DemocdslPackage.DEMOC_DSL__BELIEFS:
+                return beliefs != null && !beliefs.isEmpty();
         }
         return super.eIsSet(featureID);
     }

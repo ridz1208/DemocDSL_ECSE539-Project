@@ -4,6 +4,7 @@
  */
 package ca.mcgill.emf.democdsl.validation;
 
+import ca.mcgill.emf.democdsl.Belief;
 import ca.mcgill.emf.democdsl.Constituent;
 import ca.mcgill.emf.democdsl.Ideology;
 import ca.mcgill.emf.democdsl.Influence;
@@ -20,7 +21,11 @@ public interface DemocDSLValidator {
     boolean validate();
 
     boolean validateConstituents(EList<Constituent> value);
+    boolean validateIdeologies(EList<Ideology> value);
+
     boolean validateParties(EList<Ideology> value);
     boolean validateName(String value);
     boolean validateInfluences(EList<Influence> value);
+
+    boolean validateBeliefs(EList<Belief> value);
 }

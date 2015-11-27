@@ -76,13 +76,13 @@ public interface DemocdslPackage extends EPackage {
     int DEMOC_DSL__CONSTITUENTS = 0;
 
     /**
-     * The feature id for the '<em><b>Parties</b></em>' containment reference list.
+     * The feature id for the '<em><b>Ideologies</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DEMOC_DSL__PARTIES = 1;
+    int DEMOC_DSL__IDEOLOGIES = 1;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -103,13 +103,22 @@ public interface DemocdslPackage extends EPackage {
     int DEMOC_DSL__INFLUENCES = 3;
 
     /**
+     * The feature id for the '<em><b>Beliefs</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DEMOC_DSL__BELIEFS = 4;
+
+    /**
      * The number of structural features of the '<em>Democ DSL</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DEMOC_DSL_FEATURE_COUNT = 4;
+    int DEMOC_DSL_FEATURE_COUNT = 5;
 
     /**
      * The number of operations of the '<em>Democ DSL</em>' class.
@@ -354,15 +363,15 @@ public interface DemocdslPackage extends EPackage {
     EReference getDemocDSL_Constituents();
 
     /**
-     * Returns the meta object for the containment reference list '{@link ca.mcgill.emf.democdsl.DemocDSL#getParties <em>Parties</em>}'.
+     * Returns the meta object for the containment reference list '{@link ca.mcgill.emf.democdsl.DemocDSL#getIdeologies <em>Ideologies</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Parties</em>'.
-     * @see ca.mcgill.emf.democdsl.DemocDSL#getParties()
+     * @return the meta object for the containment reference list '<em>Ideologies</em>'.
+     * @see ca.mcgill.emf.democdsl.DemocDSL#getIdeologies()
      * @see #getDemocDSL()
      * @generated
      */
-    EReference getDemocDSL_Parties();
+    EReference getDemocDSL_Ideologies();
 
     /**
      * Returns the meta object for the attribute '{@link ca.mcgill.emf.democdsl.DemocDSL#getName <em>Name</em>}'.
@@ -385,6 +394,17 @@ public interface DemocdslPackage extends EPackage {
      * @generated
      */
     EReference getDemocDSL_Influences();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link ca.mcgill.emf.democdsl.DemocDSL#getBeliefs <em>Beliefs</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Beliefs</em>'.
+     * @see ca.mcgill.emf.democdsl.DemocDSL#getBeliefs()
+     * @see #getDemocDSL()
+     * @generated
+     */
+    EReference getDemocDSL_Beliefs();
 
     /**
      * Returns the meta object for class '{@link ca.mcgill.emf.democdsl.Constituent <em>Constituent</em>}'.
@@ -589,12 +609,12 @@ public interface DemocdslPackage extends EPackage {
         EReference DEMOC_DSL__CONSTITUENTS = eINSTANCE.getDemocDSL_Constituents();
 
         /**
-         * The meta object literal for the '<em><b>Parties</b></em>' containment reference list feature.
+         * The meta object literal for the '<em><b>Ideologies</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference DEMOC_DSL__PARTIES = eINSTANCE.getDemocDSL_Parties();
+        EReference DEMOC_DSL__IDEOLOGIES = eINSTANCE.getDemocDSL_Ideologies();
 
         /**
          * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -611,6 +631,14 @@ public interface DemocdslPackage extends EPackage {
          * @generated
          */
         EReference DEMOC_DSL__INFLUENCES = eINSTANCE.getDemocDSL_Influences();
+
+        /**
+         * The meta object literal for the '<em><b>Beliefs</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DEMOC_DSL__BELIEFS = eINSTANCE.getDemocDSL_Beliefs();
 
         /**
          * The meta object literal for the '{@link ca.mcgill.emf.democdsl.impl.ConstituentImpl <em>Constituent</em>}' class.

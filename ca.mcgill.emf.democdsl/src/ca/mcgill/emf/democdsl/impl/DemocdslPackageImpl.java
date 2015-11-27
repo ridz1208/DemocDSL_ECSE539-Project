@@ -143,7 +143,7 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDemocDSL_Parties() {
+    public EReference getDemocDSL_Ideologies() {
         return (EReference)democDSLEClass.getEStructuralFeatures().get(1);
     }
 
@@ -163,6 +163,15 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      */
     public EReference getDemocDSL_Influences() {
         return (EReference)democDSLEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDemocDSL_Beliefs() {
+        return (EReference)democDSLEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -330,9 +339,10 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
         // Create classes and their features
         democDSLEClass = createEClass(DEMOC_DSL);
         createEReference(democDSLEClass, DEMOC_DSL__CONSTITUENTS);
-        createEReference(democDSLEClass, DEMOC_DSL__PARTIES);
+        createEReference(democDSLEClass, DEMOC_DSL__IDEOLOGIES);
         createEAttribute(democDSLEClass, DEMOC_DSL__NAME);
         createEReference(democDSLEClass, DEMOC_DSL__INFLUENCES);
+        createEReference(democDSLEClass, DEMOC_DSL__BELIEFS);
 
         constituentEClass = createEClass(CONSTITUENT);
         createEAttribute(constituentEClass, CONSTITUENT__NAME);
@@ -386,9 +396,10 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
         // Initialize classes, features, and operations; add parameters
         initEClass(democDSLEClass, DemocDSL.class, "DemocDSL", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getDemocDSL_Constituents(), this.getConstituent(), null, "constituents", null, 0, -1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDemocDSL_Parties(), this.getIdeology(), null, "parties", null, 0, -1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDemocDSL_Ideologies(), this.getIdeology(), null, "ideologies", null, 0, -1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDemocDSL_Name(), ecorePackage.getEString(), "name", null, 0, 1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getDemocDSL_Influences(), this.getInfluence(), null, "influences", null, 0, -1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDemocDSL_Beliefs(), this.getBelief(), null, "beliefs", null, 0, -1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(constituentEClass, Constituent.class, "Constituent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getConstituent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Constituent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

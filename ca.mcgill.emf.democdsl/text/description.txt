@@ -9,9 +9,10 @@ Package democdsl <http://www.example.org/democdsl>
 
   Class DemocDSL
     Reference constituents : Constituent<<0..*>>
-    Reference parties : Ideology<<0..*>>
+    Reference ideologies : Ideology<<0..*>>
     Attribute name : EString
     Reference influences : Influence<<0..*>>
+    Reference beliefs : Belief<<0..*>>
 
   Class Constituent
     Attribute name : EString
