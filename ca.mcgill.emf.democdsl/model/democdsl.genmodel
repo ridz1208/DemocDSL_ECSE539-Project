@@ -11,21 +11,23 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//DemocDSL/constituents"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//DemocDSL/parties"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//DemocDSL/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//DemocDSL/influences"/>
     </genClasses>
     <genClasses ecoreClass="democdsl.ecore#//Constituent">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//Constituent/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//Constituent/independence"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//Constituent/atomicConstituent"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//Constituent/beliefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//Constituent/influences"/>
     </genClasses>
-    <genClasses ecoreClass="democdsl.ecore#//Party">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//Party/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//Party/constituents"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//Party/beliefs"/>
+    <genClasses ecoreClass="democdsl.ecore#//Ideology">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//Ideology/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//Ideology/constituents"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference democdsl.ecore#//Ideology/beliefs"/>
     </genClasses>
     <genClasses ecoreClass="democdsl.ecore#//Influence">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//Influence/weight"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference democdsl.ecore#//Influence/influenced"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference democdsl.ecore#//Influence/influencer"/>
     </genClasses>
     <genClasses ecoreClass="democdsl.ecore#//Belief">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute democdsl.ecore#//Belief/value"/>

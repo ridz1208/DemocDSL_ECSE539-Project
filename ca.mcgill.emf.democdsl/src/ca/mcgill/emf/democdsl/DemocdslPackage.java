@@ -94,13 +94,22 @@ public interface DemocdslPackage extends EPackage {
     int DEMOC_DSL__NAME = 2;
 
     /**
+     * The feature id for the '<em><b>Influences</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DEMOC_DSL__INFLUENCES = 3;
+
+    /**
      * The number of structural features of the '<em>Democ DSL</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DEMOC_DSL_FEATURE_COUNT = 3;
+    int DEMOC_DSL_FEATURE_COUNT = 4;
 
     /**
      * The number of operations of the '<em>Democ DSL</em>' class.
@@ -158,22 +167,13 @@ public interface DemocdslPackage extends EPackage {
     int CONSTITUENT__BELIEFS = 3;
 
     /**
-     * The feature id for the '<em><b>Influences</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONSTITUENT__INFLUENCES = 4;
-
-    /**
      * The number of structural features of the '<em>Constituent</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONSTITUENT_FEATURE_COUNT = 5;
+    int CONSTITUENT_FEATURE_COUNT = 4;
 
     /**
      * The number of operations of the '<em>Constituent</em>' class.
@@ -185,14 +185,14 @@ public interface DemocdslPackage extends EPackage {
     int CONSTITUENT_OPERATION_COUNT = 0;
 
     /**
-     * The meta object id for the '{@link ca.mcgill.emf.democdsl.impl.PartyImpl <em>Party</em>}' class.
+     * The meta object id for the '{@link ca.mcgill.emf.democdsl.impl.IdeologyImpl <em>Ideology</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see ca.mcgill.emf.democdsl.impl.PartyImpl
-     * @see ca.mcgill.emf.democdsl.impl.DemocdslPackageImpl#getParty()
+     * @see ca.mcgill.emf.democdsl.impl.IdeologyImpl
+     * @see ca.mcgill.emf.democdsl.impl.DemocdslPackageImpl#getIdeology()
      * @generated
      */
-    int PARTY = 2;
+    int IDEOLOGY = 2;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -201,7 +201,7 @@ public interface DemocdslPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARTY__NAME = 0;
+    int IDEOLOGY__NAME = 0;
 
     /**
      * The feature id for the '<em><b>Constituents</b></em>' containment reference list.
@@ -210,7 +210,7 @@ public interface DemocdslPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARTY__CONSTITUENTS = 1;
+    int IDEOLOGY__CONSTITUENTS = 1;
 
     /**
      * The feature id for the '<em><b>Beliefs</b></em>' containment reference list.
@@ -219,25 +219,25 @@ public interface DemocdslPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARTY__BELIEFS = 2;
+    int IDEOLOGY__BELIEFS = 2;
 
     /**
-     * The number of structural features of the '<em>Party</em>' class.
+     * The number of structural features of the '<em>Ideology</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARTY_FEATURE_COUNT = 3;
+    int IDEOLOGY_FEATURE_COUNT = 3;
 
     /**
-     * The number of operations of the '<em>Party</em>' class.
+     * The number of operations of the '<em>Ideology</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARTY_OPERATION_COUNT = 0;
+    int IDEOLOGY_OPERATION_COUNT = 0;
 
     /**
      * The meta object id for the '{@link ca.mcgill.emf.democdsl.impl.InfluenceImpl <em>Influence</em>}' class.
@@ -259,13 +259,31 @@ public interface DemocdslPackage extends EPackage {
     int INFLUENCE__WEIGHT = 0;
 
     /**
+     * The feature id for the '<em><b>Influenced</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INFLUENCE__INFLUENCED = 1;
+
+    /**
+     * The feature id for the '<em><b>Influencer</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INFLUENCE__INFLUENCER = 2;
+
+    /**
      * The number of structural features of the '<em>Influence</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int INFLUENCE_FEATURE_COUNT = 1;
+    int INFLUENCE_FEATURE_COUNT = 3;
 
     /**
      * The number of operations of the '<em>Influence</em>' class.
@@ -358,6 +376,17 @@ public interface DemocdslPackage extends EPackage {
     EAttribute getDemocDSL_Name();
 
     /**
+     * Returns the meta object for the containment reference list '{@link ca.mcgill.emf.democdsl.DemocDSL#getInfluences <em>Influences</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Influences</em>'.
+     * @see ca.mcgill.emf.democdsl.DemocDSL#getInfluences()
+     * @see #getDemocDSL()
+     * @generated
+     */
+    EReference getDemocDSL_Influences();
+
+    /**
      * Returns the meta object for class '{@link ca.mcgill.emf.democdsl.Constituent <em>Constituent</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -412,58 +441,47 @@ public interface DemocdslPackage extends EPackage {
     EReference getConstituent_Beliefs();
 
     /**
-     * Returns the meta object for the containment reference list '{@link ca.mcgill.emf.democdsl.Constituent#getInfluences <em>Influences</em>}'.
+     * Returns the meta object for class '{@link ca.mcgill.emf.democdsl.Ideology <em>Ideology</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Influences</em>'.
-     * @see ca.mcgill.emf.democdsl.Constituent#getInfluences()
-     * @see #getConstituent()
+     * @return the meta object for class '<em>Ideology</em>'.
+     * @see ca.mcgill.emf.democdsl.Ideology
      * @generated
      */
-    EReference getConstituent_Influences();
+    EClass getIdeology();
 
     /**
-     * Returns the meta object for class '{@link ca.mcgill.emf.democdsl.Party <em>Party</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Party</em>'.
-     * @see ca.mcgill.emf.democdsl.Party
-     * @generated
-     */
-    EClass getParty();
-
-    /**
-     * Returns the meta object for the attribute '{@link ca.mcgill.emf.democdsl.Party#getName <em>Name</em>}'.
+     * Returns the meta object for the attribute '{@link ca.mcgill.emf.democdsl.Ideology#getName <em>Name</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Name</em>'.
-     * @see ca.mcgill.emf.democdsl.Party#getName()
-     * @see #getParty()
+     * @see ca.mcgill.emf.democdsl.Ideology#getName()
+     * @see #getIdeology()
      * @generated
      */
-    EAttribute getParty_Name();
+    EAttribute getIdeology_Name();
 
     /**
-     * Returns the meta object for the containment reference list '{@link ca.mcgill.emf.democdsl.Party#getConstituents <em>Constituents</em>}'.
+     * Returns the meta object for the containment reference list '{@link ca.mcgill.emf.democdsl.Ideology#getConstituents <em>Constituents</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Constituents</em>'.
-     * @see ca.mcgill.emf.democdsl.Party#getConstituents()
-     * @see #getParty()
+     * @see ca.mcgill.emf.democdsl.Ideology#getConstituents()
+     * @see #getIdeology()
      * @generated
      */
-    EReference getParty_Constituents();
+    EReference getIdeology_Constituents();
 
     /**
-     * Returns the meta object for the containment reference list '{@link ca.mcgill.emf.democdsl.Party#getBeliefs <em>Beliefs</em>}'.
+     * Returns the meta object for the containment reference list '{@link ca.mcgill.emf.democdsl.Ideology#getBeliefs <em>Beliefs</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the containment reference list '<em>Beliefs</em>'.
-     * @see ca.mcgill.emf.democdsl.Party#getBeliefs()
-     * @see #getParty()
+     * @see ca.mcgill.emf.democdsl.Ideology#getBeliefs()
+     * @see #getIdeology()
      * @generated
      */
-    EReference getParty_Beliefs();
+    EReference getIdeology_Beliefs();
 
     /**
      * Returns the meta object for class '{@link ca.mcgill.emf.democdsl.Influence <em>Influence</em>}'.
@@ -485,6 +503,28 @@ public interface DemocdslPackage extends EPackage {
      * @generated
      */
     EAttribute getInfluence_Weight();
+
+    /**
+     * Returns the meta object for the reference '{@link ca.mcgill.emf.democdsl.Influence#getInfluenced <em>Influenced</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Influenced</em>'.
+     * @see ca.mcgill.emf.democdsl.Influence#getInfluenced()
+     * @see #getInfluence()
+     * @generated
+     */
+    EReference getInfluence_Influenced();
+
+    /**
+     * Returns the meta object for the reference '{@link ca.mcgill.emf.democdsl.Influence#getInfluencer <em>Influencer</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Influencer</em>'.
+     * @see ca.mcgill.emf.democdsl.Influence#getInfluencer()
+     * @see #getInfluence()
+     * @generated
+     */
+    EReference getInfluence_Influencer();
 
     /**
      * Returns the meta object for class '{@link ca.mcgill.emf.democdsl.Belief <em>Belief</em>}'.
@@ -565,6 +605,14 @@ public interface DemocdslPackage extends EPackage {
         EAttribute DEMOC_DSL__NAME = eINSTANCE.getDemocDSL_Name();
 
         /**
+         * The meta object literal for the '<em><b>Influences</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DEMOC_DSL__INFLUENCES = eINSTANCE.getDemocDSL_Influences();
+
+        /**
          * The meta object literal for the '{@link ca.mcgill.emf.democdsl.impl.ConstituentImpl <em>Constituent</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -607,22 +655,14 @@ public interface DemocdslPackage extends EPackage {
         EReference CONSTITUENT__BELIEFS = eINSTANCE.getConstituent_Beliefs();
 
         /**
-         * The meta object literal for the '<em><b>Influences</b></em>' containment reference list feature.
+         * The meta object literal for the '{@link ca.mcgill.emf.democdsl.impl.IdeologyImpl <em>Ideology</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
+         * @see ca.mcgill.emf.democdsl.impl.IdeologyImpl
+         * @see ca.mcgill.emf.democdsl.impl.DemocdslPackageImpl#getIdeology()
          * @generated
          */
-        EReference CONSTITUENT__INFLUENCES = eINSTANCE.getConstituent_Influences();
-
-        /**
-         * The meta object literal for the '{@link ca.mcgill.emf.democdsl.impl.PartyImpl <em>Party</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see ca.mcgill.emf.democdsl.impl.PartyImpl
-         * @see ca.mcgill.emf.democdsl.impl.DemocdslPackageImpl#getParty()
-         * @generated
-         */
-        EClass PARTY = eINSTANCE.getParty();
+        EClass IDEOLOGY = eINSTANCE.getIdeology();
 
         /**
          * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -630,7 +670,7 @@ public interface DemocdslPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute PARTY__NAME = eINSTANCE.getParty_Name();
+        EAttribute IDEOLOGY__NAME = eINSTANCE.getIdeology_Name();
 
         /**
          * The meta object literal for the '<em><b>Constituents</b></em>' containment reference list feature.
@@ -638,7 +678,7 @@ public interface DemocdslPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference PARTY__CONSTITUENTS = eINSTANCE.getParty_Constituents();
+        EReference IDEOLOGY__CONSTITUENTS = eINSTANCE.getIdeology_Constituents();
 
         /**
          * The meta object literal for the '<em><b>Beliefs</b></em>' containment reference list feature.
@@ -646,7 +686,7 @@ public interface DemocdslPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference PARTY__BELIEFS = eINSTANCE.getParty_Beliefs();
+        EReference IDEOLOGY__BELIEFS = eINSTANCE.getIdeology_Beliefs();
 
         /**
          * The meta object literal for the '{@link ca.mcgill.emf.democdsl.impl.InfluenceImpl <em>Influence</em>}' class.
@@ -665,6 +705,22 @@ public interface DemocdslPackage extends EPackage {
          * @generated
          */
         EAttribute INFLUENCE__WEIGHT = eINSTANCE.getInfluence_Weight();
+
+        /**
+         * The meta object literal for the '<em><b>Influenced</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference INFLUENCE__INFLUENCED = eINSTANCE.getInfluence_Influenced();
+
+        /**
+         * The meta object literal for the '<em><b>Influencer</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference INFLUENCE__INFLUENCER = eINSTANCE.getInfluence_Influencer();
 
         /**
          * The meta object literal for the '{@link ca.mcgill.emf.democdsl.impl.BeliefImpl <em>Belief</em>}' class.

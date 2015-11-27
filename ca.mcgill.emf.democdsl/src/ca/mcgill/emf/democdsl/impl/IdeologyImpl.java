@@ -5,7 +5,7 @@ package ca.mcgill.emf.democdsl.impl;
 import ca.mcgill.emf.democdsl.Belief;
 import ca.mcgill.emf.democdsl.Constituent;
 import ca.mcgill.emf.democdsl.DemocdslPackage;
-import ca.mcgill.emf.democdsl.Party;
+import ca.mcgill.emf.democdsl.Ideology;
 
 import java.util.Collection;
 
@@ -25,20 +25,20 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Party</b></em>'.
+ * An implementation of the model object '<em><b>Ideology</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link ca.mcgill.emf.democdsl.impl.PartyImpl#getName <em>Name</em>}</li>
- *   <li>{@link ca.mcgill.emf.democdsl.impl.PartyImpl#getConstituents <em>Constituents</em>}</li>
- *   <li>{@link ca.mcgill.emf.democdsl.impl.PartyImpl#getBeliefs <em>Beliefs</em>}</li>
+ *   <li>{@link ca.mcgill.emf.democdsl.impl.IdeologyImpl#getName <em>Name</em>}</li>
+ *   <li>{@link ca.mcgill.emf.democdsl.impl.IdeologyImpl#getConstituents <em>Constituents</em>}</li>
+ *   <li>{@link ca.mcgill.emf.democdsl.impl.IdeologyImpl#getBeliefs <em>Beliefs</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
+public class IdeologyImpl extends MinimalEObjectImpl.Container implements Ideology {
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -84,7 +84,7 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected PartyImpl() {
+    protected IdeologyImpl() {
         super();
     }
 
@@ -95,7 +95,7 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
      */
     @Override
     protected EClass eStaticClass() {
-        return DemocdslPackage.Literals.PARTY;
+        return DemocdslPackage.Literals.IDEOLOGY;
     }
 
     /**
@@ -116,7 +116,7 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
         String oldName = name;
         name = newName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DemocdslPackage.PARTY__NAME, oldName, name));
+            eNotify(new ENotificationImpl(this, Notification.SET, DemocdslPackage.IDEOLOGY__NAME, oldName, name));
     }
 
     /**
@@ -126,7 +126,7 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
      */
     public EList<Constituent> getConstituents() {
         if (constituents == null) {
-            constituents = new EObjectContainmentEList<Constituent>(Constituent.class, this, DemocdslPackage.PARTY__CONSTITUENTS);
+            constituents = new EObjectContainmentEList<Constituent>(Constituent.class, this, DemocdslPackage.IDEOLOGY__CONSTITUENTS);
         }
         return constituents;
     }
@@ -138,7 +138,7 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
      */
     public EList<Belief> getBeliefs() {
         if (beliefs == null) {
-            beliefs = new EObjectContainmentEList<Belief>(Belief.class, this, DemocdslPackage.PARTY__BELIEFS);
+            beliefs = new EObjectContainmentEList<Belief>(Belief.class, this, DemocdslPackage.IDEOLOGY__BELIEFS);
         }
         return beliefs;
     }
@@ -151,9 +151,9 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DemocdslPackage.PARTY__CONSTITUENTS:
+            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
                 return ((InternalEList<?>)getConstituents()).basicRemove(otherEnd, msgs);
-            case DemocdslPackage.PARTY__BELIEFS:
+            case DemocdslPackage.IDEOLOGY__BELIEFS:
                 return ((InternalEList<?>)getBeliefs()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -167,11 +167,11 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case DemocdslPackage.PARTY__NAME:
+            case DemocdslPackage.IDEOLOGY__NAME:
                 return getName();
-            case DemocdslPackage.PARTY__CONSTITUENTS:
+            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
                 return getConstituents();
-            case DemocdslPackage.PARTY__BELIEFS:
+            case DemocdslPackage.IDEOLOGY__BELIEFS:
                 return getBeliefs();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -186,14 +186,14 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case DemocdslPackage.PARTY__NAME:
+            case DemocdslPackage.IDEOLOGY__NAME:
                 setName((String)newValue);
                 return;
-            case DemocdslPackage.PARTY__CONSTITUENTS:
+            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
                 getConstituents().clear();
                 getConstituents().addAll((Collection<? extends Constituent>)newValue);
                 return;
-            case DemocdslPackage.PARTY__BELIEFS:
+            case DemocdslPackage.IDEOLOGY__BELIEFS:
                 getBeliefs().clear();
                 getBeliefs().addAll((Collection<? extends Belief>)newValue);
                 return;
@@ -209,13 +209,13 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case DemocdslPackage.PARTY__NAME:
+            case DemocdslPackage.IDEOLOGY__NAME:
                 setName(NAME_EDEFAULT);
                 return;
-            case DemocdslPackage.PARTY__CONSTITUENTS:
+            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
                 getConstituents().clear();
                 return;
-            case DemocdslPackage.PARTY__BELIEFS:
+            case DemocdslPackage.IDEOLOGY__BELIEFS:
                 getBeliefs().clear();
                 return;
         }
@@ -230,11 +230,11 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case DemocdslPackage.PARTY__NAME:
+            case DemocdslPackage.IDEOLOGY__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case DemocdslPackage.PARTY__CONSTITUENTS:
+            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
                 return constituents != null && !constituents.isEmpty();
-            case DemocdslPackage.PARTY__BELIEFS:
+            case DemocdslPackage.IDEOLOGY__BELIEFS:
                 return beliefs != null && !beliefs.isEmpty();
         }
         return super.eIsSet(featureID);
@@ -256,4 +256,4 @@ public class PartyImpl extends MinimalEObjectImpl.Container implements Party {
         return result.toString();
     }
 
-} //PartyImpl
+} //IdeologyImpl

@@ -78,9 +78,9 @@ public class DemocdslSwitch<T> extends Switch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case DemocdslPackage.PARTY: {
-                Party party = (Party)theEObject;
-                T result = caseParty(party);
+            case DemocdslPackage.IDEOLOGY: {
+                Ideology ideology = (Ideology)theEObject;
+                T result = caseIdeology(ideology);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -131,17 +131,17 @@ public class DemocdslSwitch<T> extends Switch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Party</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Ideology</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Party</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Ideology</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseParty(Party object) {
+    public T caseIdeology(Ideology object) {
         return null;
     }
 

@@ -4,6 +4,8 @@
  */
 package ca.mcgill.emf.democdsl.validation;
 
+import ca.mcgill.emf.democdsl.Constituent;
+import ca.mcgill.emf.democdsl.Ideology;
 
 /**
  * A sample validator interface for {@link ca.mcgill.emf.democdsl.Influence}.
@@ -15,4 +17,6 @@ public interface InfluenceValidator {
     boolean validate();
 
     boolean validateWeight(int value);
+    boolean validateInfluenced(Constituent value);
+    boolean validateInfluencer(Ideology value);
 }

@@ -5,7 +5,7 @@ package ca.mcgill.emf.democdsl.provider;
 
 import ca.mcgill.emf.democdsl.DemocdslFactory;
 import ca.mcgill.emf.democdsl.DemocdslPackage;
-import ca.mcgill.emf.democdsl.Party;
+import ca.mcgill.emf.democdsl.Ideology;
 
 import java.util.Collection;
 import java.util.List;
@@ -29,12 +29,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link ca.mcgill.emf.democdsl.Party} object.
+ * This is the item provider adapter for a {@link ca.mcgill.emf.democdsl.Ideology} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class PartyItemProvider 
+public class IdeologyItemProvider 
     extends ItemProviderAdapter
     implements
         IEditingDomainItemProvider,
@@ -48,7 +48,7 @@ public class PartyItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public PartyItemProvider(AdapterFactory adapterFactory) {
+    public IdeologyItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -79,9 +79,9 @@ public class PartyItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_Party_name_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_Party_name_feature", "_UI_Party_type"),
-                 DemocdslPackage.Literals.PARTY__NAME,
+                 getString("_UI_Ideology_name_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Ideology_name_feature", "_UI_Ideology_type"),
+                 DemocdslPackage.Literals.IDEOLOGY__NAME,
                  true,
                  false,
                  false,
@@ -102,8 +102,8 @@ public class PartyItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(DemocdslPackage.Literals.PARTY__CONSTITUENTS);
-            childrenFeatures.add(DemocdslPackage.Literals.PARTY__BELIEFS);
+            childrenFeatures.add(DemocdslPackage.Literals.IDEOLOGY__CONSTITUENTS);
+            childrenFeatures.add(DemocdslPackage.Literals.IDEOLOGY__BELIEFS);
         }
         return childrenFeatures;
     }
@@ -122,14 +122,14 @@ public class PartyItemProvider
     }
 
     /**
-     * This returns Party.gif.
+     * This returns Ideology.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/Party"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/Ideology"));
     }
 
     /**
@@ -140,10 +140,10 @@ public class PartyItemProvider
      */
     @Override
     public String getText(Object object) {
-        String label = ((Party)object).getName();
+        String label = ((Ideology)object).getName();
         return label == null || label.length() == 0 ?
-            getString("_UI_Party_type") :
-            getString("_UI_Party_type") + " " + label;
+            getString("_UI_Ideology_type") :
+            getString("_UI_Ideology_type") + " " + label;
     }
     
 
@@ -158,12 +158,12 @@ public class PartyItemProvider
     public void notifyChanged(Notification notification) {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(Party.class)) {
-            case DemocdslPackage.PARTY__NAME:
+        switch (notification.getFeatureID(Ideology.class)) {
+            case DemocdslPackage.IDEOLOGY__NAME:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
-            case DemocdslPackage.PARTY__CONSTITUENTS:
-            case DemocdslPackage.PARTY__BELIEFS:
+            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
+            case DemocdslPackage.IDEOLOGY__BELIEFS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -183,12 +183,12 @@ public class PartyItemProvider
 
         newChildDescriptors.add
             (createChildParameter
-                (DemocdslPackage.Literals.PARTY__CONSTITUENTS,
+                (DemocdslPackage.Literals.IDEOLOGY__CONSTITUENTS,
                  DemocdslFactory.eINSTANCE.createConstituent()));
 
         newChildDescriptors.add
             (createChildParameter
-                (DemocdslPackage.Literals.PARTY__BELIEFS,
+                (DemocdslPackage.Literals.IDEOLOGY__BELIEFS,
                  DemocdslFactory.eINSTANCE.createBelief()));
     }
 

@@ -127,7 +127,6 @@ public class ConstituentItemProvider
             super.getChildrenFeatures(object);
             childrenFeatures.add(DemocdslPackage.Literals.CONSTITUENT__ATOMIC_CONSTITUENT);
             childrenFeatures.add(DemocdslPackage.Literals.CONSTITUENT__BELIEFS);
-            childrenFeatures.add(DemocdslPackage.Literals.CONSTITUENT__INFLUENCES);
         }
         return childrenFeatures;
     }
@@ -189,7 +188,6 @@ public class ConstituentItemProvider
                 return;
             case DemocdslPackage.CONSTITUENT__ATOMIC_CONSTITUENT:
             case DemocdslPackage.CONSTITUENT__BELIEFS:
-            case DemocdslPackage.CONSTITUENT__INFLUENCES:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -216,11 +214,6 @@ public class ConstituentItemProvider
             (createChildParameter
                 (DemocdslPackage.Literals.CONSTITUENT__BELIEFS,
                  DemocdslFactory.eINSTANCE.createBelief()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (DemocdslPackage.Literals.CONSTITUENT__INFLUENCES,
-                 DemocdslFactory.eINSTANCE.createInfluence()));
     }
 
     /**

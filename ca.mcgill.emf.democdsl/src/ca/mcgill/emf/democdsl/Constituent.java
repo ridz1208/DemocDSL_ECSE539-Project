@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getIndependence <em>Independence</em>}</li>
  *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getAtomicConstituent <em>Atomic Constituent</em>}</li>
  *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getBeliefs <em>Beliefs</em>}</li>
- *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getInfluences <em>Influences</em>}</li>
  * </ul>
  *
  * @see ca.mcgill.emf.democdsl.DemocdslPackage#getConstituent()
@@ -110,21 +109,5 @@ public interface Constituent extends EObject {
      * @generated
      */
     EList<Belief> getBeliefs();
-
-    /**
-     * Returns the value of the '<em><b>Influences</b></em>' containment reference list.
-     * The list contents are of type {@link ca.mcgill.emf.democdsl.Influence}.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Influences</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Influences</em>' containment reference list.
-     * @see ca.mcgill.emf.democdsl.DemocdslPackage#getConstituent_Influences()
-     * @model containment="true"
-     * @generated
-     */
-    EList<Influence> getInfluences();
 
 } // Constituent

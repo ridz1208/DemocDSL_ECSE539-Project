@@ -5,7 +5,6 @@ package ca.mcgill.emf.democdsl.impl;
 import ca.mcgill.emf.democdsl.Belief;
 import ca.mcgill.emf.democdsl.Constituent;
 import ca.mcgill.emf.democdsl.DemocdslPackage;
-import ca.mcgill.emf.democdsl.Influence;
 
 import java.util.Collection;
 
@@ -35,7 +34,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link ca.mcgill.emf.democdsl.impl.ConstituentImpl#getIndependence <em>Independence</em>}</li>
  *   <li>{@link ca.mcgill.emf.democdsl.impl.ConstituentImpl#getAtomicConstituent <em>Atomic Constituent</em>}</li>
  *   <li>{@link ca.mcgill.emf.democdsl.impl.ConstituentImpl#getBeliefs <em>Beliefs</em>}</li>
- *   <li>{@link ca.mcgill.emf.democdsl.impl.ConstituentImpl#getInfluences <em>Influences</em>}</li>
  * </ul>
  *
  * @generated
@@ -100,16 +98,6 @@ public class ConstituentImpl extends MinimalEObjectImpl.Container implements Con
      * @ordered
      */
     protected EList<Belief> beliefs;
-
-    /**
-     * The cached value of the '{@link #getInfluences() <em>Influences</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getInfluences()
-     * @generated
-     * @ordered
-     */
-    protected EList<Influence> influences;
 
     /**
      * <!-- begin-user-doc -->
@@ -201,18 +189,6 @@ public class ConstituentImpl extends MinimalEObjectImpl.Container implements Con
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<Influence> getInfluences() {
-        if (influences == null) {
-            influences = new EObjectContainmentEList<Influence>(Influence.class, this, DemocdslPackage.CONSTITUENT__INFLUENCES);
-        }
-        return influences;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -220,8 +196,6 @@ public class ConstituentImpl extends MinimalEObjectImpl.Container implements Con
                 return ((InternalEList<?>)getAtomicConstituent()).basicRemove(otherEnd, msgs);
             case DemocdslPackage.CONSTITUENT__BELIEFS:
                 return ((InternalEList<?>)getBeliefs()).basicRemove(otherEnd, msgs);
-            case DemocdslPackage.CONSTITUENT__INFLUENCES:
-                return ((InternalEList<?>)getInfluences()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -242,8 +216,6 @@ public class ConstituentImpl extends MinimalEObjectImpl.Container implements Con
                 return getAtomicConstituent();
             case DemocdslPackage.CONSTITUENT__BELIEFS:
                 return getBeliefs();
-            case DemocdslPackage.CONSTITUENT__INFLUENCES:
-                return getInfluences();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -271,10 +243,6 @@ public class ConstituentImpl extends MinimalEObjectImpl.Container implements Con
                 getBeliefs().clear();
                 getBeliefs().addAll((Collection<? extends Belief>)newValue);
                 return;
-            case DemocdslPackage.CONSTITUENT__INFLUENCES:
-                getInfluences().clear();
-                getInfluences().addAll((Collection<? extends Influence>)newValue);
-                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -299,9 +267,6 @@ public class ConstituentImpl extends MinimalEObjectImpl.Container implements Con
             case DemocdslPackage.CONSTITUENT__BELIEFS:
                 getBeliefs().clear();
                 return;
-            case DemocdslPackage.CONSTITUENT__INFLUENCES:
-                getInfluences().clear();
-                return;
         }
         super.eUnset(featureID);
     }
@@ -322,8 +287,6 @@ public class ConstituentImpl extends MinimalEObjectImpl.Container implements Con
                 return atomicConstituent != null && !atomicConstituent.isEmpty();
             case DemocdslPackage.CONSTITUENT__BELIEFS:
                 return beliefs != null && !beliefs.isEmpty();
-            case DemocdslPackage.CONSTITUENT__INFLUENCES:
-                return influences != null && !influences.isEmpty();
         }
         return super.eIsSet(featureID);
     }

@@ -40,13 +40,13 @@ public interface DemocdslFactory extends EFactory {
     Constituent createConstituent();
 
     /**
-     * Returns a new object of class '<em>Party</em>'.
+     * Returns a new object of class '<em>Ideology</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Party</em>'.
+     * @return a new object of class '<em>Ideology</em>'.
      * @generated
      */
-    Party createParty();
+    Ideology createIdeology();
 
     /**
      * Returns a new object of class '<em>Influence</em>'.

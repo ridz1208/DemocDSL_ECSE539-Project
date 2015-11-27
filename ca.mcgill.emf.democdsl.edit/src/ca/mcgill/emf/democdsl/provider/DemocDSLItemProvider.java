@@ -104,6 +104,7 @@ public class DemocDSLItemProvider
             super.getChildrenFeatures(object);
             childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__CONSTITUENTS);
             childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__PARTIES);
+            childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__INFLUENCES);
         }
         return childrenFeatures;
     }
@@ -164,6 +165,7 @@ public class DemocDSLItemProvider
                 return;
             case DemocdslPackage.DEMOC_DSL__CONSTITUENTS:
             case DemocdslPackage.DEMOC_DSL__PARTIES:
+            case DemocdslPackage.DEMOC_DSL__INFLUENCES:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -189,7 +191,12 @@ public class DemocDSLItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (DemocdslPackage.Literals.DEMOC_DSL__PARTIES,
-                 DemocdslFactory.eINSTANCE.createParty()));
+                 DemocdslFactory.eINSTANCE.createIdeology()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (DemocdslPackage.Literals.DEMOC_DSL__INFLUENCES,
+                 DemocdslFactory.eINSTANCE.createInfluence()));
     }
 
     /**

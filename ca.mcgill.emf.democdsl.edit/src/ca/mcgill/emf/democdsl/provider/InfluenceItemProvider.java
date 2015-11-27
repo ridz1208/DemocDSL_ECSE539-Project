@@ -61,6 +61,8 @@ public class InfluenceItemProvider
             super.getPropertyDescriptors(object);
 
             addWeightPropertyDescriptor(object);
+            addInfluencedPropertyDescriptor(object);
+            addInfluencerPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -83,6 +85,50 @@ public class InfluenceItemProvider
                  false,
                  false,
                  ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Influenced feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addInfluencedPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Influence_influenced_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Influence_influenced_feature", "_UI_Influence_type"),
+                 DemocdslPackage.Literals.INFLUENCE__INFLUENCED,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Influencer feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addInfluencerPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Influence_influencer_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Influence_influencer_feature", "_UI_Influence_type"),
+                 DemocdslPackage.Literals.INFLUENCE__INFLUENCER,
+                 true,
+                 false,
+                 true,
+                 null,
                  null,
                  null));
     }

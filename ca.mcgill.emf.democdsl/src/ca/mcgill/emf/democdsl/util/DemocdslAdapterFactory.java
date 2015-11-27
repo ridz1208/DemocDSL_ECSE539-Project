@@ -76,8 +76,8 @@ public class DemocdslAdapterFactory extends AdapterFactoryImpl {
                 return createConstituentAdapter();
             }
             @Override
-            public Adapter caseParty(Party object) {
-                return createPartyAdapter();
+            public Adapter caseIdeology(Ideology object) {
+                return createIdeologyAdapter();
             }
             @Override
             public Adapter caseInfluence(Influence object) {
@@ -136,16 +136,16 @@ public class DemocdslAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link ca.mcgill.emf.democdsl.Party <em>Party</em>}'.
+     * Creates a new adapter for an object of class '{@link ca.mcgill.emf.democdsl.Ideology <em>Ideology</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see ca.mcgill.emf.democdsl.Party
+     * @see ca.mcgill.emf.democdsl.Ideology
      * @generated
      */
-    public Adapter createPartyAdapter() {
+    public Adapter createIdeologyAdapter() {
         return null;
     }
 

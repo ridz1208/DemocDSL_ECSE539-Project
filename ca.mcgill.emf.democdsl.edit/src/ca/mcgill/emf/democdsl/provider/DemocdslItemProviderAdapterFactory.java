@@ -118,26 +118,26 @@ public class DemocdslItemProviderAdapterFactory extends DemocdslAdapterFactory i
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link ca.mcgill.emf.democdsl.Party} instances.
+     * This keeps track of the one adapter used for all {@link ca.mcgill.emf.democdsl.Ideology} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected PartyItemProvider partyItemProvider;
+    protected IdeologyItemProvider ideologyItemProvider;
 
     /**
-     * This creates an adapter for a {@link ca.mcgill.emf.democdsl.Party}.
+     * This creates an adapter for a {@link ca.mcgill.emf.democdsl.Ideology}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
-    public Adapter createPartyAdapter() {
-        if (partyItemProvider == null) {
-            partyItemProvider = new PartyItemProvider(this);
+    public Adapter createIdeologyAdapter() {
+        if (ideologyItemProvider == null) {
+            ideologyItemProvider = new IdeologyItemProvider(this);
         }
 
-        return partyItemProvider;
+        return ideologyItemProvider;
     }
 
     /**
@@ -287,7 +287,7 @@ public class DemocdslItemProviderAdapterFactory extends DemocdslAdapterFactory i
     public void dispose() {
         if (democDSLItemProvider != null) democDSLItemProvider.dispose();
         if (constituentItemProvider != null) constituentItemProvider.dispose();
-        if (partyItemProvider != null) partyItemProvider.dispose();
+        if (ideologyItemProvider != null) ideologyItemProvider.dispose();
         if (influenceItemProvider != null) influenceItemProvider.dispose();
         if (beliefItemProvider != null) beliefItemProvider.dispose();
     }

@@ -7,8 +7,8 @@ import ca.mcgill.emf.democdsl.Constituent;
 import ca.mcgill.emf.democdsl.DemocDSL;
 import ca.mcgill.emf.democdsl.DemocdslFactory;
 import ca.mcgill.emf.democdsl.DemocdslPackage;
+import ca.mcgill.emf.democdsl.Ideology;
 import ca.mcgill.emf.democdsl.Influence;
-import ca.mcgill.emf.democdsl.Party;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -43,7 +43,7 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass partyEClass = null;
+    private EClass ideologyEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -161,6 +161,15 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getDemocDSL_Influences() {
+        return (EReference)democDSLEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getConstituent() {
         return constituentEClass;
     }
@@ -206,8 +215,8 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getConstituent_Influences() {
-        return (EReference)constituentEClass.getEStructuralFeatures().get(4);
+    public EClass getIdeology() {
+        return ideologyEClass;
     }
 
     /**
@@ -215,8 +224,8 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getParty() {
-        return partyEClass;
+    public EAttribute getIdeology_Name() {
+        return (EAttribute)ideologyEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -224,8 +233,8 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getParty_Name() {
-        return (EAttribute)partyEClass.getEStructuralFeatures().get(0);
+    public EReference getIdeology_Constituents() {
+        return (EReference)ideologyEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -233,17 +242,8 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getParty_Constituents() {
-        return (EReference)partyEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getParty_Beliefs() {
-        return (EReference)partyEClass.getEStructuralFeatures().get(2);
+    public EReference getIdeology_Beliefs() {
+        return (EReference)ideologyEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -262,6 +262,24 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
      */
     public EAttribute getInfluence_Weight() {
         return (EAttribute)influenceEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getInfluence_Influenced() {
+        return (EReference)influenceEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getInfluence_Influencer() {
+        return (EReference)influenceEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -314,21 +332,23 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
         createEReference(democDSLEClass, DEMOC_DSL__CONSTITUENTS);
         createEReference(democDSLEClass, DEMOC_DSL__PARTIES);
         createEAttribute(democDSLEClass, DEMOC_DSL__NAME);
+        createEReference(democDSLEClass, DEMOC_DSL__INFLUENCES);
 
         constituentEClass = createEClass(CONSTITUENT);
         createEAttribute(constituentEClass, CONSTITUENT__NAME);
         createEAttribute(constituentEClass, CONSTITUENT__INDEPENDENCE);
         createEReference(constituentEClass, CONSTITUENT__ATOMIC_CONSTITUENT);
         createEReference(constituentEClass, CONSTITUENT__BELIEFS);
-        createEReference(constituentEClass, CONSTITUENT__INFLUENCES);
 
-        partyEClass = createEClass(PARTY);
-        createEAttribute(partyEClass, PARTY__NAME);
-        createEReference(partyEClass, PARTY__CONSTITUENTS);
-        createEReference(partyEClass, PARTY__BELIEFS);
+        ideologyEClass = createEClass(IDEOLOGY);
+        createEAttribute(ideologyEClass, IDEOLOGY__NAME);
+        createEReference(ideologyEClass, IDEOLOGY__CONSTITUENTS);
+        createEReference(ideologyEClass, IDEOLOGY__BELIEFS);
 
         influenceEClass = createEClass(INFLUENCE);
         createEAttribute(influenceEClass, INFLUENCE__WEIGHT);
+        createEReference(influenceEClass, INFLUENCE__INFLUENCED);
+        createEReference(influenceEClass, INFLUENCE__INFLUENCER);
 
         beliefEClass = createEClass(BELIEF);
         createEAttribute(beliefEClass, BELIEF__VALUE);
@@ -366,23 +386,25 @@ public class DemocdslPackageImpl extends EPackageImpl implements DemocdslPackage
         // Initialize classes, features, and operations; add parameters
         initEClass(democDSLEClass, DemocDSL.class, "DemocDSL", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getDemocDSL_Constituents(), this.getConstituent(), null, "constituents", null, 0, -1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDemocDSL_Parties(), this.getParty(), null, "parties", null, 0, -1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDemocDSL_Parties(), this.getIdeology(), null, "parties", null, 0, -1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDemocDSL_Name(), ecorePackage.getEString(), "name", null, 0, 1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDemocDSL_Influences(), this.getInfluence(), null, "influences", null, 0, -1, DemocDSL.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(constituentEClass, Constituent.class, "Constituent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getConstituent_Name(), ecorePackage.getEString(), "name", null, 0, 1, Constituent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConstituent_Independence(), ecorePackage.getEInt(), "independence", null, 0, 1, Constituent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConstituent_AtomicConstituent(), this.getConstituent(), null, "atomicConstituent", null, 0, -1, Constituent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConstituent_Beliefs(), this.getBelief(), null, "beliefs", null, 0, -1, Constituent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getConstituent_Influences(), this.getInfluence(), null, "influences", null, 0, -1, Constituent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(partyEClass, Party.class, "Party", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getParty_Name(), ecorePackage.getEString(), "name", null, 0, 1, Party.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getParty_Constituents(), this.getConstituent(), null, "constituents", null, 0, -1, Party.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getParty_Beliefs(), this.getBelief(), null, "beliefs", null, 0, -1, Party.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(ideologyEClass, Ideology.class, "Ideology", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getIdeology_Name(), ecorePackage.getEString(), "name", null, 0, 1, Ideology.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIdeology_Constituents(), this.getConstituent(), null, "constituents", null, 0, -1, Ideology.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getIdeology_Beliefs(), this.getBelief(), null, "beliefs", null, 0, -1, Ideology.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(influenceEClass, Influence.class, "Influence", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getInfluence_Weight(), ecorePackage.getEInt(), "weight", null, 0, 1, Influence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getInfluence_Influenced(), this.getConstituent(), null, "influenced", null, 1, 1, Influence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getInfluence_Influencer(), this.getIdeology(), null, "influencer", null, 1, 1, Influence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(beliefEClass, Belief.class, "Belief", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getBelief_Value(), ecorePackage.getEInt(), "value", null, 0, 1, Belief.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

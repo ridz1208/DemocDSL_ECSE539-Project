@@ -5,8 +5,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constituents" upperBound="-1"
         eType="#//Constituent" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parties" upperBound="-1"
-        eType="#//Party" containment="true"/>
+        eType="#//Ideology" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="influences" upperBound="-1"
+        eType="#//Influence" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constituent">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -15,10 +17,8 @@
         eType="#//Constituent" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="beliefs" upperBound="-1"
         eType="#//Belief" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="influences" upperBound="-1"
-        eType="#//Influence" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Party">
+  <eClassifiers xsi:type="ecore:EClass" name="Ideology">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constituents" upperBound="-1"
         eType="#//Constituent" containment="true"/>
@@ -27,6 +27,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Influence">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="influenced" lowerBound="1"
+        eType="#//Constituent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="influencer" lowerBound="1"
+        eType="#//Ideology"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Belief">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>

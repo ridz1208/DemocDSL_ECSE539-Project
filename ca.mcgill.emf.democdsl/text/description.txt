@@ -9,23 +9,25 @@ Package democdsl <http://www.example.org/democdsl>
 
   Class DemocDSL
     Reference constituents : Constituent<<0..*>>
-    Reference parties : Party<<0..*>>
+    Reference parties : Ideology<<0..*>>
     Attribute name : EString
+    Reference influences : Influence<<0..*>>
 
   Class Constituent
     Attribute name : EString
     Attribute independence : EInt
     Reference atomicConstituent : Constituent<<0..*>>
     Reference beliefs : Belief<<0..*>>
-    Reference influences : Influence<<0..*>>
 
-  Class Party
+  Class Ideology
     Attribute name : EString
     Reference constituents : Constituent<<0..*>>
     Reference beliefs : Belief<<0..*>>
 
   Class Influence
     Attribute weight : EInt
+    Reference influenced : Constituent<<1..1>>
+    Reference influencer : Ideology<<1..1>>
 
   Class Belief
     Attribute value : EInt

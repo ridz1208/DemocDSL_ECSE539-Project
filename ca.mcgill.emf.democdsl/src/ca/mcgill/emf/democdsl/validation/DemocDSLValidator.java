@@ -5,7 +5,8 @@
 package ca.mcgill.emf.democdsl.validation;
 
 import ca.mcgill.emf.democdsl.Constituent;
-import ca.mcgill.emf.democdsl.Party;
+import ca.mcgill.emf.democdsl.Ideology;
+import ca.mcgill.emf.democdsl.Influence;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -19,6 +20,7 @@ public interface DemocDSLValidator {
     boolean validate();
 
     boolean validateConstituents(EList<Constituent> value);
-    boolean validateParties(EList<Party> value);
+    boolean validateParties(EList<Ideology> value);
     boolean validateName(String value);
+    boolean validateInfluences(EList<Influence> value);
 }

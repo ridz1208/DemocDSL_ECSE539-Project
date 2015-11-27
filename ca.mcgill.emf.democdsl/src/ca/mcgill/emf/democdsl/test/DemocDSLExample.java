@@ -6,8 +6,8 @@ import ca.mcgill.emf.democdsl.Constituent;
 import ca.mcgill.emf.democdsl.DemocDSL;
 import ca.mcgill.emf.democdsl.DemocdslFactory;
 import ca.mcgill.emf.democdsl.DemocdslPackage;
+import ca.mcgill.emf.democdsl.Ideology;
 import ca.mcgill.emf.democdsl.Influence;
-import ca.mcgill.emf.democdsl.Party;
 
 public class DemocDSLExample {
 
@@ -21,46 +21,50 @@ public class DemocDSLExample {
         elections.setName("2015 Canadian Federal Elections");
         
         //Create example parties.
-        Party liberals = DemocdslFactory.eINSTANCE.createParty();
-        liberals.setName("Liberal Party of Canada");
+        Ideology liberal = DemocdslFactory.eINSTANCE.createIdeology();
+        liberal.setName("Liberal Party of Canada");
         
-        Party conservatives = DemocdslFactory.eINSTANCE.createParty();
-        conservatives.setName("Conservative Party of Canada");
+        Ideology conservative = DemocdslFactory.eINSTANCE.createIdeology();
+        conservative.setName("Conservative Party of Canada");
         
-        Party ndp = DemocdslFactory.eINSTANCE.createParty();
-        ndp.setName("New Democratic Party of Canada");
+        Ideology progressive = DemocdslFactory.eINSTANCE.createIdeology();
+        progressive.setName("New Democratic Party of Canada");
         
         
         //create example constituents and their influences
         Constituent urbanPop = DemocdslFactory.eINSTANCE.createConstituent();
         urbanPop.setName("Urban Population");
         urbanPop.setIndependence(8);
-        Influence urbanInfluence = DemocdslFactory.eINSTANCE.createInfluence();
-        urbanInfluence.setWeight(8);
-        urbanPop.getInfluences().add(urbanInfluence);
+        Influence urbanLiberalInfluence = DemocdslFactory.eINSTANCE.createInfluence();
+        urbanLiberalInfluence.setWeight(8);
+        urbanLiberalInfluence.setInfluencer(liberal);
+        urbanLiberalInfluence.setInfluenced(urbanPop);
         
         Constituent ruralPop = DemocdslFactory.eINSTANCE.createConstituent();
         ruralPop.setName("Rural Population");
         ruralPop.setIndependence(8);
-        Influence ruralInfluence = DemocdslFactory.eINSTANCE.createInfluence();
-        ruralInfluence.setWeight(8);
-        ruralPop.getInfluences().add(ruralInfluence);
+        Influence ruralConservativeInfluence = DemocdslFactory.eINSTANCE.createInfluence();
+        ruralConservativeInfluence.setWeight(8);
+        ruralConservativeInfluence.setInfluencer(conservative);
+        ruralConservativeInfluence.setInfluenced(ruralPop);
         
         //create some beliefs
-        Belief leftIdeology = DemocdslFactory.eINSTANCE.createBelief();
-        leftIdeology.setValue(2);
+        Belief lowMiddleclassTax = DemocdslFactory.eINSTANCE.createBelief();
+        lowMiddleclassTax.setValue(2);
         
-        liberals.getBeliefs().add(leftIdeology);
-        ndp.getBeliefs().add(leftIdeology);
+        liberal.getBeliefs().add(lowMiddleclassTax);
+        progressive.getBeliefs().add(lowMiddleclassTax);
         
-        Belief rightIdeology = DemocdslFactory.eINSTANCE.createBelief();
-        rightIdeology.setValue(4);
+        Belief lessGovernment = DemocdslFactory.eINSTANCE.createBelief();
+        lessGovernment.setValue(4);
         
-        conservatives.getBeliefs().add(rightIdeology);
+        conservative.getBeliefs().add(lessGovernment);
         
         /*
-         * Yaya now we have the primitives for an election!!
+         * Yay now we have the primitives for an election!!
          */
+        
+        //elections.run();
 
     }
 

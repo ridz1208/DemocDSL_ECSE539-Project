@@ -58,7 +58,7 @@ public class DemocdslFactoryImpl extends EFactoryImpl implements DemocdslFactory
         switch (eClass.getClassifierID()) {
             case DemocdslPackage.DEMOC_DSL: return createDemocDSL();
             case DemocdslPackage.CONSTITUENT: return createConstituent();
-            case DemocdslPackage.PARTY: return createParty();
+            case DemocdslPackage.IDEOLOGY: return createIdeology();
             case DemocdslPackage.INFLUENCE: return createInfluence();
             case DemocdslPackage.BELIEF: return createBelief();
             default:
@@ -91,9 +91,9 @@ public class DemocdslFactoryImpl extends EFactoryImpl implements DemocdslFactory
      * <!-- end-user-doc -->
      * @generated
      */
-    public Party createParty() {
-        PartyImpl party = new PartyImpl();
-        return party;
+    public Ideology createIdeology() {
+        IdeologyImpl ideology = new IdeologyImpl();
+        return ideology;
     }
 
     /**
