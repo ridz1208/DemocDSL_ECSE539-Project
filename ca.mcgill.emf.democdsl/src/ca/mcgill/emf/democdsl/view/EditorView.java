@@ -1,12 +1,15 @@
 package ca.mcgill.emf.democdsl.view;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.GroupLayout;
@@ -23,7 +26,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.TableColumn;
 
-import amsd.model.Patient;
+
 import ca.mcgill.emf.democdsl.controller.*;
 import ca.mcgill.emf.democdsl.*;
 
@@ -45,31 +48,37 @@ public class EditorView extends JFrame {
     private JLabel beliefCreateLabel;
     private JLabel ideologyCreateLabel;
     private JLabel constituentCreateLabel;
+    private JLabel linkBeliefCreateLabel;
 
     private JLabel influencerSelectLabel;
     private JLabel influenceeSelectLabel;
     private JLabel influenceWeightLabel;
     private JLabel beliefSubjectLabel;
+    private JLabel beliefSelectLabel;
     private JLabel beliefWeightLabel;
     private JLabel ideologyNameLabel;
     private JLabel constituentNamelabel;
     private JLabel constituentIndependencelabel;
+    private JLabel beliefNameLabel;
 
     private JComboBox<String> influencerList; 
     private JComboBox<String> influenceeList;
     private JComboBox<String> influenceWeightList;
     private JComboBox<String> beliefSubjectList;
+    private JComboBox<String> beliefList;
     private JComboBox<String> beliefWeightList;                //%
     private JComboBox<String> constituentIndependenceList;     //%
 
 
     private JTextField ideologyNameText;
     private JTextField constituentNameText;
+    private JTextField beliefNameText;
 
     private JButton addInfluenceButton;
     private JButton addBeliefButton;
     private JButton addIdeologyButton;
     private JButton addConstituentButton;
+    private JButton linkBeliefButton;
 
 
     private HashMap<Integer, Belief> beliefs;
@@ -90,6 +99,7 @@ public class EditorView extends JFrame {
     private Integer selectedBeliefSubject = -1;
     private Integer selectedBeliefWeight = -1;
     private Integer selectedConstituentIndependence = -1;
+    private Integer selectedBelief = -1;
     
     
  
@@ -110,19 +120,45 @@ public class EditorView extends JFrame {
         errorMessage.setForeground(Color.RED);
 
         //headers
-        influenceCreateLabel= new JLabel();
-        beliefCreateLabel= new JLabel();
-        ideologyCreateLabel= new JLabel();
-        constituentCreateLabel= new JLabel();
+        influenceCreateLabel= new JLabel("Underlined Label");
+        beliefCreateLabel= new JLabel("Underlined Label");
+        ideologyCreateLabel= new JLabel("Underlined Label");
+        constituentCreateLabel= new JLabel("Underlined Label");
+        linkBeliefCreateLabel = new JLabel("Underlined Label");
+        //UNDERLINE LABELS
+        Font font1 = influenceCreateLabel.getFont();
+        Map attributes1 = font1.getAttributes();
+        attributes1.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        influenceCreateLabel.setFont(font1.deriveFont(attributes1));
+        Font font2 = beliefCreateLabel.getFont();
+        Map attributes2 = font2.getAttributes();
+        attributes2.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        beliefCreateLabel.setFont(font2.deriveFont(attributes2));
+        Font font3 = ideologyCreateLabel.getFont();
+        Map attributes3 = font3.getAttributes();
+        attributes3.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        ideologyCreateLabel.setFont(font3.deriveFont(attributes3));
+        Font font4 = constituentCreateLabel.getFont();
+        Map attributes4 = font4.getAttributes();
+        attributes4.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        constituentCreateLabel.setFont(font4.deriveFont(attributes4));
+        Font font5 = linkBeliefCreateLabel.getFont();
+        Map attributes5 = font5.getAttributes();
+        attributes5.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        linkBeliefCreateLabel.setFont(font5.deriveFont(attributes5));
+        
+        
         //labels
         influencerSelectLabel= new JLabel();
         influenceeSelectLabel= new JLabel();
         influenceWeightLabel= new JLabel();
         beliefSubjectLabel= new JLabel();
+        beliefSelectLabel= new JLabel();
         beliefWeightLabel= new JLabel();
         ideologyNameLabel= new JLabel();
         constituentNamelabel= new JLabel();
         constituentIndependencelabel= new JLabel();
+        beliefNameLabel= new JLabel();
         
         //jboxes
         influencerList = new JComboBox<String>(new String[0]); 
@@ -131,34 +167,44 @@ public class EditorView extends JFrame {
         beliefSubjectList= new JComboBox<String>(new String[0]);
         beliefWeightList= new JComboBox<String>(percents);                //%
         constituentIndependenceList= new JComboBox<String>(percents);     //%
+        beliefList= new JComboBox<String>(new String[0]);
 
         //textfields
         ideologyNameText= new JTextField();
         constituentNameText= new JTextField();
+        beliefNameText = new JTextField();
+        
         //buttons
         addInfluenceButton=new JButton();
         addBeliefButton=new JButton();
         addIdeologyButton=new JButton();
         addConstituentButton=new JButton();
+        linkBeliefButton = new JButton();
         
         //LABEL TEXT
-        
-        
         influenceCreateLabel.setText("Create Influence");
         beliefCreateLabel.setText("Create Belief");
         ideologyCreateLabel.setText("Create Ideology");
         constituentCreateLabel.setText("Create Constituent");
+        linkBeliefCreateLabel.setText("Link Belief to Subject");
         
         influencerSelectLabel.setText("Select Influencer:");
         influenceeSelectLabel.setText("Select Influencee:");
         influenceWeightLabel.setText("Select Weight(%):");
         beliefSubjectLabel.setText("Select Subject:");
+        beliefSelectLabel.setText("Select Belief:");
         beliefWeightLabel.setText("Select Weight(%):");
         ideologyNameLabel.setText("Select Name:");
         constituentNamelabel.setText("Select Name:");
         constituentIndependencelabel.setText("Select Independence(%):");
+        beliefNameLabel.setText("New Belief:");
         
-        
+        //BUTTON TEXT
+        addInfluenceButton.setText("Add Influence");
+        addBeliefButton.setText("Add Belief");
+        addIdeologyButton.setText("Add Ideology");
+        addConstituentButton.setText("Add Constituent");
+        linkBeliefButton.setText("Link");
         
         //LIST actionListeners
         influencerList.addActionListener(new java.awt.event.ActionListener() {
@@ -194,9 +240,9 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBeliefSubject = cb.getSelectedIndex();
-                if (selectedBeliefSubject*selectedBeliefWeight>=0)
+                if (selectedBeliefSubject*selectedBeliefWeight*selectedBelief>=0)
                 {
-                    addBeliefButton.setEnabled(true);
+                    linkBeliefButton.setEnabled(true);
                 }
             }
         });
@@ -204,9 +250,9 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBeliefWeight = cb.getSelectedIndex();
-                if (selectedBeliefSubject*selectedBeliefWeight>=0)
+                if (selectedBeliefSubject*selectedBeliefWeight*selectedBelief>=0)
                 {
-                    addBeliefButton.setEnabled(true);
+                    linkBeliefButton.setEnabled(true);
                 }
             }
         });
@@ -217,6 +263,16 @@ public class EditorView extends JFrame {
                 if (selectedConstituentIndependence>=0)
                 {
                     addConstituentButton.setEnabled(true);
+                }
+            }
+        });
+        beliefList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JComboBox<String> cb = (JComboBox<String>) evt.getSource();
+                selectedBelief = cb.getSelectedIndex();
+                if (selectedBeliefSubject*selectedBeliefWeight*selectedBelief>=0)
+                {
+                    linkBeliefButton.setEnabled(true);
                 }
             }
         });
@@ -243,13 +299,18 @@ public class EditorView extends JFrame {
                 addIdeologyButtonActionPerformed(evt);
             }
         });
-        
+        linkBeliefButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                linkBeliefButtonActionPerformed(evt);
+            }
+        });
         //DISABLE INITIALLY
         addInfluenceButton.setEnabled(false);
-        addBeliefButton.setEnabled(false);
+        //addBeliefButton.setEnabled(false);
         addConstituentButton.setEnabled(false);
         //addIdeologyButton.setEnabled(false);
-        influenceeList.setEnabled(false);
+        linkBeliefButton.setEnabled(false);
+        //influenceeList.setEnabled(false);
         
         
         
@@ -264,103 +325,117 @@ public class EditorView extends JFrame {
         layout.setHorizontalGroup(
                 layout.createParallelGroup()
                 .addComponent(errorMessage)
-                .addComponent(chooseAppLabel)
                 .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(patientLabel)
-                                .addComponent(appointmentWithLabel)
-                                .addComponent(bookButton)
-                                .addComponent(newPersonLabel)
-                                .addComponent(personTypeListLabel)
-                                .addComponent(personNameLabel)
-                                .addComponent(personPhoneLabel))
+                                .addComponent(influenceCreateLabel)
+                                .addComponent(influencerSelectLabel)
+                                .addComponent(influenceeSelectLabel)
+                                .addComponent(influenceWeightLabel)
+                                .addComponent(linkBeliefCreateLabel)
+                                .addComponent(beliefSubjectLabel)
+                                .addComponent(beliefSelectLabel)
+                                .addComponent(beliefWeightLabel))
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(patientList)
-                                .addComponent(appointmentWithList)
-                                .addComponent(cancelButton)
-                                .addComponent(personTypeList)
-                                .addComponent(personNameTextField, 200, 200, 400)
-                                .addComponent(personPhoneTextField, 200, 200, 400)
-                                .addComponent(addPersonButton))
-                        .addGroup(layout.createParallelGroup()
-                                .addComponent(appointmentTypeLabel)
-                                .addComponent(appointmentDatePicker)
-                                .addComponent(missButton)
-                                .addComponent(empAvailibilityLabel)
-                                .addComponent(proffTypeListLabel)
-                                .addComponent(employeeLabel)
-                                .addComponent(availabilityDateLabel)
+                                .addComponent(influencerList)
+                                .addComponent(influenceeList)
+                                .addComponent(influenceWeightList)
+                                .addComponent(addInfluenceButton)
+                                .addComponent(beliefSubjectList)
+                                .addComponent(beliefList)
+                                .addComponent(beliefWeightList)
+                                .addComponent(linkBeliefButton)
                                 )
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(appointmentTypeList)
-                                .addComponent(appointmentTimeList)
-                                .addComponent(payButton)
-                                .addComponent(proffTypeList)
-                                .addComponent(employeeList)
-                                .addComponent(availabilityDatePicker)
-                                .addComponent(addAvailabilityButton)
+                                .addComponent(constituentCreateLabel)
+                                .addComponent(constituentNamelabel)
+                                .addComponent(constituentIndependencelabel)
+                                .addComponent(ideologyCreateLabel)
+                                .addComponent(ideologyNameLabel)
+                                .addComponent(beliefCreateLabel)
+                                .addComponent(beliefNameLabel)
+                                )
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(constituentNameText)
+                                .addComponent(constituentIndependenceList)
+                                .addComponent(addConstituentButton)
+                                .addComponent(ideologyNameText)
+                                .addComponent(addIdeologyButton)
+                                .addComponent(beliefNameText)
+                                .addComponent(addBeliefButton)
                                 )
                         )
-                .addComponent(jsp)
                 );
 
-        layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {bookButton, patientLabel});
-        layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addPersonButton, personNameTextField});
-        //layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addAvailabilityButton, appointmentDocTextField});
+        layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addConstituentButton, constituentNameText});
+        layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addIdeologyButton, ideologyNameText});
+        layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addBeliefButton, beliefNameText});
+        //layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {bookButton, patientLabel});
+        //layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {bookButton, patientLabel});
 
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
                 .addComponent(errorMessage)
-                .addComponent(chooseAppLabel)
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(patientLabel)
-                        .addComponent(patientList)
-                        .addComponent(appointmentTypeLabel)
-                        .addComponent(appointmentTypeList))
-                .addGroup(layout.createParallelGroup()
-                        .addComponent(appointmentWithLabel)
-                        .addComponent(appointmentWithList)
-                        .addComponent(appointmentDatePicker)
-                        .addComponent(appointmentTimeList))
-                .addGroup(layout.createParallelGroup()
-                        .addComponent(bookButton)
-                        .addComponent(cancelButton)
-                        .addComponent(missButton)
-                        .addComponent(payButton))
-                .addGroup(layout.createParallelGroup()
-                        .addComponent(newPersonLabel)
-                        .addComponent(empAvailibilityLabel)
+                        .addComponent(influenceCreateLabel)
+                        .addComponent(constituentCreateLabel)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(personTypeListLabel)
-                        .addComponent(personTypeList)
-                        .addComponent(proffTypeListLabel)
-                        .addComponent(proffTypeList)
+                        .addComponent(influencerSelectLabel)
+                        .addComponent(influencerList)
+                        .addComponent(constituentNamelabel)
+                        .addComponent(constituentNameText)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(influenceeSelectLabel)
+                        .addComponent(influenceeList)
+                        .addComponent(constituentIndependencelabel)
+                        .addComponent(constituentIndependenceList)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(influenceWeightLabel)
+                        .addComponent(influenceWeightList)
+                        .addComponent(addConstituentButton)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(addInfluenceButton)
                         )   
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(personNameLabel)
-                        .addComponent(personNameTextField)
-                        .addComponent(employeeLabel)
-                        .addComponent(employeeList)
+                        .addComponent(ideologyCreateLabel)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(personPhoneLabel)
-                        .addComponent(personPhoneTextField)
-                        .addComponent(availabilityDateLabel)
-                        .addComponent(availabilityDatePicker)
+                        .addComponent(linkBeliefCreateLabel)
+                        .addComponent(ideologyNameLabel)
+                        .addComponent(ideologyNameText)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(addPersonButton)
-                        .addComponent(addAvailabilityButton)
+                        .addComponent(beliefSubjectLabel)
+                        .addComponent(beliefSubjectList)
+                        .addComponent(addIdeologyButton)
                         )
-                .addComponent(jsp)
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(beliefSelectLabel)
+                        .addComponent(beliefList)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(beliefWeightLabel)
+                        .addComponent(beliefWeightList)
+                        .addComponent(beliefCreateLabel)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(linkBeliefButton)
+                        .addComponent(beliefNameLabel)
+                        .addComponent(beliefNameText)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(addBeliefButton)
+                        )
                 );
 
         pack();
     }
 
     private void refreshData() {
-        DemocDSL ddsl = DemocDSL.getInstance();
+        DemocDSL ddsl = DemocdslFactory.eINSTANCE.createDemocDSL();
         // error
         errorMessage.setText(error);
         if (error == null || error.length() == 0) {
@@ -384,10 +459,12 @@ public class EditorView extends JFrame {
             selectedBeliefSubject = -1;
             selectedBeliefWeight = -1;
             selectedConstituentIndependence = -1;
+            selectedBelief = -1;
             
             //reset text fields
             ideologyNameText.setText("");
             constituentNameText.setText("");
+            beliefNameText.setText("");
             
             //reset hashmaps
             influences = new HashMap<Integer, Influence>();
@@ -404,6 +481,7 @@ public class EditorView extends JFrame {
             while (bIt.hasNext()) {
                 Belief b = bIt.next();
                 beliefs.put(indexB, b);
+                beliefList.addItem(b.getName());
                 indexB++;
             }
             constituents = new HashMap<Integer, Constituent>();
@@ -412,6 +490,7 @@ public class EditorView extends JFrame {
             while (cIt.hasNext()) {
                 Constituent c = cIt.next();
                 constituents.put(indexC, c);
+                influenceeList.addItem(c.getName());
                 indexC++;
             }
             ideologies = new HashMap<Integer, Ideology>();
@@ -420,9 +499,16 @@ public class EditorView extends JFrame {
             while (idIt.hasNext()) {
                 Ideology id = idIt.next();
                 ideologies.put(indexId, id);
+                influencerList.addItem(id.getName());
                 indexId++;
             }
             
+            
+            addInfluenceButton.setEnabled(false);
+            //addBeliefButton.setEnabled(false);
+            addConstituentButton.setEnabled(false);
+            //addIdeologyButton.setEnabled(false);
+            linkBeliefButton.setEnabled(false);
         }
         // this is needed because the size of the window changes depending on whether an error message is shown or not
         pack();
@@ -434,6 +520,11 @@ public class EditorView extends JFrame {
         refreshData();
     }
     private void addBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        //TODO
+     // update visuals
+        refreshData();
+    }
+    private void linkBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
         //TODO
      // update visuals
         refreshData();
