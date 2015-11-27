@@ -32,7 +32,7 @@ public class Controller {
         
     }
     
-    public boolean addInfluence(Constituent c, Ideology i, int weight) {
+    public boolean createInfluence(Constituent c, Ideology i, int weight) {
         if(!democ.getConstituents().contains(c))
             return false;
         
