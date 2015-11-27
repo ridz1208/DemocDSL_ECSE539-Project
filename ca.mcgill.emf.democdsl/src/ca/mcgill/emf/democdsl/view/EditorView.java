@@ -41,6 +41,7 @@ public class EditorView extends JFrame {
     //	private JTextField 
     //	private JButton 
     //	
+    private Controller dslc;
     private JLabel errorMessage;
 
 
@@ -105,7 +106,8 @@ public class EditorView extends JFrame {
  
 
     /** Creates new form EventRegistrationPage */
-    public EditorView() {
+    public EditorView(Controller c) {
+        dslc = c;
         initComponents();
         refreshData();
     }
@@ -339,11 +341,10 @@ public class EditorView extends JFrame {
                                 .addComponent(influencerList)
                                 .addComponent(influenceeList)
                                 .addComponent(influenceWeightList)
-                                .addComponent(addInfluenceButton)
+                                .addComponent(addInfluenceButton,200,200,200)
                                 .addComponent(beliefSubjectList)
                                 .addComponent(beliefList)
-                                .addComponent(beliefWeightList)
-                                .addComponent(linkBeliefButton)
+                                .addComponent(linkBeliefButton,200,200,200)
                                 )
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(constituentCreateLabel)
@@ -357,11 +358,12 @@ public class EditorView extends JFrame {
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(constituentNameText)
                                 .addComponent(constituentIndependenceList)
-                                .addComponent(addConstituentButton)
+                                .addComponent(addConstituentButton,200,200,200)
                                 .addComponent(ideologyNameText)
-                                .addComponent(addIdeologyButton)
+                                .addComponent(addIdeologyButton,200,200,200)
                                 .addComponent(beliefNameText)
-                                .addComponent(addBeliefButton)
+                                .addComponent(beliefWeightList)
+                                .addComponent(addBeliefButton,200,200,200)
                                 )
                         )
                 );
@@ -418,13 +420,15 @@ public class EditorView extends JFrame {
                         )
                 .addGroup(layout.createParallelGroup()
                         .addComponent(beliefWeightLabel)
-                        .addComponent(beliefWeightList)
                         .addComponent(beliefCreateLabel)
                         )
                 .addGroup(layout.createParallelGroup()
                         .addComponent(linkBeliefButton)
                         .addComponent(beliefNameLabel)
                         .addComponent(beliefNameText)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(beliefWeightList)
                         )
                 .addGroup(layout.createParallelGroup()
                         .addComponent(addBeliefButton)
@@ -515,27 +519,29 @@ public class EditorView extends JFrame {
     }
 
     private void addInfluenceButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO
+        Ideology i = ideologies.get(selectedInfluencer);
+        Constituent c = constituents.get(selectedInfluencee);
+        int weight = selectedInfluenceWeight+1;
+        dslc.createInfluence(c,i,weight);
         // update visuals
         refreshData();
     }
     private void addBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO
+       //dslc.createBelief();
      // update visuals
         refreshData();
     }
     private void linkBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO
+        
      // update visuals
         refreshData();
     }
     private void addConstituentButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO
-     // update visuals
+        //dslc.createConstituent();     // update visuals
         refreshData();
     }
     private void addIdeologyButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        //TODO
+        //dslc.createIdeology();
      // update visuals
         refreshData();
     }
