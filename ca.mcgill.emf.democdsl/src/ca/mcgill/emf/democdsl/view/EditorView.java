@@ -87,6 +87,7 @@ public class EditorView extends JFrame {
     private HashMap<Integer, Constituent> constituents;
     private HashMap<Integer, Ideology> ideologies;
     private HashMap<Integer, Influence> influences;
+    private HashMap<Integer, Object> subjects;
     //private HashMap<Integer, Appointment> appointments;
     
     //variables
@@ -216,7 +217,7 @@ public class EditorView extends JFrame {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedInfluencer= cb.getSelectedIndex();
                 //build influencee list
-                if (selectedInfluenceWeight*selectedInfluencee*selectedInfluencer>=0)
+                if (selectedInfluenceWeight >=0 && selectedInfluencee >=0 && selectedInfluencer>=0)
                 {
                     addInfluenceButton.setEnabled(true);
                 }
@@ -226,7 +227,7 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedInfluencee = cb.getSelectedIndex();
-                if (selectedInfluenceWeight*selectedInfluencee*selectedInfluencer>=0)
+                if (selectedInfluenceWeight >=0 && selectedInfluencee >=0 && selectedInfluencer>=0)
                 {
                     addInfluenceButton.setEnabled(true);
                 }
@@ -236,7 +237,7 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedInfluenceWeight = cb.getSelectedIndex();
-                if (selectedInfluenceWeight*selectedInfluencee*selectedInfluencer>=0)
+                if (selectedInfluenceWeight >=0 && selectedInfluencee >=0 && selectedInfluencer>=0)
                 {
                     addInfluenceButton.setEnabled(true);
                 }
@@ -246,7 +247,7 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBeliefSubject = cb.getSelectedIndex();
-                if (selectedBeliefSubject*selectedBelief>=0)
+                if (selectedBeliefSubject >=0 && selectedBelief >=0)
                 {
                     linkBeliefButton.setEnabled(true);
                 }
@@ -276,7 +277,7 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBelief = cb.getSelectedIndex();
-                if (selectedBeliefSubject*selectedBelief>=0)
+                if (selectedBeliefSubject >=0 && selectedBelief >=0)
                 {
                     linkBeliefButton.setEnabled(true);
                 }
@@ -454,23 +455,8 @@ public class EditorView extends JFrame {
             influencerList.removeAllItems();
             influenceeList.removeAllItems();
             beliefSubjectList.removeAllItems();
-            influencerList.setSelectedIndex(-1);
-            influenceeList.setSelectedIndex(-1);
-            beliefSubjectList.setSelectedIndex(-1);
-            
-            //reset static lists
-            influenceWeightList.setSelectedIndex(-1);
-            beliefWeightList.setSelectedIndex(-1);
-            constituentIndependenceList.setSelectedIndex(-1);
-            
-            //reset selector index
-            selectedInfluencer = -1;
-            selectedInfluencee = -1;
-            selectedInfluenceWeight = -1;
-            selectedBeliefSubject = -1;
-            selectedBeliefWeight = -1;
-            selectedConstituentIndependence = -1;
-            selectedBelief = -1;
+            beliefList.removeAllItems();
+           
             
             //reset text fields
             ideologyNameText.setText("");
@@ -478,6 +464,9 @@ public class EditorView extends JFrame {
             beliefNameText.setText("");
             
             //reset hashmaps
+            subjects = new HashMap<Integer, Object>();
+            Integer indexS = 0;
+            
             influences = new HashMap<Integer, Influence>();
             Iterator<Influence> infIt = ddsl.getInfluences().iterator();
             Integer indexInf = 0;
@@ -503,8 +492,11 @@ public class EditorView extends JFrame {
                 Constituent c = cIt.next();
                 constituents.put(indexC, c);
                 influenceeList.addItem(c.getName());
-                beliefList.addItem(c.getName());
+                //add to subjects too and increment counter
+                subjects.put(indexS, c);
+                beliefSubjectList.addItem(c.getName());
                 indexC++;
+                indexS++;
             }
             ideologies = new HashMap<Integer, Ideology>();
             Iterator<Ideology> idIt = ddsl.getIdeologies().iterator();
@@ -513,10 +505,30 @@ public class EditorView extends JFrame {
                 Ideology id = idIt.next();
                 ideologies.put(indexId, id);
                 influencerList.addItem(id.getName());
-                beliefList.addItem(id.getName());
+                subjects.put(indexS, id);
+                beliefSubjectList.addItem(id.getName());
                 indexId++;
+                indexS++;
             }
+            //reset dynamic lists index
+            influencerList.setSelectedIndex(-1);
+            influenceeList.setSelectedIndex(-1);
+            beliefSubjectList.setSelectedIndex(-1);
+            beliefList.setSelectedIndex(-1);
+
+            //reset static lists index
+            influenceWeightList.setSelectedIndex(-1);
+            beliefWeightList.setSelectedIndex(-1);
+            constituentIndependenceList.setSelectedIndex(-1);
             
+            //reset selector index
+            selectedInfluencer = -1;
+            selectedInfluencee = -1;
+            selectedInfluenceWeight = -1;
+            selectedBeliefSubject = -1;
+            selectedBeliefWeight = -1;
+            selectedConstituentIndependence = -1;
+            selectedBelief = -1;
             
             addInfluenceButton.setEnabled(false);
             addBeliefButton.setEnabled(false);
@@ -549,7 +561,17 @@ public class EditorView extends JFrame {
         refreshData();
     }
     private void linkBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        Belief b = beliefs.get(selectedBelief);
+        Object s = subjects.get(selectedBeliefSubject);
         
+        if (s instanceof Constituent)
+        {
+            dslc.linkBeliefToConstituent(b, (Constituent) s);
+        }
+        if(s instanceof Ideology)
+        {
+            dslc.linkBeliefToIdeology(b, (Ideology) s);
+        }
      // update visuals
         refreshData();
     }
