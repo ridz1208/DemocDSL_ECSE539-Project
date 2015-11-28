@@ -543,19 +543,30 @@ public class EditorView extends JFrame {
     private void addInfluenceButtonActionPerformed(java.awt.event.ActionEvent evt) {
         Ideology i = ideologies.get(selectedInfluencer);
         Constituent c = constituents.get(selectedInfluencee);
+        error = "";
+        boolean e;
         int weight = selectedInfluenceWeight+1;
-        dslc.createInfluence(c,i,weight);
+        e = dslc.createInfluence(c,i,weight);
+        if(e==false)
+        {
+            error = error + "Could not add the influence relationship";
+        }
         // update visuals
         refreshData();
     }
     private void addBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
         error = "";
+        boolean e;
         if (beliefNameText.getText().length() <= 1){
             error = error + "no Belief name entered";
         }
         error = error.trim();
         if (error.length() == 0) {
-            dslc.createBelief(beliefNameText.getText(),Integer.parseInt(percents[selectedBeliefWeight]));
+            e= dslc.createBelief(beliefNameText.getText(),selectedBeliefWeight+1);
+            if (e == false)
+            {
+                error = error + "Belief with this name already exists";
+            }
         }
         // update visuals
         refreshData();
@@ -563,38 +574,57 @@ public class EditorView extends JFrame {
     private void linkBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
         Belief b = beliefs.get(selectedBelief);
         Object s = subjects.get(selectedBeliefSubject);
-        
+        error ="";
+        boolean e;
         if (s instanceof Constituent)
         {
-            dslc.linkBeliefToConstituent(b, (Constituent) s);
+            e = dslc.linkBeliefToConstituent(b, (Constituent) s);
+            if (e == false)
+            {
+                error = error + "Could not add belief to Constituent";
+            }
         }
         if(s instanceof Ideology)
         {
-            dslc.linkBeliefToIdeology(b, (Ideology) s);
+            e = dslc.linkBeliefToIdeology(b, (Ideology) s);
+            if (e == false)
+            {
+                error = error + "Could not add belief to Ideology";
+            }
         }
      // update visuals
         refreshData();
     }
     private void addConstituentButtonActionPerformed(java.awt.event.ActionEvent evt) {
         error = "";
+        boolean e;
         if (constituentNameText.getText().length() <= 1){
             error = error + "no Constituent name entered";
         }
         error = error.trim();
         if (error.length() == 0) {
-            dslc.createConstituent(constituentNameText.getText(),Integer.parseInt(percents[selectedConstituentIndependence]));     
+            e= dslc.createConstituent(constituentNameText.getText(),selectedConstituentIndependence+1);     
+            if (e == false)
+            {
+                error = error + "Constituent with this name already exists";
+            }
         }
         // update visuals
         refreshData();
     }
     private void addIdeologyButtonActionPerformed(java.awt.event.ActionEvent evt) {
         error = "";
+        boolean e;
         if (ideologyNameText.getText().length() <= 1){
             error = error + "no Ideology name entered";
         }
         error = error.trim();
         if (error.length() == 0) {
-            dslc.createIdeology(ideologyNameText.getText());
+            e= dslc.createIdeology(ideologyNameText.getText());
+            if (e == false)
+            {
+                error = error + "Ideology with this name already exists";
+            }
         }
         // update visuals
         refreshData();

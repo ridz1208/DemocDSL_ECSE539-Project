@@ -36,15 +36,28 @@ public class Controller {
     public boolean createInfluence(Constituent c, Ideology i, int weight) {
         if(!democ.getConstituents().contains(c))
             return false;
-        
+
         if(!democ.getIdeologies().contains(i))
             return false;
+        //check for duplicate influence
+//NOT WORKING ARE THE CONSTITUENTS BEING ADDED TO IDEOLOGY ?????????????????????????????????????????????
+        for (Constituent cons : i.getConstituents())
+        {
+            if(cons.getName().equals(c.getName()))
+            {
+                return false;
+            }
+        }
+
+        
         
         Influence newInfluence = DemocdslFactory.eINSTANCE.createInfluence();
         newInfluence.setWeight(weight);
         newInfluence.setInfluencer(i);
         newInfluence.setInfluenced(c);
         democ.getInfluences().add(newInfluence);
+        // ????????????????????????????????????????????????
+        i.getConstituents().add(c);
         
         return true;
     }
@@ -83,6 +96,13 @@ public class Controller {
         if(!democ.getBeliefs().contains(b))
             return false;
         
+        //check for duplicates
+        for (Belief bel : c.getBeliefs()){
+            if (bel.getName().equals(b.getName())){
+                return false;
+            }
+        }
+        
         c.getBeliefs().add(b);
         
         return true;
@@ -94,6 +114,13 @@ public class Controller {
         
         if(!democ.getBeliefs().contains(b))
             return false;
+        
+        //check for duplicates
+        for (Belief bel : i.getBeliefs()){
+            if (bel.getName().equals(b.getName())){
+                return false;
+            }
+        }
         
         i.getBeliefs().add(b);
         
