@@ -216,15 +216,17 @@ public class EditorView extends JFrame {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedInfluencer= cb.getSelectedIndex();
                 //build influencee list
-                
-                influenceeList.setEnabled(true);
+                if (selectedInfluenceWeight*selectedInfluencee*selectedInfluencer>=0)
+                {
+                    addInfluenceButton.setEnabled(true);
+                }
             }
         });
         influenceeList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedInfluencee = cb.getSelectedIndex();
-                if (selectedInfluenceWeight*selectedInfluencee>=0)
+                if (selectedInfluenceWeight*selectedInfluencee*selectedInfluencer>=0)
                 {
                     addInfluenceButton.setEnabled(true);
                 }
@@ -234,7 +236,7 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedInfluenceWeight = cb.getSelectedIndex();
-                if (selectedInfluenceWeight*selectedInfluencee>=0)
+                if (selectedInfluenceWeight*selectedInfluencee*selectedInfluencer>=0)
                 {
                     addInfluenceButton.setEnabled(true);
                 }
@@ -244,7 +246,7 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBeliefSubject = cb.getSelectedIndex();
-                if (selectedBeliefSubject*selectedBeliefWeight*selectedBelief>=0)
+                if (selectedBeliefSubject*selectedBelief>=0)
                 {
                     linkBeliefButton.setEnabled(true);
                 }
@@ -254,9 +256,9 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBeliefWeight = cb.getSelectedIndex();
-                if (selectedBeliefSubject*selectedBeliefWeight*selectedBelief>=0)
+                if (selectedBeliefWeight>=0)
                 {
-                    linkBeliefButton.setEnabled(true);
+                    addBeliefButton.setEnabled(true);
                 }
             }
         });
@@ -274,7 +276,7 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBelief = cb.getSelectedIndex();
-                if (selectedBeliefSubject*selectedBeliefWeight*selectedBelief>=0)
+                if (selectedBeliefSubject*selectedBelief>=0)
                 {
                     linkBeliefButton.setEnabled(true);
                 }
@@ -310,7 +312,7 @@ public class EditorView extends JFrame {
         });
         //DISABLE INITIALLY
         addInfluenceButton.setEnabled(false);
-        //addBeliefButton.setEnabled(false);
+        addBeliefButton.setEnabled(false);
         addConstituentButton.setEnabled(false);
         //addIdeologyButton.setEnabled(false);
         linkBeliefButton.setEnabled(false);
@@ -493,6 +495,7 @@ public class EditorView extends JFrame {
                 beliefList.addItem(b.getName());
                 indexB++;
             }
+            //System.out.println(ddsl.getConstituents());
             constituents = new HashMap<Integer, Constituent>();
             Iterator<Constituent> cIt = ddsl.getConstituents().iterator();
             Integer indexC = 0;
@@ -516,7 +519,7 @@ public class EditorView extends JFrame {
             
             
             addInfluenceButton.setEnabled(false);
-            //addBeliefButton.setEnabled(false);
+            addBeliefButton.setEnabled(false);
             addConstituentButton.setEnabled(false);
             //addIdeologyButton.setEnabled(false);
             linkBeliefButton.setEnabled(false);
@@ -534,8 +537,15 @@ public class EditorView extends JFrame {
         refreshData();
     }
     private void addBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
-       //dslc.createBelief();
-     // update visuals
+        error = "";
+        if (beliefNameText.getText().length() <= 1){
+            error = error + "no Belief name entered";
+        }
+        error = error.trim();
+        if (error.length() == 0) {
+            dslc.createBelief(beliefNameText.getText(),Integer.parseInt(percents[selectedBeliefWeight]));
+        }
+        // update visuals
         refreshData();
     }
     private void linkBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -544,14 +554,27 @@ public class EditorView extends JFrame {
         refreshData();
     }
     private void addConstituentButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        
-        dslc.createConstituent(constituentNameText.getText(),Integer.parseInt(percents[selectedConstituentIndependence]));     
+        error = "";
+        if (constituentNameText.getText().length() <= 1){
+            error = error + "no Constituent name entered";
+        }
+        error = error.trim();
+        if (error.length() == 0) {
+            dslc.createConstituent(constituentNameText.getText(),Integer.parseInt(percents[selectedConstituentIndependence]));     
+        }
         // update visuals
         refreshData();
     }
     private void addIdeologyButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        dslc.createIdeology(ideologyNameText.getText());
-     // update visuals
+        error = "";
+        if (ideologyNameText.getText().length() <= 1){
+            error = error + "no Ideology name entered";
+        }
+        error = error.trim();
+        if (error.length() == 0) {
+            dslc.createIdeology(ideologyNameText.getText());
+        }
+        // update visuals
         refreshData();
     }
     
