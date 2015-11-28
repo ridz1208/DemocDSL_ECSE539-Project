@@ -69,11 +69,49 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
                                                       10.0f, dash1, 0.0f);
     Dimension totalSize;
     FontMetrics fontMetrics;
+    Image backbuffer;
 
     public void init() {
         //Initialize drawing colors
         setBackground(bg);
         setForeground(fg);
+        
+    }
+    
+    private double[] findEmptySpot(double width, double height) {
+        
+        Dimension d = getSize();
+        Double maxX = d.getWidth()/2.0;
+        Double maxY = d.getHeight()/2.0;
+        double x = 1.0;
+        double y = 1.0;
+        
+        boolean found = false;
+        do {
+            found = true;
+            for (Object r : elements) {
+                DemocIcon i = (DemocIcon)r;
+                if((new Rectangle2D.Double(x, y, width, height)).contains(
+                        i.shape.getX(), i.shape.getY())){
+                    x = x + width;
+                    y = y + height;
+                    found = false;
+                    break;
+                }
+            }
+
+            if(x >= maxX || y >= maxY) {
+                x = 0.0;
+                y = 0.0;
+                found = true;
+            }
+        } while (!found);
+        
+        
+        double[] spot = {x, y};
+                
+        
+        return spot;
         
     }
 
@@ -109,7 +147,10 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     }
 
     public void paint(Graphics g) {
-        g2 = (Graphics2D) g;
+        backbuffer = createImage(getSize().width, getSize().height);
+        g2 = (Graphics2D)backbuffer.getGraphics();
+        
+        //g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         d = getSize();
         int gridWidth = d.width / 6;
@@ -163,6 +204,8 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         stringY += gridHeight;
 
         refresh();
+        
+        g.drawImage(backbuffer, 0, 0, null);
 
 
     }
@@ -195,12 +238,11 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     
     public void createConstituent(String name, int ind){
         Dimension d = getSize();
-        Double w = d.getWidth()/20.0;
-        Double h = d.getWidth()/20.0;
-        Double x = d.getWidth()/2.0;
-        Double y = d.getHeight()/2.0;
+        double w = d.getWidth()/20.0;
+        double h = d.getWidth()/20.0;
+        double[] spot = findEmptySpot(w, h);
         
-        ConstituentIcon consti = new ConstituentIcon(name, ind, new Rectangle2D.Double(x, y, w*2.0, h));
+        ConstituentIcon consti = new ConstituentIcon(name, ind, new Rectangle2D.Double(spot[0], spot[1], w*2.0, h));
         elements.add(consti);
         repaint();
         
@@ -208,13 +250,12 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
 
     public void createIdeology(String name) {
         Dimension d = getSize();
-        Double w = d.getWidth()/20.0;
-        Double h = d.getWidth()/20.0;
-        Double x = d.getWidth()/2.0;
-        Double y = d.getHeight()/2.0;
+        double w = d.getWidth()/20.0;
+        double h = d.getWidth()/20.0;
+        double[] spot = findEmptySpot(w, h);
         
         IdeologyIcon ideo = new IdeologyIcon(name, 
-                new RoundRectangle2D.Double(x, y, w*2.0, h, 20, 20));
+                new RoundRectangle2D.Double(spot[0], spot[1], w*2.0, h, 20, 20));
         elements.add(ideo);
         
         repaint();
@@ -223,13 +264,12 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     
     public void createBelief(String name, int weight){
         Dimension d = getSize();
-        Double w = d.getWidth()/20.0;
-        Double h = d.getWidth()/20.0;
-        Double x = d.getWidth()/2.0;
-        Double y = d.getHeight()/2.0;
+        double w = d.getWidth()/20.0;
+        double h = d.getWidth()/20.0;
+        double[] spot = findEmptySpot(w, h);
         
         BeliefIcon belief = new BeliefIcon(name, weight, 
-                new Ellipse2D.Double(x, y, w*2.0, h));
+                new Ellipse2D.Double(spot[0], spot[1], w*2.0, h));
         elements.add(belief);
         
         repaint();
@@ -258,6 +298,35 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         if(ideo != null && con != null) {
             //store ideology, constituent and Line2D
             Influence i = new Influence(ideo, con, weight);
+            links.add(i);
+        }
+        repaint();
+        
+    }
+    
+    public void linkBelief(String target, String belief) {
+        DemocIcon ideo = null;
+        DemocIcon t = null;
+        //finds first element with name
+        for(DemocIcon b : elements) {
+            if(b.name.equals(belief)){
+                ideo = b;
+                break;
+            }
+                
+        }
+        for(DemocIcon c : elements) {
+            if(c.name.equals(target)){
+                t = c;
+                break;
+            }
+                
+        }
+        
+        if(ideo != null && t != null) {
+            //store ideology, constituent and Line2D
+            Influence i = new Influence(t, ideo, 0);
+            i.isLink = true;
             links.add(i);
         }
         repaint();
@@ -314,6 +383,16 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         });
         p.add(addInfluence);
         
+        JButton linkBelief = new JButton();
+        linkBelief.setText("Link Belief");
+        linkBelief.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ((ModelView) applet).linkBelief("Communism", "Equality");
+            }
+            
+        });
+        p.add(linkBelief);
+        
         f.getContentPane().add("North", p);
         
         applet.init();
@@ -325,13 +404,13 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        System.out.println("DRAG");
-        for (Object r : elements) {
-            DemocIcon i = (DemocIcon)r;
-            if(i.isSelected == false) {
-                continue;
+        //System.out.println("DRAG");
+        for (DemocIcon r : elements) {
+            if(r.isSelected == true) {
+                r.move(e.getX(), e.getY());
             }
-            //TODO change this if we use not only rectangles
+            
+            /*change this if we use not only rectangles
             if (r instanceof ConstituentIcon) {
                 ((ConstituentIcon) r).move(e.getX(), e.getY());
             } else if (r instanceof IdeologyIcon) {
@@ -340,7 +419,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
                 ((BeliefIcon)r).move(e.getX(), e.getY());
             }else{
 
-            }
+            }*/
         }
         repaint();
         //refresh();
@@ -350,24 +429,23 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+        //deselect everything
+        for (DemocIcon r : elements) {
+            r.isSelected = false;
+        }
+        //select those clicked
+        for (int i = elements.size()-1; i >= 0; i--) {
+            DemocIcon d = elements.get(i);
+            if(d.shape.contains(new Point(e.getX(), e.getY()))) {
+                d.isSelected = true;
+                break;
+            }
+            
+        }
         
     }
     @Override
     public void mouseReleased(MouseEvent e) {
-        //deselect everything
-        for (Object r : elements) {
-            DemocIcon i = (DemocIcon)r;
-            i.isSelected = false;
-        }
-        //select those clicked
-        for (Object r : elements) {
-            DemocIcon i = (DemocIcon)r;
-            if(i.shape.contains(new Point(e.getX(), e.getY()))) {
-                System.out.println(e.getX() + ", "+ e.getY());
-                i.isSelected = true;
-            }
-        }
         repaint();
     }    
     
@@ -533,8 +611,8 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         protected int weight;
         protected DemocIcon source;
         protected DemocIcon target;
-        
-        protected boolean isSelected = false;
+        //this can be used to turn the influence into a belief link
+        protected boolean isLink = false;
         
         /**
          * Influence between an ideology and constituent
@@ -549,15 +627,18 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         }
         
         public void draw() {
+            if(isLink)
+                g2.setStroke(dashed);
             line = new Line2D.Double(source.shape.getCenterX(), source.shape.getCenterY(), 
                                      target.shape.getCenterX(), target.shape.getCenterY());
             
             g2.draw(line);
-            
+            g2.setStroke(stroke);
             
             double xString = line.getBounds2D().getCenterX();//  - line.getBounds2D().getWidth() / 6.0;
             double yString = line.getBounds2D().getCenterY();// + line.getBounds2D().getHeight() / 6.0;
-            g2.drawString(""+weight, (int)xString, (int)yString);
+            if(!isLink)
+                g2.drawString(""+weight, (int)xString, (int)yString);
         }
         
     }

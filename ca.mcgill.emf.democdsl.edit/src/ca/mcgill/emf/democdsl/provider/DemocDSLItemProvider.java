@@ -103,7 +103,7 @@ public class DemocDSLItemProvider
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
             childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__CONSTITUENTS);
-            childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__PARTIES);
+            childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__IDEOLOGIES);
             childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__INFLUENCES);
             childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__BELIEFS);
         }
@@ -165,7 +165,7 @@ public class DemocDSLItemProvider
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
             case DemocdslPackage.DEMOC_DSL__CONSTITUENTS:
-            case DemocdslPackage.DEMOC_DSL__PARTIES:
+            case DemocdslPackage.DEMOC_DSL__IDEOLOGIES:
             case DemocdslPackage.DEMOC_DSL__INFLUENCES:
             case DemocdslPackage.DEMOC_DSL__BELIEFS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -192,7 +192,7 @@ public class DemocDSLItemProvider
 
         newChildDescriptors.add
             (createChildParameter
-                (DemocdslPackage.Literals.DEMOC_DSL__PARTIES,
+                (DemocdslPackage.Literals.DEMOC_DSL__IDEOLOGIES,
                  DemocdslFactory.eINSTANCE.createIdeology()));
 
         newChildDescriptors.add
