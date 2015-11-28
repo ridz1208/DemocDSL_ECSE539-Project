@@ -39,15 +39,18 @@ public class Controller {
 
         if(!democ.getIdeologies().contains(i))
             return false;
+        
         //check for duplicate influence
-//NOT WORKING ARE THE CONSTITUENTS BEING ADDED TO IDEOLOGY ?????????????????????????????????????????????
         for (Constituent cons : i.getConstituents())
         {
             if(cons.getName().equals(c.getName()))
-            {
                 return false;
-            }
         }
+        for (Belief b : democ.getBeliefs()) {
+            if(b.getName().equals(i.getName()))
+                return false;
+        }
+        
 
         
         
@@ -56,8 +59,7 @@ public class Controller {
         newInfluence.setInfluencer(i);
         newInfluence.setInfluenced(c);
         democ.getInfluences().add(newInfluence);
-        // ????????????????????????????????????????????????
-        i.getConstituents().add(c);
+        //i.getConstituents().add(c);
         
         return true;
     }
@@ -123,6 +125,25 @@ public class Controller {
         }
         
         i.getBeliefs().add(b);
+        
+        return true;
+    }
+    
+    public boolean addConstituentToIdeology(Constituent c, Ideology i) {
+        if(!democ.getIdeologies().contains(i))
+            return false;
+        
+        if(!democ.getConstituents().contains(c))
+            return false;
+        
+        //check for duplicates
+        for (Constituent con : i.getConstituents()){
+            if (con.getName().equals(c.getName())){
+                return false;
+            }
+        }
+        
+        i.getConstituents().add(c);
         
         return true;
     }
