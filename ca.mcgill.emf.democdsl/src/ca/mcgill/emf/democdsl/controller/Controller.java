@@ -24,9 +24,10 @@ public class Controller {
                 return false;
         }
         
-        Constituent unewConst = DemocdslFactory.eINSTANCE.createConstituent();
-        unewConst.setName(name);
-        unewConst.setIndependence(independence);
+        Constituent newConst = DemocdslFactory.eINSTANCE.createConstituent();
+        newConst.setName(name);
+        newConst.setIndependence(independence);
+        democ.getConstituents().add(newConst);
         
         return true;
         
@@ -43,6 +44,7 @@ public class Controller {
         newInfluence.setWeight(weight);
         newInfluence.setInfluencer(i);
         newInfluence.setInfluenced(c);
+        democ.getInfluences().add(newInfluence);
         
         return true;
     }
@@ -56,6 +58,7 @@ public class Controller {
         Belief newBelief = DemocdslFactory.eINSTANCE.createBelief();
         newBelief.setName(name);
         newBelief.setValue(value);
+        democ.getBeliefs().add(newBelief);
         
         return true;
     }
@@ -68,6 +71,7 @@ public class Controller {
         
         Ideology newIdeo = DemocdslFactory.eINSTANCE.createIdeology();
         newIdeo.setName(name);
+        democ.getIdeologies().add(newIdeo);
         
         return true;
     }

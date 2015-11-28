@@ -40,7 +40,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
      * Moving attributes
      */
     private ArrayList<Object> elements = new ArrayList<Object>();
-    private ArrayList<Object> movedElements = new ArrayList<Object>();
+    private ArrayList<Object> links = new ArrayList<Object>();
 
     /**
      * Constructor
@@ -130,7 +130,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         int rectWidth = gridWidth - 2*x;
         int stringY = gridHeight - 3 - fontMetrics.getDescent();
         int rectHeight = stringY - fontMetrics.getMaxAscent() - y - 2;
-
+/*
         // draw Line2D.Double
         g2.draw(new Line2D.Double(x, y+rectHeight-1, x + rectWidth, y));
         g2.drawString("Line2D", x, stringY);
@@ -153,7 +153,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         g2.setStroke(stroke);
         g2.draw(new Ellipse2D.Double(x, y, rectWidth, rectHeight));
         g2.drawString("Ellipse2D", x, stringY);
-        x += gridWidth;
+        x += gridWidth;*/
 
         
 
@@ -178,6 +178,13 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     }
     
     public void refresh() {
+
+        for(Object l : links) {
+            DemocIcon[] i = (DemocIcon[])l;
+            g2.drawLine((int)i[0].shape.getCenterX(), (int)i[0].shape.getCenterY(),
+                    (int)i[1].shape.getCenterX(), (int)i[1].shape.getCenterY());
+        }
+        
         for(Object r : elements) {
             DemocIcon i = (DemocIcon)r;
             g2.setColor(fg);
@@ -228,6 +235,16 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         
     }
     
+
+    public void createInfluence() {
+        if(elements.size() > 1) {
+            DemocIcon[] endpoints = {(DemocIcon) elements.get(0), (DemocIcon) elements.get(1)};
+            links.add(endpoints);
+        }
+        repaint();
+        
+    }
+    
     
     /*
      * Temporary main method, we need an app later
@@ -267,6 +284,17 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
             
         });
         p.add(addBelief);
+        
+        JButton addInfluence = new JButton();
+        addInfluence.setText("Add Influence");
+        addInfluence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ((ModelView) applet).createInfluence();
+            }
+            
+        });
+        p.add(addInfluence);
+        
         f.getContentPane().add("North", p);
         
         applet.init();
@@ -274,6 +302,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         f.setSize(new Dimension(1024,768));
         f.setVisible(true);
     }
+
 
     @Override
     public void mouseDragged(MouseEvent e) {
