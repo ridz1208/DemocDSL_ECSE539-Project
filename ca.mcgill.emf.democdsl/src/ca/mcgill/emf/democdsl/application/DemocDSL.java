@@ -15,7 +15,7 @@ public class DemocDSL {
         DemocdslPackage.eINSTANCE.eClass();
         
         //Create a DemocDSL instance.
-        ca.mcgill.emf.democdsl.DemocDSL model = DemocdslFactory.eINSTANCE.createDemocDSL();
+        final ca.mcgill.emf.democdsl.DemocDSL model = DemocdslFactory.eINSTANCE.createDemocDSL();
         model.setName("Model");
         
         final Controller c = new Controller(model);
@@ -24,7 +24,7 @@ public class DemocDSL {
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditorView(c).setVisible(true);
+                new EditorView(c,model).setVisible(true);
                 
                 //TODO initialize model view
             }

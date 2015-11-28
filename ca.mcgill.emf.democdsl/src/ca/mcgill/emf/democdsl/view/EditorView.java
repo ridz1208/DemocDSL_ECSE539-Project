@@ -42,6 +42,7 @@ public class EditorView extends JFrame {
     //	private JButton 
     //	
     private Controller dslc;
+    ca.mcgill.emf.democdsl.DemocDSL ddsl;
     private JLabel errorMessage;
 
 
@@ -106,8 +107,9 @@ public class EditorView extends JFrame {
  
 
     /** Creates new form EventRegistrationPage */
-    public EditorView(Controller c) {
+    public EditorView(Controller c,ca.mcgill.emf.democdsl.DemocDSL model) {
         dslc = c;
+        ddsl=model;
         initComponents();
         refreshData();
     }
@@ -336,7 +338,7 @@ public class EditorView extends JFrame {
                                 .addComponent(linkBeliefCreateLabel)
                                 .addComponent(beliefSubjectLabel)
                                 .addComponent(beliefSelectLabel)
-                                .addComponent(beliefWeightLabel))
+                                )
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(influencerList)
                                 .addComponent(influenceeList)
@@ -354,6 +356,7 @@ public class EditorView extends JFrame {
                                 .addComponent(ideologyNameLabel)
                                 .addComponent(beliefCreateLabel)
                                 .addComponent(beliefNameLabel)
+                                .addComponent(beliefWeightLabel)
                                 )
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(constituentNameText)
@@ -419,7 +422,7 @@ public class EditorView extends JFrame {
                         .addComponent(beliefList)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(beliefWeightLabel)
+                        
                         .addComponent(beliefCreateLabel)
                         )
                 .addGroup(layout.createParallelGroup()
@@ -428,6 +431,7 @@ public class EditorView extends JFrame {
                         .addComponent(beliefNameText)
                         )
                 .addGroup(layout.createParallelGroup()
+                        .addComponent(beliefWeightLabel)
                         .addComponent(beliefWeightList)
                         )
                 .addGroup(layout.createParallelGroup()
@@ -439,7 +443,8 @@ public class EditorView extends JFrame {
     }
 
     private void refreshData() {
-        DemocDSL ddsl = DemocdslFactory.eINSTANCE.createDemocDSL();
+        //DemocDSL ddsl = DemocdslFactory.eINSTANCE.createDemocDSL();
+        
         // error
         errorMessage.setText(error);
         if (error == null || error.length() == 0) {
@@ -494,6 +499,7 @@ public class EditorView extends JFrame {
             while (cIt.hasNext()) {
                 Constituent c = cIt.next();
                 constituents.put(indexC, c);
+                System.out.println(c.getName());
                 influenceeList.addItem(c.getName());
                 indexC++;
             }
@@ -503,6 +509,7 @@ public class EditorView extends JFrame {
             while (idIt.hasNext()) {
                 Ideology id = idIt.next();
                 ideologies.put(indexId, id);
+                System.out.println(id.getName());
                 influencerList.addItem(id.getName());
                 indexId++;
             }
@@ -537,11 +544,13 @@ public class EditorView extends JFrame {
         refreshData();
     }
     private void addConstituentButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        //dslc.createConstituent();     // update visuals
+        
+        dslc.createConstituent(constituentNameText.getText(),Integer.parseInt(percents[selectedConstituentIndependence]));     
+        // update visuals
         refreshData();
     }
     private void addIdeologyButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        //dslc.createIdeology();
+        dslc.createIdeology(ideologyNameText.getText());
      // update visuals
         refreshData();
     }
