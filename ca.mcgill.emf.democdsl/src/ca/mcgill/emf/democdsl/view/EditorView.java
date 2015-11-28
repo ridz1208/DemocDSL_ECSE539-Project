@@ -502,8 +502,8 @@ public class EditorView extends JFrame {
             while (cIt.hasNext()) {
                 Constituent c = cIt.next();
                 constituents.put(indexC, c);
-                System.out.println(c.getName());
                 influenceeList.addItem(c.getName());
+                beliefList.addItem(c.getName());
                 indexC++;
             }
             ideologies = new HashMap<Integer, Ideology>();
@@ -512,8 +512,8 @@ public class EditorView extends JFrame {
             while (idIt.hasNext()) {
                 Ideology id = idIt.next();
                 ideologies.put(indexId, id);
-                System.out.println(id.getName());
                 influencerList.addItem(id.getName());
+                beliefList.addItem(id.getName());
                 indexId++;
             }
             
