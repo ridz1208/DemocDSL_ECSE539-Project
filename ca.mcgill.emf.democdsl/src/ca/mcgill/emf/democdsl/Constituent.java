@@ -17,8 +17,9 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getName <em>Name</em>}</li>
  *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getIndependence <em>Independence</em>}</li>
- *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getAtomicConstituent <em>Atomic Constituent</em>}</li>
  *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getBeliefs <em>Beliefs</em>}</li>
+ *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getInfluencesOut <em>Influences Out</em>}</li>
+ *   <li>{@link ca.mcgill.emf.democdsl.Constituent#getInfluencesIn <em>Influences In</em>}</li>
  * </ul>
  *
  * @see ca.mcgill.emf.democdsl.DemocdslPackage#getConstituent()
@@ -79,22 +80,6 @@ public interface Constituent extends EObject {
     void setIndependence(int value);
 
     /**
-     * Returns the value of the '<em><b>Atomic Constituent</b></em>' containment reference list.
-     * The list contents are of type {@link ca.mcgill.emf.democdsl.Constituent}.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Atomic Constituent</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Atomic Constituent</em>' containment reference list.
-     * @see ca.mcgill.emf.democdsl.DemocdslPackage#getConstituent_AtomicConstituent()
-     * @model containment="true"
-     * @generated
-     */
-    EList<Constituent> getAtomicConstituent();
-
-    /**
      * Returns the value of the '<em><b>Beliefs</b></em>' containment reference list.
      * The list contents are of type {@link ca.mcgill.emf.democdsl.Belief}.
      * <!-- begin-user-doc -->
@@ -109,5 +94,41 @@ public interface Constituent extends EObject {
      * @generated
      */
     EList<Belief> getBeliefs();
+
+    /**
+     * Returns the value of the '<em><b>Influences Out</b></em>' reference list.
+     * The list contents are of type {@link ca.mcgill.emf.democdsl.Influence}.
+     * It is bidirectional and its opposite is '{@link ca.mcgill.emf.democdsl.Influence#getInfluencer <em>Influencer</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Influences Out</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Influences Out</em>' reference list.
+     * @see ca.mcgill.emf.democdsl.DemocdslPackage#getConstituent_InfluencesOut()
+     * @see ca.mcgill.emf.democdsl.Influence#getInfluencer
+     * @model opposite="influencer"
+     * @generated
+     */
+    EList<Influence> getInfluencesOut();
+
+    /**
+     * Returns the value of the '<em><b>Influences In</b></em>' reference list.
+     * The list contents are of type {@link ca.mcgill.emf.democdsl.Influence}.
+     * It is bidirectional and its opposite is '{@link ca.mcgill.emf.democdsl.Influence#getInfluenced <em>Influenced</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Influences In</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Influences In</em>' reference list.
+     * @see ca.mcgill.emf.democdsl.DemocdslPackage#getConstituent_InfluencesIn()
+     * @see ca.mcgill.emf.democdsl.Influence#getInfluenced
+     * @model opposite="influenced"
+     * @generated
+     */
+    EList<Influence> getInfluencesIn();
 
 } // Constituent

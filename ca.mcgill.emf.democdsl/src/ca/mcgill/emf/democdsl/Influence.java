@@ -51,6 +51,7 @@ public interface Influence extends EObject {
 
     /**
      * Returns the value of the '<em><b>Influenced</b></em>' reference.
+     * It is bidirectional and its opposite is '{@link ca.mcgill.emf.democdsl.Constituent#getInfluencesIn <em>Influences In</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Influenced</em>' reference isn't clear,
@@ -60,7 +61,8 @@ public interface Influence extends EObject {
      * @return the value of the '<em>Influenced</em>' reference.
      * @see #setInfluenced(Constituent)
      * @see ca.mcgill.emf.democdsl.DemocdslPackage#getInfluence_Influenced()
-     * @model required="true"
+     * @see ca.mcgill.emf.democdsl.Constituent#getInfluencesIn
+     * @model opposite="influencesIn" required="true"
      * @generated
      */
     Constituent getInfluenced();
@@ -77,6 +79,7 @@ public interface Influence extends EObject {
 
     /**
      * Returns the value of the '<em><b>Influencer</b></em>' reference.
+     * It is bidirectional and its opposite is '{@link ca.mcgill.emf.democdsl.Constituent#getInfluencesOut <em>Influences Out</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Influencer</em>' reference isn't clear,
@@ -84,12 +87,13 @@ public interface Influence extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Influencer</em>' reference.
-     * @see #setInfluencer(Ideology)
+     * @see #setInfluencer(Constituent)
      * @see ca.mcgill.emf.democdsl.DemocdslPackage#getInfluence_Influencer()
-     * @model required="true"
+     * @see ca.mcgill.emf.democdsl.Constituent#getInfluencesOut
+     * @model opposite="influencesOut" required="true"
      * @generated
      */
-    Ideology getInfluencer();
+    Constituent getInfluencer();
 
     /**
      * Sets the value of the '{@link ca.mcgill.emf.democdsl.Influence#getInfluencer <em>Influencer</em>}' reference.
@@ -99,6 +103,6 @@ public interface Influence extends EObject {
      * @see #getInfluencer()
      * @generated
      */
-    void setInfluencer(Ideology value);
+    void setInfluencer(Constituent value);
 
 } // Influence

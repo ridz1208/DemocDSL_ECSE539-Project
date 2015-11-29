@@ -13,16 +13,14 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -44,7 +42,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocDSL {
     /**
-     * The cached value of the '{@link #getConstituents() <em>Constituents</em>}' containment reference list.
+     * The cached value of the '{@link #getConstituents() <em>Constituents</em>}' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getConstituents()
@@ -54,7 +52,7 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
     protected EList<Constituent> constituents;
 
     /**
-     * The cached value of the '{@link #getIdeologies() <em>Ideologies</em>}' containment reference list.
+     * The cached value of the '{@link #getIdeologies() <em>Ideologies</em>}' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getIdeologies()
@@ -84,7 +82,7 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
     protected String name = NAME_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getInfluences() <em>Influences</em>}' containment reference list.
+     * The cached value of the '{@link #getInfluences() <em>Influences</em>}' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getInfluences()
@@ -129,7 +127,7 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
      */
     public EList<Constituent> getConstituents() {
         if (constituents == null) {
-            constituents = new EObjectContainmentEList<Constituent>(Constituent.class, this, DemocdslPackage.DEMOC_DSL__CONSTITUENTS);
+            constituents = new EObjectResolvingEList<Constituent>(Constituent.class, this, DemocdslPackage.DEMOC_DSL__CONSTITUENTS);
         }
         return constituents;
     }
@@ -141,7 +139,7 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
      */
     public EList<Ideology> getIdeologies() {
         if (ideologies == null) {
-            ideologies = new EObjectContainmentEList<Ideology>(Ideology.class, this, DemocdslPackage.DEMOC_DSL__IDEOLOGIES);
+            ideologies = new EObjectResolvingEList<Ideology>(Ideology.class, this, DemocdslPackage.DEMOC_DSL__IDEOLOGIES);
         }
         return ideologies;
     }
@@ -174,7 +172,7 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
      */
     public EList<Influence> getInfluences() {
         if (influences == null) {
-            influences = new EObjectContainmentEList<Influence>(Influence.class, this, DemocdslPackage.DEMOC_DSL__INFLUENCES);
+            influences = new EObjectResolvingEList<Influence>(Influence.class, this, DemocdslPackage.DEMOC_DSL__INFLUENCES);
         }
         return influences;
     }
@@ -199,12 +197,6 @@ public class DemocDSLImpl extends MinimalEObjectImpl.Container implements DemocD
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DemocdslPackage.DEMOC_DSL__CONSTITUENTS:
-                return ((InternalEList<?>)getConstituents()).basicRemove(otherEnd, msgs);
-            case DemocdslPackage.DEMOC_DSL__IDEOLOGIES:
-                return ((InternalEList<?>)getIdeologies()).basicRemove(otherEnd, msgs);
-            case DemocdslPackage.DEMOC_DSL__INFLUENCES:
-                return ((InternalEList<?>)getInfluences()).basicRemove(otherEnd, msgs);
             case DemocdslPackage.DEMOC_DSL__BELIEFS:
                 return ((InternalEList<?>)getBeliefs()).basicRemove(otherEnd, msgs);
         }

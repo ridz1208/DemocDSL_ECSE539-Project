@@ -3,36 +3,36 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="democdsl" nsURI="http://www.example.org/democdsl" nsPrefix="democdsl">
   <eClassifiers xsi:type="ecore:EClass" name="DemocDSL">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constituents" upperBound="-1"
-        eType="#//Constituent" containment="true"/>
+        eType="#//Constituent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ideologies" upperBound="-1"
-        eType="#//Ideology" containment="true"/>
+        eType="#//Ideology"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="influences" upperBound="-1"
-        eType="#//Influence" containment="true"/>
+        eType="#//Influence"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="beliefs" upperBound="-1"
         eType="#//Belief" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constituent">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="independence" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="atomicConstituent" upperBound="-1"
-        eType="#//Constituent" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="beliefs" upperBound="-1"
         eType="#//Belief" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="influencesOut" upperBound="-1"
+        eType="#//Influence" eOpposite="#//Influence/influencer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="influencesIn" upperBound="-1"
+        eType="#//Influence" eOpposite="#//Influence/influenced"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Ideology">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constituents" upperBound="-1"
-        eType="#//Constituent" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="beliefs" upperBound="-1"
         eType="#//Belief" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Influence">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="influenced" lowerBound="1"
-        eType="#//Constituent"/>
+        eType="#//Constituent" eOpposite="#//Constituent/influencesIn"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="influencer" lowerBound="1"
-        eType="#//Ideology"/>
+        eType="#//Constituent" eOpposite="#//Constituent/influencesOut"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Belief">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>

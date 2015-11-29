@@ -38,35 +38,37 @@ public class Controller {
         
     }
     
-    public boolean createInfluence(Constituent c, Ideology i, int weight) {
-        if(!democ.getConstituents().contains(c))
+    public boolean createInfluence(Constituent source, Constituent target, int weight) {
+        if(!democ.getConstituents().contains(source))
             return false;
 
-        if(!democ.getIdeologies().contains(i))
+        if(!democ.getConstituents().contains(target))
             return false;
         
-        //check for duplicate influence
-        for (Constituent cons : i.getConstituents())
+        //check for duplicate influences
+        for (Influence i : source.getInfluencesOut())
         {
-            if(cons.getName().equals(c.getName()))
+            if(i.getInfluenced().getName().equals(target.getName()))
                 return false;
         }
+        /*
         for (Belief b : democ.getBeliefs()) {
-            if(b.getName().equals(i.getName()))
+            if(b.getName().equals(target.getName()))
                 return false;
         }
+        */
         
 
         
         
         Influence newInfluence = DemocdslFactory.eINSTANCE.createInfluence();
         newInfluence.setWeight(weight);
-        newInfluence.setInfluencer(i);
-        newInfluence.setInfluenced(c);
+        newInfluence.setInfluencer(source);
+        newInfluence.setInfluenced(target);
         democ.getInfluences().add(newInfluence);
-        //i.getConstituents().add(c);
+        //TODO add to influencesOut and influencesIn??
         
-        view.createInfluence(i.getName(), c.getName(), newInfluence.getWeight());
+        view.createInfluence(source.getName(), target.getName(), newInfluence.getWeight());
         
         return true;
     }
@@ -144,25 +146,5 @@ public class Controller {
         return true;
     }
     
-    public boolean addConstituentToIdeology(Constituent c, Ideology i) {
-        if(!democ.getIdeologies().contains(i))
-            return false;
-        
-        if(!democ.getConstituents().contains(c))
-            return false;
-        
-        //check for duplicates
-        for (Constituent con : i.getConstituents()){
-            if (con.getName().equals(c.getName())){
-                return false;
-            }
-        }
-        
-        i.getConstituents().add(c);
-        
-        //TODO show in GUI
-        
-        return true;
-    }
 
 }

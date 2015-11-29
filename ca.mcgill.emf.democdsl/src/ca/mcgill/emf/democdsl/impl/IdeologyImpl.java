@@ -3,7 +3,6 @@
 package ca.mcgill.emf.democdsl.impl;
 
 import ca.mcgill.emf.democdsl.Belief;
-import ca.mcgill.emf.democdsl.Constituent;
 import ca.mcgill.emf.democdsl.DemocdslPackage;
 import ca.mcgill.emf.democdsl.Ideology;
 
@@ -11,15 +10,12 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -32,7 +28,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link ca.mcgill.emf.democdsl.impl.IdeologyImpl#getName <em>Name</em>}</li>
- *   <li>{@link ca.mcgill.emf.democdsl.impl.IdeologyImpl#getConstituents <em>Constituents</em>}</li>
  *   <li>{@link ca.mcgill.emf.democdsl.impl.IdeologyImpl#getBeliefs <em>Beliefs</em>}</li>
  * </ul>
  *
@@ -58,16 +53,6 @@ public class IdeologyImpl extends MinimalEObjectImpl.Container implements Ideolo
      * @ordered
      */
     protected String name = NAME_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getConstituents() <em>Constituents</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getConstituents()
-     * @generated
-     * @ordered
-     */
-    protected EList<Constituent> constituents;
 
     /**
      * The cached value of the '{@link #getBeliefs() <em>Beliefs</em>}' containment reference list.
@@ -124,18 +109,6 @@ public class IdeologyImpl extends MinimalEObjectImpl.Container implements Ideolo
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<Constituent> getConstituents() {
-        if (constituents == null) {
-            constituents = new EObjectContainmentEList<Constituent>(Constituent.class, this, DemocdslPackage.IDEOLOGY__CONSTITUENTS);
-        }
-        return constituents;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EList<Belief> getBeliefs() {
         if (beliefs == null) {
             beliefs = new EObjectContainmentEList<Belief>(Belief.class, this, DemocdslPackage.IDEOLOGY__BELIEFS);
@@ -151,8 +124,6 @@ public class IdeologyImpl extends MinimalEObjectImpl.Container implements Ideolo
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
-                return ((InternalEList<?>)getConstituents()).basicRemove(otherEnd, msgs);
             case DemocdslPackage.IDEOLOGY__BELIEFS:
                 return ((InternalEList<?>)getBeliefs()).basicRemove(otherEnd, msgs);
         }
@@ -169,8 +140,6 @@ public class IdeologyImpl extends MinimalEObjectImpl.Container implements Ideolo
         switch (featureID) {
             case DemocdslPackage.IDEOLOGY__NAME:
                 return getName();
-            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
-                return getConstituents();
             case DemocdslPackage.IDEOLOGY__BELIEFS:
                 return getBeliefs();
         }
@@ -188,10 +157,6 @@ public class IdeologyImpl extends MinimalEObjectImpl.Container implements Ideolo
         switch (featureID) {
             case DemocdslPackage.IDEOLOGY__NAME:
                 setName((String)newValue);
-                return;
-            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
-                getConstituents().clear();
-                getConstituents().addAll((Collection<? extends Constituent>)newValue);
                 return;
             case DemocdslPackage.IDEOLOGY__BELIEFS:
                 getBeliefs().clear();
@@ -212,9 +177,6 @@ public class IdeologyImpl extends MinimalEObjectImpl.Container implements Ideolo
             case DemocdslPackage.IDEOLOGY__NAME:
                 setName(NAME_EDEFAULT);
                 return;
-            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
-                getConstituents().clear();
-                return;
             case DemocdslPackage.IDEOLOGY__BELIEFS:
                 getBeliefs().clear();
                 return;
@@ -232,8 +194,6 @@ public class IdeologyImpl extends MinimalEObjectImpl.Container implements Ideolo
         switch (featureID) {
             case DemocdslPackage.IDEOLOGY__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
-                return constituents != null && !constituents.isEmpty();
             case DemocdslPackage.IDEOLOGY__BELIEFS:
                 return beliefs != null && !beliefs.isEmpty();
         }

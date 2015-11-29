@@ -14,9 +14,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -65,6 +63,8 @@ public class ConstituentItemProvider
 
             addNamePropertyDescriptor(object);
             addIndependencePropertyDescriptor(object);
+            addInfluencesOutPropertyDescriptor(object);
+            addInfluencesInPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -114,6 +114,50 @@ public class ConstituentItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Influences Out feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addInfluencesOutPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Constituent_influencesOut_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Constituent_influencesOut_feature", "_UI_Constituent_type"),
+                 DemocdslPackage.Literals.CONSTITUENT__INFLUENCES_OUT,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Influences In feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addInfluencesInPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Constituent_influencesIn_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Constituent_influencesIn_feature", "_UI_Constituent_type"),
+                 DemocdslPackage.Literals.CONSTITUENT__INFLUENCES_IN,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
+    }
+
+    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -125,7 +169,6 @@ public class ConstituentItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(DemocdslPackage.Literals.CONSTITUENT__ATOMIC_CONSTITUENT);
             childrenFeatures.add(DemocdslPackage.Literals.CONSTITUENT__BELIEFS);
         }
         return childrenFeatures;
@@ -186,7 +229,6 @@ public class ConstituentItemProvider
             case DemocdslPackage.CONSTITUENT__INDEPENDENCE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
-            case DemocdslPackage.CONSTITUENT__ATOMIC_CONSTITUENT:
             case DemocdslPackage.CONSTITUENT__BELIEFS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
@@ -204,11 +246,6 @@ public class ConstituentItemProvider
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
-
-        newChildDescriptors.add
-            (createChildParameter
-                (DemocdslPackage.Literals.CONSTITUENT__ATOMIC_CONSTITUENT,
-                 DemocdslFactory.eINSTANCE.createConstituent()));
 
         newChildDescriptors.add
             (createChildParameter

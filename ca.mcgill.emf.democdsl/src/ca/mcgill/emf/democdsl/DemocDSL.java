@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface DemocDSL extends EObject {
     /**
-     * Returns the value of the '<em><b>Constituents</b></em>' containment reference list.
+     * Returns the value of the '<em><b>Constituents</b></em>' reference list.
      * The list contents are of type {@link ca.mcgill.emf.democdsl.Constituent}.
      * <!-- begin-user-doc -->
      * <p>
@@ -36,15 +36,15 @@ public interface DemocDSL extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Constituents</em>' containment reference list.
+     * @return the value of the '<em>Constituents</em>' reference list.
      * @see ca.mcgill.emf.democdsl.DemocdslPackage#getDemocDSL_Constituents()
-     * @model containment="true"
+     * @model
      * @generated
      */
     EList<Constituent> getConstituents();
 
     /**
-     * Returns the value of the '<em><b>Ideologies</b></em>' containment reference list.
+     * Returns the value of the '<em><b>Ideologies</b></em>' reference list.
      * The list contents are of type {@link ca.mcgill.emf.democdsl.Ideology}.
      * <!-- begin-user-doc -->
      * <p>
@@ -52,9 +52,9 @@ public interface DemocDSL extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Ideologies</em>' containment reference list.
+     * @return the value of the '<em>Ideologies</em>' reference list.
      * @see ca.mcgill.emf.democdsl.DemocdslPackage#getDemocDSL_Ideologies()
-     * @model containment="true"
+     * @model
      * @generated
      */
     EList<Ideology> getIdeologies();
@@ -86,7 +86,7 @@ public interface DemocDSL extends EObject {
     void setName(String value);
 
     /**
-     * Returns the value of the '<em><b>Influences</b></em>' containment reference list.
+     * Returns the value of the '<em><b>Influences</b></em>' reference list.
      * The list contents are of type {@link ca.mcgill.emf.democdsl.Influence}.
      * <!-- begin-user-doc -->
      * <p>
@@ -94,9 +94,9 @@ public interface DemocDSL extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Influences</em>' containment reference list.
+     * @return the value of the '<em>Influences</em>' reference list.
      * @see ca.mcgill.emf.democdsl.DemocdslPackage#getDemocDSL_Influences()
-     * @model containment="true"
+     * @model
      * @generated
      */
     EList<Influence> getInfluences();

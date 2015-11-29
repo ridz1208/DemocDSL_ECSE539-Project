@@ -17,18 +17,18 @@ Package democdsl <http://www.example.org/democdsl>
   Class Constituent
     Attribute name : EString
     Attribute independence : EInt
-    Reference atomicConstituent : Constituent<<0..*>>
     Reference beliefs : Belief<<0..*>>
+    Reference influencesOut : Influence<<0..*>>
+    Reference influencesIn : Influence<<0..*>>
 
   Class Ideology
     Attribute name : EString
-    Reference constituents : Constituent<<0..*>>
     Reference beliefs : Belief<<0..*>>
 
   Class Influence
     Attribute weight : EInt
     Reference influenced : Constituent<<1..1>>
-    Reference influencer : Ideology<<1..1>>
+    Reference influencer : Constituent<<1..1>>
 
   Class Belief
     Attribute value : EInt

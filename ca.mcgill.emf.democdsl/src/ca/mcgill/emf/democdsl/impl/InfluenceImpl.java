@@ -4,11 +4,11 @@ package ca.mcgill.emf.democdsl.impl;
 
 import ca.mcgill.emf.democdsl.Constituent;
 import ca.mcgill.emf.democdsl.DemocdslPackage;
-import ca.mcgill.emf.democdsl.Ideology;
 import ca.mcgill.emf.democdsl.Influence;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -69,7 +69,7 @@ public class InfluenceImpl extends MinimalEObjectImpl.Container implements Influ
      * @generated
      * @ordered
      */
-    protected Ideology influencer;
+    protected Constituent influencer;
 
     /**
      * <!-- begin-user-doc -->
@@ -142,11 +142,14 @@ public class InfluenceImpl extends MinimalEObjectImpl.Container implements Influ
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setInfluenced(Constituent newInfluenced) {
+    public NotificationChain basicSetInfluenced(Constituent newInfluenced, NotificationChain msgs) {
         Constituent oldInfluenced = influenced;
         influenced = newInfluenced;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DemocdslPackage.INFLUENCE__INFLUENCED, oldInfluenced, influenced));
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DemocdslPackage.INFLUENCE__INFLUENCED, oldInfluenced, newInfluenced);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
     }
 
     /**
@@ -154,10 +157,29 @@ public class InfluenceImpl extends MinimalEObjectImpl.Container implements Influ
      * <!-- end-user-doc -->
      * @generated
      */
-    public Ideology getInfluencer() {
+    public void setInfluenced(Constituent newInfluenced) {
+        if (newInfluenced != influenced) {
+            NotificationChain msgs = null;
+            if (influenced != null)
+                msgs = ((InternalEObject)influenced).eInverseRemove(this, DemocdslPackage.CONSTITUENT__INFLUENCES_IN, Constituent.class, msgs);
+            if (newInfluenced != null)
+                msgs = ((InternalEObject)newInfluenced).eInverseAdd(this, DemocdslPackage.CONSTITUENT__INFLUENCES_IN, Constituent.class, msgs);
+            msgs = basicSetInfluenced(newInfluenced, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DemocdslPackage.INFLUENCE__INFLUENCED, newInfluenced, newInfluenced));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Constituent getInfluencer() {
         if (influencer != null && influencer.eIsProxy()) {
             InternalEObject oldInfluencer = (InternalEObject)influencer;
-            influencer = (Ideology)eResolveProxy(oldInfluencer);
+            influencer = (Constituent)eResolveProxy(oldInfluencer);
             if (influencer != oldInfluencer) {
                 if (eNotificationRequired())
                     eNotify(new ENotificationImpl(this, Notification.RESOLVE, DemocdslPackage.INFLUENCE__INFLUENCER, oldInfluencer, influencer));
@@ -171,7 +193,7 @@ public class InfluenceImpl extends MinimalEObjectImpl.Container implements Influ
      * <!-- end-user-doc -->
      * @generated
      */
-    public Ideology basicGetInfluencer() {
+    public Constituent basicGetInfluencer() {
         return influencer;
     }
 
@@ -180,11 +202,69 @@ public class InfluenceImpl extends MinimalEObjectImpl.Container implements Influ
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setInfluencer(Ideology newInfluencer) {
-        Ideology oldInfluencer = influencer;
+    public NotificationChain basicSetInfluencer(Constituent newInfluencer, NotificationChain msgs) {
+        Constituent oldInfluencer = influencer;
         influencer = newInfluencer;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, DemocdslPackage.INFLUENCE__INFLUENCER, oldInfluencer, influencer));
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DemocdslPackage.INFLUENCE__INFLUENCER, oldInfluencer, newInfluencer);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setInfluencer(Constituent newInfluencer) {
+        if (newInfluencer != influencer) {
+            NotificationChain msgs = null;
+            if (influencer != null)
+                msgs = ((InternalEObject)influencer).eInverseRemove(this, DemocdslPackage.CONSTITUENT__INFLUENCES_OUT, Constituent.class, msgs);
+            if (newInfluencer != null)
+                msgs = ((InternalEObject)newInfluencer).eInverseAdd(this, DemocdslPackage.CONSTITUENT__INFLUENCES_OUT, Constituent.class, msgs);
+            msgs = basicSetInfluencer(newInfluencer, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, DemocdslPackage.INFLUENCE__INFLUENCER, newInfluencer, newInfluencer));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case DemocdslPackage.INFLUENCE__INFLUENCED:
+                if (influenced != null)
+                    msgs = ((InternalEObject)influenced).eInverseRemove(this, DemocdslPackage.CONSTITUENT__INFLUENCES_IN, Constituent.class, msgs);
+                return basicSetInfluenced((Constituent)otherEnd, msgs);
+            case DemocdslPackage.INFLUENCE__INFLUENCER:
+                if (influencer != null)
+                    msgs = ((InternalEObject)influencer).eInverseRemove(this, DemocdslPackage.CONSTITUENT__INFLUENCES_OUT, Constituent.class, msgs);
+                return basicSetInfluencer((Constituent)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case DemocdslPackage.INFLUENCE__INFLUENCED:
+                return basicSetInfluenced(null, msgs);
+            case DemocdslPackage.INFLUENCE__INFLUENCER:
+                return basicSetInfluencer(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
@@ -222,7 +302,7 @@ public class InfluenceImpl extends MinimalEObjectImpl.Container implements Influ
                 setInfluenced((Constituent)newValue);
                 return;
             case DemocdslPackage.INFLUENCE__INFLUENCER:
-                setInfluencer((Ideology)newValue);
+                setInfluencer((Constituent)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -243,7 +323,7 @@ public class InfluenceImpl extends MinimalEObjectImpl.Container implements Influ
                 setInfluenced((Constituent)null);
                 return;
             case DemocdslPackage.INFLUENCE__INFLUENCER:
-                setInfluencer((Ideology)null);
+                setInfluencer((Constituent)null);
                 return;
         }
         super.eUnset(featureID);

@@ -7,6 +7,7 @@ package ca.mcgill.emf.democdsl.validation;
 import ca.mcgill.emf.democdsl.Belief;
 import ca.mcgill.emf.democdsl.Constituent;
 
+import ca.mcgill.emf.democdsl.Influence;
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -22,4 +23,10 @@ public interface ConstituentValidator {
     boolean validateIndependence(int value);
     boolean validateAtomicConstituent(EList<Constituent> value);
     boolean validateBeliefs(EList<Belief> value);
+
+    boolean validateInfluencesOut(EList<Influence> value);
+
+    boolean validateInfluencesIn(EList<Influence> value);
+
+    boolean validateInfluenced(Influence value);
 }

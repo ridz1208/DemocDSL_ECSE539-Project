@@ -14,9 +14,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -102,7 +100,6 @@ public class IdeologyItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(DemocdslPackage.Literals.IDEOLOGY__CONSTITUENTS);
             childrenFeatures.add(DemocdslPackage.Literals.IDEOLOGY__BELIEFS);
         }
         return childrenFeatures;
@@ -162,7 +159,6 @@ public class IdeologyItemProvider
             case DemocdslPackage.IDEOLOGY__NAME:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
-            case DemocdslPackage.IDEOLOGY__CONSTITUENTS:
             case DemocdslPackage.IDEOLOGY__BELIEFS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
@@ -180,11 +176,6 @@ public class IdeologyItemProvider
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
-
-        newChildDescriptors.add
-            (createChildParameter
-                (DemocdslPackage.Literals.IDEOLOGY__CONSTITUENTS,
-                 DemocdslFactory.eINSTANCE.createConstituent()));
 
         newChildDescriptors.add
             (createChildParameter

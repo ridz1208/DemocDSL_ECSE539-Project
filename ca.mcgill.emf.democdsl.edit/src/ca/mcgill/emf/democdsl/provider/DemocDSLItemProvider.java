@@ -14,9 +14,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -102,9 +100,6 @@ public class DemocDSLItemProvider
     public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
         if (childrenFeatures == null) {
             super.getChildrenFeatures(object);
-            childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__CONSTITUENTS);
-            childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__IDEOLOGIES);
-            childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__INFLUENCES);
             childrenFeatures.add(DemocdslPackage.Literals.DEMOC_DSL__BELIEFS);
         }
         return childrenFeatures;
@@ -164,9 +159,6 @@ public class DemocDSLItemProvider
             case DemocdslPackage.DEMOC_DSL__NAME:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
-            case DemocdslPackage.DEMOC_DSL__CONSTITUENTS:
-            case DemocdslPackage.DEMOC_DSL__IDEOLOGIES:
-            case DemocdslPackage.DEMOC_DSL__INFLUENCES:
             case DemocdslPackage.DEMOC_DSL__BELIEFS:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
@@ -184,21 +176,6 @@ public class DemocDSLItemProvider
     @Override
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
-
-        newChildDescriptors.add
-            (createChildParameter
-                (DemocdslPackage.Literals.DEMOC_DSL__CONSTITUENTS,
-                 DemocdslFactory.eINSTANCE.createConstituent()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (DemocdslPackage.Literals.DEMOC_DSL__IDEOLOGIES,
-                 DemocdslFactory.eINSTANCE.createIdeology()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (DemocdslPackage.Literals.DEMOC_DSL__INFLUENCES,
-                 DemocdslFactory.eINSTANCE.createInfluence()));
 
         newChildDescriptors.add
             (createChildParameter

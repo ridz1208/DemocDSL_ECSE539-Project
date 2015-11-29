@@ -17,6 +17,8 @@ public interface InfluenceValidator {
     boolean validate();
 
     boolean validateWeight(int value);
+    boolean validateInfluencer(Constituent value);
+
     boolean validateInfluenced(Constituent value);
     boolean validateInfluencer(Ideology value);
 }
