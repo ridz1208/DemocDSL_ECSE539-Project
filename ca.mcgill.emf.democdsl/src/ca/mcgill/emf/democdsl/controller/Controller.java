@@ -51,15 +51,10 @@ public class Controller {
             if(i.getInfluenced().getName().equals(target.getName()))
                 return false;
         }
-        /*
-        for (Belief b : democ.getBeliefs()) {
-            if(b.getName().equals(target.getName()))
-                return false;
-        }
-        */
         
-
-        
+        if(source.getName().equals(target.getName()))
+            //refuse reference to itself
+            return false;
         
         Influence newInfluence = DemocdslFactory.eINSTANCE.createInfluence();
         newInfluence.setWeight(weight);
@@ -83,8 +78,6 @@ public class Controller {
         newBelief.setName(name);
         //newBelief.setValue(value);
         democ.getBeliefs().add(newBelief);
-        
-        view.createBelief(newBelief.getName(), newBelief.getValue());
         
         return true;
     }
@@ -123,7 +116,9 @@ public class Controller {
         newBelief.setValue(value);
         
         c.getBeliefs().add(newBelief);
+
         
+        view.createBelief(newBelief.getName(), newBelief.getValue());
         view.linkBelief(c.getName(), b.getName());
         
         return true;
@@ -147,8 +142,10 @@ public class Controller {
         newBelief.setName(b.getName());
         newBelief.setValue(value);
         
-        i.getBeliefs().add(b);
+        i.getBeliefs().add(newBelief);
+
         
+        view.createBelief(newBelief.getName(), newBelief.getValue());
         view.linkBelief(i.getName(), b.getName());
         
         return true;
