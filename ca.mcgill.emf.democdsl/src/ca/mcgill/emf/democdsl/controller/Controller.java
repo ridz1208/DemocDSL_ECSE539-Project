@@ -23,7 +23,7 @@ public class Controller {
     
     public boolean createConstituent(String name, int independence){
         for (Constituent c : democ.getConstituents()) {
-            if(c.getName().equals(name))
+            if(c.getName().toLowerCase().equals(name.toLowerCase()))
                 return false;
         }
         
@@ -48,11 +48,11 @@ public class Controller {
         //check for duplicate influences
         for (Influence i : source.getInfluencesOut())
         {
-            if(i.getInfluenced().getName().equals(target.getName()))
+            if(i.getInfluenced().getName().toLowerCase().equals(target.getName().toLowerCase()))
                 return false;
         }
         
-        if(source.getName().equals(target.getName()))
+        if(source.getName().toLowerCase().equals(target.getName().toLowerCase()))
             //refuse reference to itself
             return false;
         
@@ -70,7 +70,7 @@ public class Controller {
     
     public boolean createBelief(String name) {
         for (Belief b : democ.getBeliefs()) {
-            if(b.getName().equals(name))
+            if(b.getName().toLowerCase().equals(name.toLowerCase()))
                 return false;
         }
         
@@ -84,7 +84,7 @@ public class Controller {
     
     public boolean createIdeology(String name) {
         for (Ideology i : democ.getIdeologies()) {
-            if(i.getName().equals(name))
+            if(i.getName().toLowerCase().equals(name.toLowerCase()))
                 return false;
         }
         
@@ -106,7 +106,7 @@ public class Controller {
         
         //check for duplicates
         for (Belief bel : c.getBeliefs()){
-            if (bel.getName().equals(b.getName())){
+            if (bel.getName().toLowerCase().equals(b.getName().toLowerCase())){
                 return false;
             }
         }
@@ -133,7 +133,7 @@ public class Controller {
         
         //check for duplicates
         for (Belief bel : i.getBeliefs()){
-            if (bel.getName().equals(b.getName())){
+            if (bel.getName().toLowerCase().equals(b.getName().toLowerCase())){
                 return false;
             }
         }
