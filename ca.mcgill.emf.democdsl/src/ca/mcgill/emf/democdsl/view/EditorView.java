@@ -78,6 +78,7 @@ public class EditorView extends JFrame {
 
     private JButton addInfluenceButton;
     private JButton addBeliefButton;
+    private JButton doneBeliefButton;
     private JButton addIdeologyButton;
     private JButton addConstituentButton;
     private JButton linkBeliefButton;
@@ -182,6 +183,7 @@ public class EditorView extends JFrame {
         //buttons
         addInfluenceButton=new JButton();
         addBeliefButton=new JButton();
+        doneBeliefButton=new JButton();
         addIdeologyButton=new JButton();
         addConstituentButton=new JButton();
         linkBeliefButton = new JButton();
@@ -207,6 +209,7 @@ public class EditorView extends JFrame {
         //BUTTON TEXT
         addInfluenceButton.setText("Add Influence");
         addBeliefButton.setText("Add Belief");
+        doneBeliefButton.setText("Finished");
         addIdeologyButton.setText("Add Ideology");
         addConstituentButton.setText("Add Constituent");
         linkBeliefButton.setText("Link");
@@ -247,7 +250,7 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBeliefSubject = cb.getSelectedIndex();
-                if (selectedBeliefSubject >=0 && selectedBelief >=0)
+                if (selectedBeliefSubject >=0 && selectedBelief >=0 && selectedBeliefWeight >= 0)
                 {
                     linkBeliefButton.setEnabled(true);
                 }
@@ -257,9 +260,9 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBeliefWeight = cb.getSelectedIndex();
-                if (selectedBeliefWeight>=0)
+                if (selectedBeliefSubject >=0 && selectedBelief >=0 && selectedBeliefWeight >= 0)
                 {
-                    addBeliefButton.setEnabled(true);
+                    linkBeliefButton.setEnabled(true);
                 }
             }
         });
@@ -277,7 +280,7 @@ public class EditorView extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JComboBox<String> cb = (JComboBox<String>) evt.getSource();
                 selectedBelief = cb.getSelectedIndex();
-                if (selectedBeliefSubject >=0 && selectedBelief >=0)
+                if (selectedBeliefSubject >=0 && selectedBelief >=0 && selectedBeliefWeight >= 0)
                 {
                     linkBeliefButton.setEnabled(true);
                 }
@@ -294,6 +297,12 @@ public class EditorView extends JFrame {
         addBeliefButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBeliefButtonActionPerformed(evt);
+            }
+        });
+        doneBeliefButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBeliefButton.setEnabled(false);
+                beliefNameText.setEnabled(false);
             }
         });
         addConstituentButton.addActionListener(new java.awt.event.ActionListener() {
@@ -313,7 +322,7 @@ public class EditorView extends JFrame {
         });
         //DISABLE INITIALLY
         addInfluenceButton.setEnabled(false);
-        addBeliefButton.setEnabled(false);
+        //addBeliefButton.setEnabled(false);
         addConstituentButton.setEnabled(false);
         //addIdeologyButton.setEnabled(false);
         linkBeliefButton.setEnabled(false);
@@ -334,24 +343,6 @@ public class EditorView extends JFrame {
                 .addComponent(errorMessage)
                 .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup()
-                                .addComponent(influenceCreateLabel)
-                                .addComponent(influencerSelectLabel)
-                                .addComponent(influenceeSelectLabel)
-                                .addComponent(influenceWeightLabel)
-                                .addComponent(linkBeliefCreateLabel)
-                                .addComponent(beliefSubjectLabel)
-                                .addComponent(beliefSelectLabel)
-                                )
-                        .addGroup(layout.createParallelGroup()
-                                .addComponent(influencerList)
-                                .addComponent(influenceeList)
-                                .addComponent(influenceWeightList)
-                                .addComponent(addInfluenceButton,200,200,200)
-                                .addComponent(beliefSubjectList)
-                                .addComponent(beliefList)
-                                .addComponent(linkBeliefButton,200,200,200)
-                                )
-                        .addGroup(layout.createParallelGroup()
                                 .addComponent(constituentCreateLabel)
                                 .addComponent(constituentNamelabel)
                                 .addComponent(constituentIndependencelabel)
@@ -360,6 +351,13 @@ public class EditorView extends JFrame {
                                 .addComponent(beliefCreateLabel)
                                 .addComponent(beliefNameLabel)
                                 .addComponent(beliefWeightLabel)
+                                .addComponent(influenceCreateLabel)
+                                .addComponent(influencerSelectLabel)
+                                .addComponent(influenceeSelectLabel)
+                                .addComponent(influenceWeightLabel)
+                                .addComponent(linkBeliefCreateLabel)
+                                .addComponent(beliefSubjectLabel)
+                                .addComponent(beliefSelectLabel)
                                 )
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(constituentNameText)
@@ -370,6 +368,14 @@ public class EditorView extends JFrame {
                                 .addComponent(beliefNameText)
                                 .addComponent(beliefWeightList)
                                 .addComponent(addBeliefButton,200,200,200)
+                                .addComponent(doneBeliefButton,200,200,200)
+                                .addComponent(influencerList)
+                                .addComponent(influenceeList)
+                                .addComponent(influenceWeightList)
+                                .addComponent(addInfluenceButton,200,200,200)
+                                .addComponent(beliefSubjectList)
+                                .addComponent(beliefList)
+                                .addComponent(linkBeliefButton,200,200,200)
                                 )
                         )
                 );
@@ -384,61 +390,78 @@ public class EditorView extends JFrame {
                 layout.createSequentialGroup()
                 .addComponent(errorMessage)
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(influenceCreateLabel)
                         .addComponent(constituentCreateLabel)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(influencerSelectLabel)
-                        .addComponent(influencerList)
+                        
                         .addComponent(constituentNamelabel)
                         .addComponent(constituentNameText)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(influenceeSelectLabel)
-                        .addComponent(influenceeList)
                         .addComponent(constituentIndependencelabel)
                         .addComponent(constituentIndependenceList)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(influenceWeightLabel)
-                        .addComponent(influenceWeightList)
                         .addComponent(addConstituentButton)
                         )
-                .addGroup(layout.createParallelGroup()
-                        .addComponent(addInfluenceButton)
-                        )   
                 .addGroup(layout.createParallelGroup()
                         .addComponent(ideologyCreateLabel)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(linkBeliefCreateLabel)
                         .addComponent(ideologyNameLabel)
                         .addComponent(ideologyNameText)
                         )
                 .addGroup(layout.createParallelGroup()
+                        .addComponent(addIdeologyButton)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(beliefCreateLabel)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(beliefNameLabel)
+                        .addComponent(beliefNameText)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(addBeliefButton)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(doneBeliefButton)
+                        )
+                .addGroup(layout.createParallelGroup() //////////////////////////////////////
+                        .addComponent(influenceCreateLabel)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(influencerSelectLabel)
+                        .addComponent(influencerList)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(influenceeSelectLabel)
+                        .addComponent(influenceeList)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(influenceWeightLabel)
+                        .addComponent(influenceWeightList)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(addInfluenceButton)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(linkBeliefCreateLabel)
+                        )
+                .addGroup(layout.createParallelGroup()
                         .addComponent(beliefSubjectLabel)
                         .addComponent(beliefSubjectList)
-                        .addComponent(addIdeologyButton)
                         )
                 .addGroup(layout.createParallelGroup()
                         .addComponent(beliefSelectLabel)
                         .addComponent(beliefList)
                         )
                 .addGroup(layout.createParallelGroup()
-                        
-                        .addComponent(beliefCreateLabel)
-                        )
-                .addGroup(layout.createParallelGroup()
-                        .addComponent(linkBeliefButton)
-                        .addComponent(beliefNameLabel)
-                        .addComponent(beliefNameText)
-                        )
-                .addGroup(layout.createParallelGroup()
                         .addComponent(beliefWeightLabel)
                         .addComponent(beliefWeightList)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(addBeliefButton)
+                        .addComponent(linkBeliefButton)
                         )
                 );
 
@@ -475,6 +498,7 @@ public class EditorView extends JFrame {
                 influences.put(indexInf, i);
                 indexInf++;
             }
+            
             beliefs = new HashMap<Integer, Belief>();
             Iterator<Belief> bIt = ddsl.getBeliefs().iterator();
             Integer indexB = 0;
@@ -484,6 +508,7 @@ public class EditorView extends JFrame {
                 beliefList.addItem(b.getName());
                 indexB++;
             }
+            
             //System.out.println(ddsl.getConstituents());
             constituents = new HashMap<Integer, Constituent>();
             Iterator<Constituent> cIt = ddsl.getConstituents().iterator();
@@ -492,19 +517,21 @@ public class EditorView extends JFrame {
                 Constituent c = cIt.next();
                 constituents.put(indexC, c);
                 influenceeList.addItem(c.getName());
+                influencerList.addItem(c.getName());
                 //add to subjects too and increment counter
                 subjects.put(indexS, c);
                 beliefSubjectList.addItem(c.getName());
                 indexC++;
                 indexS++;
             }
+            
             ideologies = new HashMap<Integer, Ideology>();
             Iterator<Ideology> idIt = ddsl.getIdeologies().iterator();
             Integer indexId = 0;
             while (idIt.hasNext()) {
                 Ideology id = idIt.next();
                 ideologies.put(indexId, id);
-                influencerList.addItem(id.getName());
+                //influencerList.addItem(id.getName());
                 subjects.put(indexS, id);
                 beliefSubjectList.addItem(id.getName());
                 indexId++;
@@ -531,7 +558,7 @@ public class EditorView extends JFrame {
             selectedBelief = -1;
             
             addInfluenceButton.setEnabled(false);
-            addBeliefButton.setEnabled(false);
+            //addBeliefButton.setEnabled(false);
             addConstituentButton.setEnabled(false);
             //addIdeologyButton.setEnabled(false);
             linkBeliefButton.setEnabled(false);
@@ -541,12 +568,13 @@ public class EditorView extends JFrame {
     }
 
     private void addInfluenceButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        Ideology i = ideologies.get(selectedInfluencer);
-        Constituent c = constituents.get(selectedInfluencee);
+        //Ideology i = ideologies.get(selectedInfluencer);
+        Constituent c1 = constituents.get(selectedInfluencer);
+        Constituent c2 = constituents.get(selectedInfluencee);
         error = "";
         boolean e;
         int weight = selectedInfluenceWeight+1;
-        e = dslc.createInfluence(c,i,weight);
+        e = dslc.createInfluence(c1,c2,weight);
         if(e==false)
         {
             error = error + "Could not add the influence relationship";
@@ -555,6 +583,7 @@ public class EditorView extends JFrame {
         refreshData();
     }
     private void addBeliefButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        //DEPRECATED
         error = "";
         boolean e;
         if (beliefNameText.getText().length() <= 1){
@@ -562,7 +591,7 @@ public class EditorView extends JFrame {
         }
         error = error.trim();
         if (error.length() == 0) {
-            e= dslc.createBelief(beliefNameText.getText(),selectedBeliefWeight+1);
+            e= dslc.createBelief(beliefNameText.getText());
             if (e == false)
             {
                 error = error + "Belief with this name already exists";
@@ -578,7 +607,7 @@ public class EditorView extends JFrame {
         boolean e;
         if (s instanceof Constituent)
         {
-            e = dslc.linkBeliefToConstituent(b, (Constituent) s);
+            e = dslc.linkBeliefToConstituent(b, (Constituent) s,selectedBeliefWeight+1);
             if (e == false)
             {
                 error = error + "Could not add belief to Constituent";
@@ -586,7 +615,7 @@ public class EditorView extends JFrame {
         }
         if(s instanceof Ideology)
         {
-            e = dslc.linkBeliefToIdeology(b, (Ideology) s);
+            e = dslc.linkBeliefToIdeology(b, (Ideology) s,selectedBeliefWeight+1);
             if (e == false)
             {
                 error = error + "Could not add belief to Ideology";
