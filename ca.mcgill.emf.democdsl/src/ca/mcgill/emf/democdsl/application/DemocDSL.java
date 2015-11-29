@@ -31,9 +31,6 @@ public class DemocDSL {
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditorView(c,model).setVisible(true);
-                
-                //TODO initialize model view
                 JFrame f = new JFrame("Model View");
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
@@ -42,6 +39,12 @@ public class DemocDSL {
                 f.pack();
                 f.setSize(new Dimension(800,600));
                 f.setVisible(true);
+                
+
+                EditorView edit = new EditorView(c,model);
+                edit.setLocation(f.getWidth(), 0);
+                edit.setVisible(true);
+                
             }
         });
         

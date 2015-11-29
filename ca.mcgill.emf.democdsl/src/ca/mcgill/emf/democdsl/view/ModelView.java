@@ -1,5 +1,7 @@
 /**
- * 
+ * McGill University
+ * ECSE 539 - Software Language Engineering
+ * Project
  */
 package ca.mcgill.emf.democdsl.view;
 
@@ -12,6 +14,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
@@ -19,7 +22,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * View for the model concrete syntax
@@ -29,7 +31,7 @@ import java.util.Iterator;
 public class ModelView extends JApplet implements MouseMotionListener, MouseListener{
 
     /**
-     * 
+     * Applet where the model can be viewed and elements moved
      */
     private static final long serialVersionUID = -1385748433095965892L;
     
@@ -37,21 +39,13 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     Dimension d;
     
     /*
-     * Moving attributes
+     * Model attributes
      */
     private ArrayList<DemocIcon> elements = new ArrayList<DemocIcon>();
     private ArrayList<Object> links = new ArrayList<Object>();
-
-    /**
-     * Constructor
-     */
-    public ModelView() {
-        addMouseListener(this);
-        addMouseMotionListener(this);
-    }
     
-    final static int maxCharHeight = 15;
-    final static int minFontSize = 6;
+    final static int maxCharHeight = 20;
+    final static int minFontSize = 10;
 
     final static Color bg = Color.white;
     final static Color fg = Color.black;
@@ -70,8 +64,15 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     Dimension totalSize;
     FontMetrics fontMetrics;
     Image backbuffer;
+    //drawing arrows attributes
+    AffineTransform tx = new AffineTransform();
+    Polygon arrowHead = new Polygon();
+    
 
     public void init() {
+        //add listeners
+        addMouseListener(this);
+        addMouseMotionListener(this);
         //Initialize drawing colors
         setBackground(bg);
         setForeground(fg);
@@ -79,10 +80,9 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     }
     
     private double[] findEmptySpot(double width, double height) {
-        
         Dimension d = getSize();
-        Double maxX = d.getWidth()/2.0;
-        Double maxY = d.getHeight()/2.0;
+        double maxX = d.getWidth()/2.0;
+        double maxY = d.getHeight()/2.0;
         double x = 1.0;
         double y = 1.0;
         
@@ -91,6 +91,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
             found = true;
             for (Object r : elements) {
                 DemocIcon i = (DemocIcon)r;
+                //if we will recover an existing element, move away
                 if((new Rectangle2D.Double(x, y, width, height)).contains(
                         i.shape.getX(), i.shape.getY())){
                     x = x + width;
@@ -99,7 +100,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
                     break;
                 }
             }
-
+            //if we went out of the rendering area, loop back
             if(x >= maxX || y >= maxY) {
                 x = 0.0;
                 y = 0.0;
@@ -107,12 +108,8 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
             }
         } while (!found);
         
-        
         double[] spot = {x, y};
-                
-        
         return spot;
-        
     }
 
     FontMetrics pickFont(Graphics2D g2,
@@ -147,62 +144,15 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     }
 
     public void paint(Graphics g) {
+        //buffer to prevent flickering
         backbuffer = createImage(getSize().width, getSize().height);
         g2 = (Graphics2D)backbuffer.getGraphics();
         
         //g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         d = getSize();
-        int gridWidth = d.width / 6;
-        int gridHeight = d.height / 2;
-
-        fontMetrics = pickFont(g2, "Filled and Stroked GeneralPath",
-                               gridWidth);
-        /*
-        Color fg3D = Color.lightGray;
         
-        g2.setPaint(fg3D);
-        g2.draw3DRect(0, 0, d.width - 1, d.height - 1, true);
-        g2.draw3DRect(3, 3, d.width - 7, d.height - 7, false);
-        g2.setPaint(fg);
-        */
-        int x = 5;
-        int y = 7;
-        int rectWidth = gridWidth - 2*x;
-        int stringY = gridHeight - 3 - fontMetrics.getDescent();
-        int rectHeight = stringY - fontMetrics.getMaxAscent() - y - 2;
-/*
-        // draw Line2D.Double
-        g2.draw(new Line2D.Double(x, y+rectHeight-1, x + rectWidth, y));
-        g2.drawString("Line2D", x, stringY);
-        x += gridWidth;
-
-        // draw Rectangle2D.Double
-        g2.setStroke(stroke);
-        g2.draw(new Rectangle2D.Double(x, y, rectWidth, rectHeight));
-        g2.drawString("Rectangle2D", x, stringY);
-        x += gridWidth;      
-
-        // draw  RoundRectangle2D.Double
-        g2.setStroke(dashed);
-        g2.draw(new RoundRectangle2D.Double(x, y, rectWidth, 
-                                            rectHeight, 10, 10));
-        g2.drawString("RoundRectangle2D", x, stringY);
-        x += gridWidth;
-
-        // draw Ellipse2D.Double
-        g2.setStroke(stroke);
-        g2.draw(new Ellipse2D.Double(x, y, rectWidth, rectHeight));
-        g2.drawString("Ellipse2D", x, stringY);
-        x += gridWidth;*/
-
-        
-
-        // NEW ROW
-        x = 5;
-        y += gridHeight;
-        stringY += gridHeight;
-
+        //draw model elements in the refresh method
         refresh();
         
         g.drawImage(backbuffer, 0, 0, null);
@@ -213,20 +163,11 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     public void refresh() {
         // blank the canvas
         g2.setColor(bg);
-        double dWidth = d.getWidth();
-        double dHeight = d.getHeight();
-        g2.fillRect(0,0, (int)dWidth, (int)dHeight);
-        
-
+        g2.fillRect(0,0, d.width, d.height);
         g2.setColor(fg);   
 
         for(Object l : links) {
             ((Influence) l).draw();
-            /*
-            DemocIcon[] i = (DemocIcon[])l;
-            g2.drawLine((int)i[0].shape.getCenterX(), (int)i[0].shape.getCenterY(),
-                    (int)i[1].shape.getCenterX(), (int)i[1].shape.getCenterY());
-                    */
         }
         
         for(Object r : elements) {
@@ -238,7 +179,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     
     public void createConstituent(String name, int ind){
         Dimension d = getSize();
-        double w = d.getWidth()/20.0;
+        double w = d.getWidth()/20.0 + (name.length()*2);
         double h = d.getWidth()/20.0;
         double[] spot = findEmptySpot(w, h);
         
@@ -250,7 +191,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
 
     public void createIdeology(String name) {
         Dimension d = getSize();
-        double w = d.getWidth()/20.0;
+        double w = d.getWidth()/20.0 + (name.length()*2);
         double h = d.getWidth()/20.0;
         double[] spot = findEmptySpot(w, h);
         
@@ -264,7 +205,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     
     public void createBelief(String name, int weight){
         Dimension d = getSize();
-        double w = d.getWidth()/20.0;
+        double w = d.getWidth()/20.0 + (name.length()*2);
         double h = d.getWidth()/20.0;
         double[] spot = findEmptySpot(w, h);
         
@@ -305,27 +246,36 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     }
     
     public void linkBelief(String target, String belief) {
-        DemocIcon ideo = null;
+        DemocIcon bel = null;
         DemocIcon t = null;
-        //finds first element with name
+        //finds first non linked belief with name
         for(DemocIcon b : elements) {
             if(b.name.equals(belief)){
-                ideo = b;
-                break;
-            }
-                
+                boolean beliefIsLinked = false;
+                for (Object o : links) {
+                    //check if belief is not linked already
+                    Influence i = (Influence)o;
+                    if(i.target == b)
+                        beliefIsLinked = true;
+                }
+                if (!beliefIsLinked) {
+                    bel = b;
+                    break;
+                }
+            }   
         }
-        for(DemocIcon c : elements) {
+        //find target to link with belief
+        for (int i = elements.size()-1; i >= 0; i--) {
+            DemocIcon c = elements.get(i);
             if(c.name.equals(target)){
                 t = c;
                 break;
             }
-                
         }
         
-        if(ideo != null && t != null) {
+        if(bel != null && t != null) {
             //store ideology, constituent and Line2D
-            Influence i = new Influence(t, ideo, 0);
+            Influence i = new Influence(t, bel, 0);
             i.isLink = true;
             links.add(i);
         }
@@ -537,7 +487,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
             super.draw();
             
             double xString = shape.getCenterX() - shape.getWidth() / 4.0;
-            double yString = shape.getCenterY() + shape.getHeight() / 6.0;
+            double yString = shape.getCenterY() + shape.getHeight() / 4.0;
             g2.drawString("ind: "+independence, (int)xString, (int)yString);
         }
         
@@ -600,7 +550,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
             
             
             double xString = shape.getCenterX()  - shape.getWidth() / 4.0;
-            double yString = shape.getCenterY() + shape.getHeight() / 6.0;;
+            double yString = shape.getCenterY() + shape.getHeight() / 4.0;;
             g2.drawString("val: "+value, (int)xString, (int)yString);
         }
         
@@ -627,14 +577,64 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         }
         
         public void draw() {
+            //Draw line
             if(isLink)
                 g2.setStroke(dashed);
-            line = new Line2D.Double(source.shape.getCenterX(), source.shape.getCenterY(), 
+            //set line end to appropriate corner
+            double targetX = 0;
+            double targetY = 0;
+            double dist = Double.POSITIVE_INFINITY;
+            int margin = 5;
+            Point2D[] corners = {new Point((int)target.shape.getX()-margin, (int)target.shape.getY()-margin),
+                new Point((int)(target.shape.getX() + target.shape.getWidth()/2.0), (int)target.shape.getY()-margin),
+                new Point((int)target.shape.getMaxX()+margin, (int)target.shape.getY()),
+                new Point((int)(target.shape.getMaxX())+margin, (int)(target.shape.getY() + target.shape.getHeight()/2.0)),
+                new Point((int)target.shape.getX()-margin, (int)target.shape.getMaxY()+margin),
+                new Point((int)(target.shape.getX()-margin), (int)(target.shape.getY() + target.shape.getHeight()/2.0)),
+                new Point((int)target.shape.getMaxX()+margin, (int)target.shape.getMaxY()+margin),
+                new Point((int)(target.shape.getMaxX() - target.shape.getWidth()/2.0), (int)target.shape.getMaxY()+margin),
+            };
+            for (int i = 0; i < corners.length; i++) {
+                //find closest corner
+                Point2D p = corners[i];
+                if(Point2D.distance(source.shape.getCenterX(), source.shape.getCenterY(), 
+                        p.getX(), p.getY()) < dist) {
+                    dist = Point2D.distance(source.shape.getCenterX(), source.shape.getCenterY(), 
+                            p.getX(), p.getY());
+                    targetX = p.getX();
+                    targetY = p.getY();
+                }
+                    
+                
+            }
+            if (!isLink) {
+                line = new Line2D.Double(source.shape.getCenterX(), source.shape.getCenterY(),
+                        targetX, targetY);
+            } else {
+                line = new Line2D.Double(source.shape.getCenterX(), source.shape.getCenterY(), 
                                      target.shape.getCenterX(), target.shape.getCenterY());
-            
+                        
+            }
             g2.draw(line);
             g2.setStroke(stroke);
             
+            //draw arrow
+            arrowHead.addPoint( 0,5);
+            arrowHead.addPoint( -5, -5);
+            arrowHead.addPoint( 5,-5);
+            
+            if (!isLink) {
+                tx.setToIdentity();
+                double angle = Math.atan2(line.getY2() - line.getY1(),
+                        line.getX2() - line.getX1());
+                tx.translate(line.getX2(), line.getY2());
+                tx.rotate((angle - Math.PI / 2d));
+                AffineTransform oldXForm = g2.getTransform();
+                g2.setTransform(tx);
+                g2.setColor(fg);
+                g2.fill(arrowHead);
+                g2.setTransform(oldXForm);
+            }
             double xString = line.getBounds2D().getCenterX();//  - line.getBounds2D().getWidth() / 6.0;
             double yString = line.getBounds2D().getCenterY();// + line.getBounds2D().getHeight() / 6.0;
             if(!isLink)

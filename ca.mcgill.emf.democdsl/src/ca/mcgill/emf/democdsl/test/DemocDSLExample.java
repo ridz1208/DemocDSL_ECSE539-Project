@@ -35,18 +35,15 @@ public class DemocDSLExample {
         Constituent urbanPop = DemocdslFactory.eINSTANCE.createConstituent();
         urbanPop.setName("Urban Population");
         urbanPop.setIndependence(8);
-        Influence urbanLiberalInfluence = DemocdslFactory.eINSTANCE.createInfluence();
-        urbanLiberalInfluence.setWeight(8);
-        urbanLiberalInfluence.setInfluencer(liberal);
-        urbanLiberalInfluence.setInfluenced(urbanPop);
         
         Constituent ruralPop = DemocdslFactory.eINSTANCE.createConstituent();
         ruralPop.setName("Rural Population");
         ruralPop.setIndependence(8);
-        Influence ruralConservativeInfluence = DemocdslFactory.eINSTANCE.createInfluence();
-        ruralConservativeInfluence.setWeight(8);
-        ruralConservativeInfluence.setInfluencer(conservative);
-        ruralConservativeInfluence.setInfluenced(ruralPop);
+        Influence urbanToRuralInfluence = DemocdslFactory.eINSTANCE.createInfluence();
+        urbanToRuralInfluence.setWeight(8);
+        urbanPop.getInfluencesOut().add(urbanToRuralInfluence);
+        urbanToRuralInfluence.setInfluenced(ruralPop);
+        //urbanToRuralInfluence.getWeight();
         
         //create some beliefs
         Belief lowMiddleclassTax = DemocdslFactory.eINSTANCE.createBelief();
