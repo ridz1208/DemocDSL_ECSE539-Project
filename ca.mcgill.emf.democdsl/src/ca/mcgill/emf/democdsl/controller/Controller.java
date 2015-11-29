@@ -73,7 +73,7 @@ public class Controller {
         return true;
     }
     
-    public boolean createBelief(String name, int value) {
+    public boolean createBelief(String name) {
         for (Belief b : democ.getBeliefs()) {
             if(b.getName().equals(name))
                 return false;
@@ -81,7 +81,7 @@ public class Controller {
         
         Belief newBelief = DemocdslFactory.eINSTANCE.createBelief();
         newBelief.setName(name);
-        newBelief.setValue(value);
+        //newBelief.setValue(value);
         democ.getBeliefs().add(newBelief);
         
         view.createBelief(newBelief.getName(), newBelief.getValue());
@@ -104,7 +104,7 @@ public class Controller {
         return true;
     }
     
-    public boolean linkBeliefToConstituent(Belief b, Constituent c) {
+    public boolean linkBeliefToConstituent(Belief b, Constituent c, int value) {
         if(!democ.getConstituents().contains(c))
             return false;
         
@@ -118,14 +118,18 @@ public class Controller {
             }
         }
         
-        c.getBeliefs().add(b);
+        Belief newBelief = DemocdslFactory.eINSTANCE.createBelief();
+        newBelief.setName(b.getName());
+        newBelief.setValue(value);
+        
+        c.getBeliefs().add(newBelief);
         
         view.linkBelief(c.getName(), b.getName());
         
         return true;
     }
     
-    public boolean linkBeliefToIdeology(Belief b, Ideology i) {
+    public boolean linkBeliefToIdeology(Belief b, Ideology i, int value) {
         if(!democ.getIdeologies().contains(i))
             return false;
         
@@ -138,6 +142,10 @@ public class Controller {
                 return false;
             }
         }
+        
+        Belief newBelief = DemocdslFactory.eINSTANCE.createBelief();
+        newBelief.setName(b.getName());
+        newBelief.setValue(value);
         
         i.getBeliefs().add(b);
         
