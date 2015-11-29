@@ -23,7 +23,9 @@ public class DemocDSL {
         final ca.mcgill.emf.democdsl.DemocDSL model = DemocdslFactory.eINSTANCE.createDemocDSL();
         model.setName("Model");
         
-        final Controller c = new Controller(model);
+        final JApplet applet = new ModelView();
+        
+        final Controller c = new Controller(model, (ModelView)applet);
             
 		
 		// start UI
@@ -34,7 +36,7 @@ public class DemocDSL {
                 //TODO initialize model view
                 JFrame f = new JFrame("Model View");
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                final JApplet applet = new ModelView();
+                
                 f.getContentPane().add("Center", applet);
                 applet.init();
                 f.pack();

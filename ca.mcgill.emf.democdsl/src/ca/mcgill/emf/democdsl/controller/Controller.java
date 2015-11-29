@@ -4,6 +4,7 @@
 package ca.mcgill.emf.democdsl.controller;
 
 import ca.mcgill.emf.democdsl.*;
+import ca.mcgill.emf.democdsl.view.ModelView;
 
 /**
  * Controller for the EMF generated model DemocDSL
@@ -13,9 +14,11 @@ import ca.mcgill.emf.democdsl.*;
 public class Controller {
     
     private DemocDSL democ;
+    private ModelView view;
     
-    public Controller(DemocDSL d) {
+    public Controller(DemocDSL d, ModelView v) {
         democ = d;
+        view = v;
     }
     
     public boolean createConstituent(String name, int independence){
@@ -28,6 +31,8 @@ public class Controller {
         newConst.setName(name);
         newConst.setIndependence(independence);
         democ.getConstituents().add(newConst);
+        
+        view.createConstituent(newConst.getName(), newConst.getIndependence());
         
         return true;
         
@@ -61,6 +66,8 @@ public class Controller {
         democ.getInfluences().add(newInfluence);
         //i.getConstituents().add(c);
         
+        view.createInfluence(i.getName(), c.getName(), newInfluence.getWeight());
+        
         return true;
     }
     
@@ -75,6 +82,8 @@ public class Controller {
         newBelief.setValue(value);
         democ.getBeliefs().add(newBelief);
         
+        view.createBelief(newBelief.getName(), newBelief.getValue());
+        
         return true;
     }
     
@@ -87,6 +96,8 @@ public class Controller {
         Ideology newIdeo = DemocdslFactory.eINSTANCE.createIdeology();
         newIdeo.setName(name);
         democ.getIdeologies().add(newIdeo);
+        
+        view.createIdeology(newIdeo.getName());
         
         return true;
     }
@@ -107,6 +118,8 @@ public class Controller {
         
         c.getBeliefs().add(b);
         
+        view.linkBelief(c.getName(), b.getName());
+        
         return true;
     }
     
@@ -126,6 +139,8 @@ public class Controller {
         
         i.getBeliefs().add(b);
         
+        view.linkBelief(i.getName(), b.getName());
+        
         return true;
     }
     
@@ -144,6 +159,8 @@ public class Controller {
         }
         
         i.getConstituents().add(c);
+        
+        //TODO show in GUI
         
         return true;
     }

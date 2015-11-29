@@ -505,7 +505,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
                 g2.setPaint(fg);
             }
             
-            double xString = shape.getCenterX() - + shape.getWidth() / 6.0;
+            double xString = shape.getCenterX() - shape.getWidth() / 4.0;
             double yString = shape.getCenterY();
             g2.drawString(name, (int)xString, (int)yString);
         }
@@ -536,7 +536,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         public void draw() {
             super.draw();
             
-            double xString = shape.getCenterX() - shape.getWidth() / 6.0;
+            double xString = shape.getCenterX() - shape.getWidth() / 4.0;
             double yString = shape.getCenterY() + shape.getHeight() / 6.0;
             g2.drawString("ind: "+independence, (int)xString, (int)yString);
         }
@@ -599,7 +599,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
             super.draw();
             
             
-            double xString = shape.getCenterX()  - shape.getWidth() / 6.0;
+            double xString = shape.getCenterX()  - shape.getWidth() / 4.0;
             double yString = shape.getCenterY() + shape.getHeight() / 6.0;;
             g2.drawString("val: "+value, (int)xString, (int)yString);
         }
