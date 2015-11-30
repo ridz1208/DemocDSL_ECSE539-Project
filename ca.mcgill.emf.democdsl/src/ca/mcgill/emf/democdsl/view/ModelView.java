@@ -41,8 +41,8 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
     /*
      * Model attributes
      */
-    private ArrayList<DemocIcon> elements = new ArrayList<DemocIcon>();
-    private ArrayList<Object> links = new ArrayList<Object>();
+    public ArrayList<DemocIcon> elements = new ArrayList<DemocIcon>();
+    public ArrayList<Object> links = new ArrayList<Object>();
     
     final static int maxCharHeight = 20;
     final static int minFontSize = 10;
@@ -432,7 +432,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
          * Abstract class for a model icon
          */
         protected String name;
-        protected RectangularShape shape;
+        public RectangularShape shape;
         protected boolean isSelected = false;
         
         public DemocIcon(String name) {

@@ -13,8 +13,8 @@ import ca.mcgill.emf.democdsl.view.ModelView;
  */
 public class Controller {
     
-    private DemocDSL democ;
-    private ModelView view;
+    public DemocDSL democ;
+    public ModelView view;
     
     public Controller(DemocDSL d, ModelView v) {
         democ = d;
