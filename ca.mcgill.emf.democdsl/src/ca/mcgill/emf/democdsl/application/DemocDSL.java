@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -18,6 +19,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.swing.JApplet;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import ca.mcgill.emf.democdsl.DemocdslFactory;
@@ -32,7 +34,9 @@ public class DemocDSL {
     /*
      * Hard coded file name of the model
      */
-    final public static String filename = "model.xml";
+    final static String filename = "model.xml";
+    final static JFileChooser fc = new JFileChooser();
+    static JFrame f;
     
 	public static void main(String[] args) {
 		// load model
@@ -52,7 +56,7 @@ public class DemocDSL {
 		// start UI
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JFrame f = new JFrame("Model View");
+                f = new JFrame("Model View");
                 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
                 f.getContentPane().add("Center", applet);
@@ -61,8 +65,19 @@ public class DemocDSL {
                 f.setSize(new Dimension(800,600));
                 f.setVisible(true);
                 
-                PersistenceDemocDSL.loadModel(filename, c);
-                loadLayout((ModelView)applet);
+                String fn = null;
+                int returned = fc.showDialog(f, "Load Model");
+                if (returned == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    fn = file.getAbsolutePath();
+                    System.out.println("Loading "+fn);
+                } else {
+                    fn = filename;
+                    System.out.println("No model to load selected");
+                }
+                
+                PersistenceDemocDSL.loadModel(fn, c);
+                loadLayout((ModelView)applet, fn);
                 
                 /*
                 //Auto save on exit
@@ -85,9 +100,11 @@ public class DemocDSL {
         });
 	}
 	
-	public static void saveLayout(ModelView v) throws Exception{
+	public static void saveLayout(ModelView v, String fileName) throws Exception{
+	    String cleanFn = fileName.substring(0,fileName.length()-4);
+	    
 	    try (PrintWriter out = new PrintWriter(
-                            new FileWriter("layout.csv")))
+                            new FileWriter(fileName+".csv")))
 	    {
             for (DemocIcon d : v.elements) {
                 out.println(d.shape.getX()+","+d.shape.getY());
@@ -98,9 +115,9 @@ public class DemocDSL {
         }
 	}
 	
-	private static void loadLayout(ModelView v) {
+	private static void loadLayout(ModelView v, String fileName) {
         try (BufferedReader in = new BufferedReader(
-                            new FileReader("layout.csv")))
+                            new FileReader(fileName+".csv")))
         {
             String line = null;
             int i = 0;
@@ -118,5 +135,19 @@ public class DemocDSL {
         } catch (Exception e) {
             System.err.println("Failed to load layout");
         }
+    }
+
+    public static String askSaveLocation() {
+        String fn = null;
+        int returned = fc.showSaveDialog(f);
+        if (returned == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            fn = file.getAbsolutePath();
+            System.out.println("Saving "+fn);
+        } else {
+            fn = filename;
+            System.out.println("Saving defaulted to "+fn);
+        }
+        return fn;
     }
 }

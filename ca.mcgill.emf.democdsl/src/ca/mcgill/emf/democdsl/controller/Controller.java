@@ -3,8 +3,11 @@
  */
 package ca.mcgill.emf.democdsl.controller;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+
+import javax.swing.JFileChooser;
 
 import ca.mcgill.emf.democdsl.*;
 import ca.mcgill.emf.democdsl.persistence.PersistenceDemocDSL;
@@ -159,11 +162,12 @@ public class Controller {
         return true;
     }
     public boolean saveModel(){
-        //saves with filename defined in DemocDSL.java
+        //saving model
+        String fn = ca.mcgill.emf.democdsl.application.DemocDSL.askSaveLocation();
+        
         try {
-            PersistenceDemocDSL.saveModel(
-                    ca.mcgill.emf.democdsl.application.DemocDSL.filename, democ);
-            ca.mcgill.emf.democdsl.application.DemocDSL.saveLayout(view);
+            PersistenceDemocDSL.saveModel(fn, democ);
+            ca.mcgill.emf.democdsl.application.DemocDSL.saveLayout(view, fn);
         } catch (Exception e) {
             return false;
         }
