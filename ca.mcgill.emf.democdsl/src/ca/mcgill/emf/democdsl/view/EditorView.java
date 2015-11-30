@@ -82,6 +82,7 @@ public class EditorView extends JFrame {
     private JButton addIdeologyButton;
     private JButton addConstituentButton;
     private JButton linkBeliefButton;
+    private JButton saveButton;
 
 
     private HashMap<Integer, Belief> beliefs;
@@ -187,6 +188,7 @@ public class EditorView extends JFrame {
         addIdeologyButton=new JButton();
         addConstituentButton=new JButton();
         linkBeliefButton = new JButton();
+        saveButton = new JButton();
         
         //LABEL TEXT
         influenceCreateLabel.setText("Create Influence");
@@ -213,6 +215,7 @@ public class EditorView extends JFrame {
         addIdeologyButton.setText("Add Ideology");
         addConstituentButton.setText("Add Constituent");
         linkBeliefButton.setText("Link");
+        saveButton.setText("Save Model");
         
         //LIST actionListeners
         influencerList.addActionListener(new java.awt.event.ActionListener() {
@@ -320,6 +323,11 @@ public class EditorView extends JFrame {
                 linkBeliefButtonActionPerformed(evt);
             }
         });
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
         //DISABLE INITIALLY
         addInfluenceButton.setEnabled(false);
         //addBeliefButton.setEnabled(false);
@@ -378,13 +386,12 @@ public class EditorView extends JFrame {
                                 .addComponent(linkBeliefButton,200,200,200)
                                 )
                         )
+                .addComponent(saveButton,400,400,400)
                 );
 
         layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addConstituentButton, constituentNameText});
         layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addIdeologyButton, ideologyNameText});
         layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addBeliefButton, beliefNameText});
-        //layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {bookButton, patientLabel});
-        //layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {bookButton, patientLabel});
 
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
@@ -462,6 +469,9 @@ public class EditorView extends JFrame {
                         )
                 .addGroup(layout.createParallelGroup()
                         .addComponent(linkBeliefButton)
+                        )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(saveButton)
                         )
                 );
 
@@ -657,6 +667,9 @@ public class EditorView extends JFrame {
         }
         // update visuals
         refreshData();
+    }
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt){
+        dslc.saveModel();
     }
     
 }

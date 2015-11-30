@@ -3,8 +3,13 @@
  */
 package ca.mcgill.emf.democdsl.controller;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 import ca.mcgill.emf.democdsl.*;
+import ca.mcgill.emf.democdsl.persistence.PersistenceDemocDSL;
 import ca.mcgill.emf.democdsl.view.ModelView;
+import ca.mcgill.emf.democdsl.view.ModelView.DemocIcon;
 
 /**
  * Controller for the EMF generated model DemocDSL
@@ -15,10 +20,13 @@ public class Controller {
     
     public DemocDSL democ;
     public ModelView view;
+    private String filename = "model.xml";
+    //public ca.mcgill.emf.democdsl.application.DemocDSL app;
     
     public Controller(DemocDSL d, ModelView v) {
         democ = d;
         view = v;
+        //app =a;
     }
     
     public boolean createConstituent(String name, int independence){
@@ -147,9 +155,22 @@ public class Controller {
         
         view.createBelief(newBelief.getName(), newBelief.getValue());
         view.linkBelief(i.getName(), b.getName());
-        
+
         return true;
     }
-    
+    public boolean saveModel(){
+        PersistenceDemocDSL.saveModel(filename, democ);
+        
+        try (PrintWriter out = new PrintWriter(
+                new FileWriter("layout.csv")))
+        {
+            for (DemocIcon d : view.elements) {
+                out.println(d.shape.getX()+","+d.shape.getY());
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to save layout");
+        }
+        return false;
+    }
 
 }

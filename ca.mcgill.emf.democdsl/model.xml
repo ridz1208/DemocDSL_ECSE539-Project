@@ -1,0 +1,245 @@
+<ca.mcgill.emf.democdsl.impl.DemocDSLImpl id="1">
+  <eFlags>0</eFlags>
+  <constituents class="org.eclipse.emf.ecore.util.EObjectResolvingEList" id="2" serialization="custom">
+    <unserializable-parents/>
+    <org.eclipse.emf.common.util.BasicEList>
+      <default>
+        <size>3</size>
+      </default>
+      <int>4</int>
+      <ca.mcgill.emf.democdsl.impl.ConstituentImpl id="3">
+        <eFlags>0</eFlags>
+        <name>Kanye West</name>
+        <independence>99</independence>
+        <beliefs class="org.eclipse.emf.ecore.util.EObjectContainmentEList" id="4" serialization="custom">
+          <unserializable-parents/>
+          <org.eclipse.emf.common.util.BasicEList>
+            <default>
+              <size>1</size>
+            </default>
+            <int>4</int>
+            <ca.mcgill.emf.democdsl.impl.BeliefImpl id="5">
+              <eFlags>-196608</eFlags>
+              <eContainer class="ca.mcgill.emf.democdsl.impl.ConstituentImpl" reference="3"/>
+              <value>100</value>
+              <name>KANYE</name>
+            </ca.mcgill.emf.democdsl.impl.BeliefImpl>
+          </org.eclipse.emf.common.util.BasicEList>
+          <org.eclipse.emf.ecore.util.EcoreEList>
+            <default>
+              <dataClass>ca.mcgill.emf.democdsl.Belief</dataClass>
+              <owner class="ca.mcgill.emf.democdsl.impl.ConstituentImpl" reference="3"/>
+            </default>
+          </org.eclipse.emf.ecore.util.EcoreEList>
+          <org.eclipse.emf.ecore.util.EObjectEList>
+            <default>
+              <featureID>2</featureID>
+            </default>
+          </org.eclipse.emf.ecore.util.EObjectEList>
+        </beliefs>
+        <influencesOut class="org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList" id="6" serialization="custom">
+          <unserializable-parents/>
+          <org.eclipse.emf.common.util.BasicEList>
+            <default>
+              <size>1</size>
+            </default>
+            <int>4</int>
+            <ca.mcgill.emf.democdsl.impl.InfluenceImpl id="7">
+              <eFlags>0</eFlags>
+              <weight>99</weight>
+              <influenced class="ca.mcgill.emf.democdsl.impl.ConstituentImpl" id="8">
+                <eFlags>0</eFlags>
+                <name>Kim Kardashian</name>
+                <independence>2</independence>
+                <beliefs class="org.eclipse.emf.ecore.util.EObjectContainmentEList" id="9" serialization="custom">
+                  <unserializable-parents/>
+                  <org.eclipse.emf.common.util.BasicEList>
+                    <default>
+                      <size>1</size>
+                    </default>
+                    <int>4</int>
+                    <ca.mcgill.emf.democdsl.impl.BeliefImpl id="10">
+                      <eFlags>-196608</eFlags>
+                      <eContainer class="ca.mcgill.emf.democdsl.impl.ConstituentImpl" reference="8"/>
+                      <value>99</value>
+                      <name>KANYE</name>
+                    </ca.mcgill.emf.democdsl.impl.BeliefImpl>
+                  </org.eclipse.emf.common.util.BasicEList>
+                  <org.eclipse.emf.ecore.util.EcoreEList>
+                    <default>
+                      <dataClass>ca.mcgill.emf.democdsl.Belief</dataClass>
+                      <owner class="ca.mcgill.emf.democdsl.impl.ConstituentImpl" reference="8"/>
+                    </default>
+                  </org.eclipse.emf.ecore.util.EcoreEList>
+                  <org.eclipse.emf.ecore.util.EObjectEList>
+                    <default>
+                      <featureID>2</featureID>
+                    </default>
+                  </org.eclipse.emf.ecore.util.EObjectEList>
+                </beliefs>
+                <influencesIn class="org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList" id="11" serialization="custom">
+                  <unserializable-parents/>
+                  <org.eclipse.emf.common.util.BasicEList>
+                    <default>
+                      <size>1</size>
+                    </default>
+                    <int>4</int>
+                    <ca.mcgill.emf.democdsl.impl.InfluenceImpl reference="7"/>
+                  </org.eclipse.emf.common.util.BasicEList>
+                  <org.eclipse.emf.ecore.util.EcoreEList>
+                    <default>
+                      <dataClass>ca.mcgill.emf.democdsl.Influence</dataClass>
+                      <owner class="ca.mcgill.emf.democdsl.impl.ConstituentImpl" reference="8"/>
+                    </default>
+                  </org.eclipse.emf.ecore.util.EcoreEList>
+                  <org.eclipse.emf.ecore.util.EObjectEList>
+                    <default>
+                      <featureID>4</featureID>
+                    </default>
+                  </org.eclipse.emf.ecore.util.EObjectEList>
+                  <org.eclipse.emf.ecore.util.EObjectWithInverseEList>
+                    <default>
+                      <inverseFeatureID>1</inverseFeatureID>
+                    </default>
+                  </org.eclipse.emf.ecore.util.EObjectWithInverseEList>
+                </influencesIn>
+              </influenced>
+              <influencer class="ca.mcgill.emf.democdsl.impl.ConstituentImpl" reference="3"/>
+            </ca.mcgill.emf.democdsl.impl.InfluenceImpl>
+          </org.eclipse.emf.common.util.BasicEList>
+          <org.eclipse.emf.ecore.util.EcoreEList>
+            <default>
+              <dataClass>ca.mcgill.emf.democdsl.Influence</dataClass>
+              <owner class="ca.mcgill.emf.democdsl.impl.ConstituentImpl" reference="3"/>
+            </default>
+          </org.eclipse.emf.ecore.util.EcoreEList>
+          <org.eclipse.emf.ecore.util.EObjectEList>
+            <default>
+              <featureID>3</featureID>
+            </default>
+          </org.eclipse.emf.ecore.util.EObjectEList>
+          <org.eclipse.emf.ecore.util.EObjectWithInverseEList>
+            <default>
+              <inverseFeatureID>2</inverseFeatureID>
+            </default>
+          </org.eclipse.emf.ecore.util.EObjectWithInverseEList>
+        </influencesOut>
+      </ca.mcgill.emf.democdsl.impl.ConstituentImpl>
+      <ca.mcgill.emf.democdsl.impl.ConstituentImpl reference="8"/>
+      <ca.mcgill.emf.democdsl.impl.ConstituentImpl id="12">
+        <eFlags>0</eFlags>
+        <name>rida</name>
+        <independence>96</independence>
+      </ca.mcgill.emf.democdsl.impl.ConstituentImpl>
+    </org.eclipse.emf.common.util.BasicEList>
+    <org.eclipse.emf.ecore.util.EcoreEList>
+      <default>
+        <dataClass>ca.mcgill.emf.democdsl.Constituent</dataClass>
+        <owner class="ca.mcgill.emf.democdsl.impl.DemocDSLImpl" reference="1"/>
+      </default>
+    </org.eclipse.emf.ecore.util.EcoreEList>
+    <org.eclipse.emf.ecore.util.EObjectEList>
+      <default>
+        <featureID>0</featureID>
+      </default>
+    </org.eclipse.emf.ecore.util.EObjectEList>
+  </constituents>
+  <ideologies class="org.eclipse.emf.ecore.util.EObjectResolvingEList" id="13" serialization="custom">
+    <unserializable-parents/>
+    <org.eclipse.emf.common.util.BasicEList>
+      <default>
+        <size>1</size>
+      </default>
+      <int>4</int>
+      <ca.mcgill.emf.democdsl.impl.IdeologyImpl id="14">
+        <eFlags>0</eFlags>
+        <name>Yeezus</name>
+        <beliefs class="org.eclipse.emf.ecore.util.EObjectContainmentEList" id="15" serialization="custom">
+          <unserializable-parents/>
+          <org.eclipse.emf.common.util.BasicEList>
+            <default>
+              <size>1</size>
+            </default>
+            <int>4</int>
+            <ca.mcgill.emf.democdsl.impl.BeliefImpl id="16">
+              <eFlags>-131072</eFlags>
+              <eContainer class="ca.mcgill.emf.democdsl.impl.IdeologyImpl" reference="14"/>
+              <value>99</value>
+              <name>KANYE</name>
+            </ca.mcgill.emf.democdsl.impl.BeliefImpl>
+          </org.eclipse.emf.common.util.BasicEList>
+          <org.eclipse.emf.ecore.util.EcoreEList>
+            <default>
+              <dataClass>ca.mcgill.emf.democdsl.Belief</dataClass>
+              <owner class="ca.mcgill.emf.democdsl.impl.IdeologyImpl" reference="14"/>
+            </default>
+          </org.eclipse.emf.ecore.util.EcoreEList>
+          <org.eclipse.emf.ecore.util.EObjectEList>
+            <default>
+              <featureID>1</featureID>
+            </default>
+          </org.eclipse.emf.ecore.util.EObjectEList>
+        </beliefs>
+      </ca.mcgill.emf.democdsl.impl.IdeologyImpl>
+    </org.eclipse.emf.common.util.BasicEList>
+    <org.eclipse.emf.ecore.util.EcoreEList>
+      <default>
+        <dataClass>ca.mcgill.emf.democdsl.Ideology</dataClass>
+        <owner class="ca.mcgill.emf.democdsl.impl.DemocDSLImpl" reference="1"/>
+      </default>
+    </org.eclipse.emf.ecore.util.EcoreEList>
+    <org.eclipse.emf.ecore.util.EObjectEList>
+      <default>
+        <featureID>1</featureID>
+      </default>
+    </org.eclipse.emf.ecore.util.EObjectEList>
+  </ideologies>
+  <name>Model</name>
+  <influences class="org.eclipse.emf.ecore.util.EObjectResolvingEList" id="17" serialization="custom">
+    <unserializable-parents/>
+    <org.eclipse.emf.common.util.BasicEList>
+      <default>
+        <size>1</size>
+      </default>
+      <int>4</int>
+      <ca.mcgill.emf.democdsl.impl.InfluenceImpl reference="7"/>
+    </org.eclipse.emf.common.util.BasicEList>
+    <org.eclipse.emf.ecore.util.EcoreEList>
+      <default>
+        <dataClass>ca.mcgill.emf.democdsl.Influence</dataClass>
+        <owner class="ca.mcgill.emf.democdsl.impl.DemocDSLImpl" reference="1"/>
+      </default>
+    </org.eclipse.emf.ecore.util.EcoreEList>
+    <org.eclipse.emf.ecore.util.EObjectEList>
+      <default>
+        <featureID>3</featureID>
+      </default>
+    </org.eclipse.emf.ecore.util.EObjectEList>
+  </influences>
+  <beliefs class="org.eclipse.emf.ecore.util.EObjectContainmentEList" id="18" serialization="custom">
+    <unserializable-parents/>
+    <org.eclipse.emf.common.util.BasicEList>
+      <default>
+        <size>1</size>
+      </default>
+      <int>4</int>
+      <ca.mcgill.emf.democdsl.impl.BeliefImpl id="19">
+        <eFlags>-327680</eFlags>
+        <eContainer class="ca.mcgill.emf.democdsl.impl.DemocDSLImpl" reference="1"/>
+        <value>0</value>
+        <name>KANYE</name>
+      </ca.mcgill.emf.democdsl.impl.BeliefImpl>
+    </org.eclipse.emf.common.util.BasicEList>
+    <org.eclipse.emf.ecore.util.EcoreEList>
+      <default>
+        <dataClass>ca.mcgill.emf.democdsl.Belief</dataClass>
+        <owner class="ca.mcgill.emf.democdsl.impl.DemocDSLImpl" reference="1"/>
+      </default>
+    </org.eclipse.emf.ecore.util.EcoreEList>
+    <org.eclipse.emf.ecore.util.EObjectEList>
+      <default>
+        <featureID>4</featureID>
+      </default>
+    </org.eclipse.emf.ecore.util.EObjectEList>
+  </beliefs>
+</ca.mcgill.emf.democdsl.impl.DemocDSLImpl>

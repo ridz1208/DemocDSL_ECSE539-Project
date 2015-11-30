@@ -63,6 +63,7 @@ public class DemocDSL {
                 
                 PersistenceDemocDSL.loadModel(filename, c);
                 loadLayout((ModelView)applet);
+                /*
                 Runtime.getRuntime().addShutdownHook(new Thread(){
                     
                     public void run(){
@@ -71,7 +72,7 @@ public class DemocDSL {
                     }
                     
                 });
-                
+                */
 
                 EditorView edit = new EditorView(c,model);
                 edit.setLocation(f.getWidth(), 0);
