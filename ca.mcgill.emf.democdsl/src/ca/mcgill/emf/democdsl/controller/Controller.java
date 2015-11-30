@@ -159,18 +159,15 @@ public class Controller {
         return true;
     }
     public boolean saveModel(){
-        PersistenceDemocDSL.saveModel(filename, democ);
-        
-        try (PrintWriter out = new PrintWriter(
-                new FileWriter("layout.csv")))
-        {
-            for (DemocIcon d : view.elements) {
-                out.println(d.shape.getX()+","+d.shape.getY());
-            }
+        //saves with filename defined in DemocDSL.java
+        try {
+            PersistenceDemocDSL.saveModel(
+                    ca.mcgill.emf.democdsl.application.DemocDSL.filename, democ);
+            ca.mcgill.emf.democdsl.application.DemocDSL.saveLayout(view);
         } catch (Exception e) {
-            System.err.println("Failed to save layout");
+            return false;
         }
-        return false;
+        return true;
     }
 
 }

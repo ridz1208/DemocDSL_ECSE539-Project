@@ -32,7 +32,7 @@ public class DemocDSL {
     /*
      * Hard coded file name of the model
      */
-    final static String filename = "model.xml";
+    final public static String filename = "model.xml";
     
 	public static void main(String[] args) {
 		// load model
@@ -63,7 +63,9 @@ public class DemocDSL {
                 
                 PersistenceDemocDSL.loadModel(filename, c);
                 loadLayout((ModelView)applet);
+                
                 /*
+                //Auto save on exit
                 Runtime.getRuntime().addShutdownHook(new Thread(){
                     
                     public void run(){
@@ -83,7 +85,7 @@ public class DemocDSL {
         });
 	}
 	
-	private static void saveLayout(ModelView v) {
+	public static void saveLayout(ModelView v) throws Exception{
 	    try (PrintWriter out = new PrintWriter(
                             new FileWriter("layout.csv")))
 	    {
@@ -92,6 +94,7 @@ public class DemocDSL {
             }
         } catch (Exception e) {
             System.err.println("Failed to save layout");
+            throw e;
         }
 	}
 	
