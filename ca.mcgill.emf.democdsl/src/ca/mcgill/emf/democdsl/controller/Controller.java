@@ -166,7 +166,7 @@ public class Controller {
     }
     
     public String computeVotes() {
-        String returnedResults = "";
+        String returnedResults = "<html><body><h3><ul>";
         VotingAnalysis va = new VotingAnalysis(democ);
         
         HashMap<String, Integer> results = va.compute();
@@ -178,9 +178,9 @@ public class Controller {
                 maxYet = e.getValue();
                 winningIdeology = e.getKey();
             }
-            returnedResults += (e.getKey()+" : "+e.getValue()+"\n");
+            returnedResults += ("<li>"+e.getKey()+"  :  "+e.getValue()+"</li>");
         }
-        
+        returnedResults += "</ul></h3></body></html>";
         view.setAnalysisView(winningIdeology);
         
         return returnedResults;
