@@ -27,28 +27,30 @@ public class VotingAnalysis {
     
     public HashMap<String, Integer> compute() {
         int nbIdeologies = model.getIdeologies().size();
-        ArrayList<Integer> votes = new ArrayList<Integer>(nbIdeologies);
+        int[] votes = new int[nbIdeologies];
         HashMap<String, Integer> results = new HashMap<String, Integer>();
         
         for (Constituent c : model.getConstituents()) {
-            ArrayList<Float> preferences = new ArrayList<Float>(nbIdeologies);
+            ArrayList<Float> preferences = new ArrayList<Float>();
             for (int i = 0; i < model.getIdeologies().size(); i++) {
                 Ideology ideo = model.getIdeologies().get(i);
                 //check if they have same set of beliefs and get value
                 float val;
-                if((val = computeBeliefsValue(c.getBeliefs(), ideo.getBeliefs())) >= 0) {
-                    preferences.set(i, val);
+                if((val = computeBeliefsValue(c.getBeliefs(), ideo.getBeliefs())) >= 0f) {
+                    preferences.add(val);
+                } else {
+                    preferences.add(0f);
                 }
             }
             //choose ideology voted for by finding max value
             
             int maxIndex = preferences.indexOf(Collections.max(preferences));
-            votes.set(maxIndex, votes.get(maxIndex)+1);
+            votes[maxIndex] = votes[maxIndex]+1;
         }
         
         //compute total votes
-        for (int i = 0; i < votes.size(); i++) {
-            Integer v = votes.get(i);
+        for (int i = 0; i < votes.length; i++) {
+            Integer v = votes[i];
             results.put(model.getIdeologies().get(i).getName(), v);
         }
         
