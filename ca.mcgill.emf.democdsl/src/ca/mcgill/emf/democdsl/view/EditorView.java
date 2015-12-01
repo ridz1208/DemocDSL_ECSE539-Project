@@ -44,7 +44,7 @@ public class EditorView extends JFrame {
     private Controller dslc;
     ca.mcgill.emf.democdsl.DemocDSL ddsl;
     private JLabel errorMessage;
-
+    private JLabel winnerMessage;
 
     private JLabel influenceCreateLabel;
     private JLabel beliefCreateLabel;
@@ -78,11 +78,12 @@ public class EditorView extends JFrame {
 
     private JButton addInfluenceButton;
     private JButton addBeliefButton;
-    private JButton doneBeliefButton;
+    //private JButton doneBeliefButton;
     private JButton addIdeologyButton;
     private JButton addConstituentButton;
     private JButton linkBeliefButton;
     private JButton saveButton;
+    private JButton computeButton;
 
 
     private HashMap<Integer, Belief> beliefs;
@@ -95,6 +96,7 @@ public class EditorView extends JFrame {
     //variables
     private String[] percents =  {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100"};
     private String error = null;
+    private String win = null;
 
     
     //select variables
@@ -125,7 +127,10 @@ public class EditorView extends JFrame {
         // elements for error message
         errorMessage = new JLabel();
         errorMessage.setForeground(Color.RED);
-
+        
+        winnerMessage = new JLabel();
+        winnerMessage.setForeground(Color.BLUE);
+        
         //headers
         influenceCreateLabel= new JLabel("Underlined Label");
         beliefCreateLabel= new JLabel("Underlined Label");
@@ -184,11 +189,12 @@ public class EditorView extends JFrame {
         //buttons
         addInfluenceButton=new JButton();
         addBeliefButton=new JButton();
-        doneBeliefButton=new JButton();
+        //doneBeliefButton=new JButton();
         addIdeologyButton=new JButton();
         addConstituentButton=new JButton();
         linkBeliefButton = new JButton();
         saveButton = new JButton();
+        computeButton = new JButton();
         
         //LABEL TEXT
         influenceCreateLabel.setText("Create Influence");
@@ -211,11 +217,12 @@ public class EditorView extends JFrame {
         //BUTTON TEXT
         addInfluenceButton.setText("Add Influence");
         addBeliefButton.setText("Add Belief");
-        doneBeliefButton.setText("Finished");
+        //doneBeliefButton.setText("Finished");
         addIdeologyButton.setText("Add Ideology");
         addConstituentButton.setText("Add Constituent");
         linkBeliefButton.setText("Link");
         saveButton.setText("Save Model");
+        computeButton.setText("View Results");
         
         //LIST actionListeners
         influencerList.addActionListener(new java.awt.event.ActionListener() {
@@ -302,12 +309,14 @@ public class EditorView extends JFrame {
                 addBeliefButtonActionPerformed(evt);
             }
         });
+        /*
         doneBeliefButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBeliefButton.setEnabled(false);
                 beliefNameText.setEnabled(false);
             }
         });
+        */
         addConstituentButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addConstituentButtonActionPerformed(evt);
@@ -326,6 +335,11 @@ public class EditorView extends JFrame {
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
+            }
+        });
+        computeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                computeButtonActionPerformed(evt);
             }
         });
         //DISABLE INITIALLY
@@ -376,7 +390,6 @@ public class EditorView extends JFrame {
                                 .addComponent(beliefNameText)
                                 .addComponent(beliefWeightList)
                                 .addComponent(addBeliefButton,200,200,200)
-                                .addComponent(doneBeliefButton,200,200,200)
                                 .addComponent(influencerList)
                                 .addComponent(influenceeList)
                                 .addComponent(influenceWeightList)
@@ -387,6 +400,8 @@ public class EditorView extends JFrame {
                                 )
                         )
                 .addComponent(saveButton,400,400,400)
+                .addComponent(computeButton,400,400,400)
+                .addComponent(winnerMessage)
                 );
 
         layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addConstituentButton, constituentNameText});
@@ -431,9 +446,6 @@ public class EditorView extends JFrame {
                 .addGroup(layout.createParallelGroup()
                         .addComponent(addBeliefButton)
                         )
-                .addGroup(layout.createParallelGroup()
-                        .addComponent(doneBeliefButton)
-                        )
                 .addGroup(layout.createParallelGroup() //////////////////////////////////////
                         .addComponent(influenceCreateLabel)
                         )
@@ -473,6 +485,10 @@ public class EditorView extends JFrame {
                 .addGroup(layout.createParallelGroup()
                         .addComponent(saveButton)
                         )
+                .addGroup(layout.createParallelGroup()
+                        .addComponent(computeButton,400,400,400)
+                        )
+                .addComponent(winnerMessage)
                 );
 
         pack();
@@ -484,6 +500,7 @@ public class EditorView extends JFrame {
         // error
         errorMessage.setText(error);
         if (error == null || error.length() == 0) {
+            winnerMessage.setText("");
             //reset dynamic lists
             influencerList.removeAllItems();
             influenceeList.removeAllItems();
@@ -670,6 +687,12 @@ public class EditorView extends JFrame {
     }
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt){
         dslc.saveModel();
+    }
+    private void computeButtonActionPerformed(java.awt.event.ActionEvent evt){
+        
+        win = dslc.computeVotes();
+        winnerMessage.setText(win);
+    
     }
     
 }
