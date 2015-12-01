@@ -77,7 +77,7 @@ public class VotingAnalysis {
         }
         
         //return proportional value
-        return totalValues;///iBeliefs.size();
+        return totalValues/iBeliefs.size();
     }
 
 }
