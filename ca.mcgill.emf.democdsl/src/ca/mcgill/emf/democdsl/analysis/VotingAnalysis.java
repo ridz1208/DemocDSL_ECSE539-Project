@@ -39,12 +39,12 @@ public class VotingAnalysis {
                 if((val = computeBeliefsValue(c.getBeliefs(), ideo.getBeliefs())) >= 0f) {
                     preferences.add(val);
                 } else {
-                    preferences.add(0f);
+                    preferences.add(Float.MAX_VALUE);
                 }
             }
             //choose ideology voted for by finding max value
             
-            int maxIndex = preferences.indexOf(Collections.max(preferences));
+            int maxIndex = preferences.indexOf(Collections.min(preferences));
             if(preferences.get(maxIndex) > 0f)
                 votes[maxIndex] = votes[maxIndex]+1;
         }
@@ -66,7 +66,7 @@ public class VotingAnalysis {
             boolean found = false;
             for(Belief cb : cBeliefs) {
                 if(cb.getName().equals(ib.getName())) {
-                    totalValues += cb.getValue();
+                    totalValues += Math.abs(ib.getValue() - cb.getValue());
                     found = true;
                     break;
                 }
@@ -77,7 +77,7 @@ public class VotingAnalysis {
         }
         
         //return proportional value
-        return totalValues/iBeliefs.size();
+        return totalValues;///iBeliefs.size();
     }
 
 }
