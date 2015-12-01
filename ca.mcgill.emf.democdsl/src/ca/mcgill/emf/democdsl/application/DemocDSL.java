@@ -2,21 +2,11 @@ package ca.mcgill.emf.democdsl.application;
 
 
 import java.awt.Dimension;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.swing.JApplet;
 import javax.swing.JFileChooser;
@@ -26,14 +16,17 @@ import ca.mcgill.emf.democdsl.DemocdslFactory;
 import ca.mcgill.emf.democdsl.DemocdslPackage;
 import ca.mcgill.emf.democdsl.controller.Controller;
 import ca.mcgill.emf.democdsl.persistence.*;
-//import amsd.persistence.PersistenceAMSD;
 import ca.mcgill.emf.democdsl.view.*;
 import ca.mcgill.emf.democdsl.view.ModelView.DemocIcon;
 
+/**
+ * Main Application to create models
+ * @author Rida, Yanis
+ *
+ */
 public class DemocDSL {
-    /*
-     * Hard coded file name of the model
-     */
+
+    //default filename of saved model
     final static String filename = "model.xml";
     final static JFileChooser fc = new JFileChooser();
     static JFrame f;
@@ -78,18 +71,6 @@ public class DemocDSL {
                 
                 PersistenceDemocDSL.loadModel(fn, c);
                 loadLayout((ModelView)applet, fn);
-                
-                /*
-                //Auto save on exit
-                Runtime.getRuntime().addShutdownHook(new Thread(){
-                    
-                    public void run(){
-                        PersistenceDemocDSL.saveModel(filename, model);
-                        saveLayout((ModelView)applet);
-                    }
-                    
-                });
-                */
 
                 EditorView edit = new EditorView(c,model);
                 edit.setLocation(f.getWidth(), 0);
@@ -101,8 +82,6 @@ public class DemocDSL {
 	}
 	
 	public static void saveLayout(ModelView v, String fileName) throws Exception{
-	    String cleanFn = fileName.substring(0,fileName.length()-4);
-	    
 	    try (PrintWriter out = new PrintWriter(
                             new FileWriter(fileName+".csv")))
 	    {

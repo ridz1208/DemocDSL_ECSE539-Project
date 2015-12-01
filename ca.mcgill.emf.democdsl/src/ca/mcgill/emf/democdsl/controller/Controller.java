@@ -3,39 +3,31 @@
  */
 package ca.mcgill.emf.democdsl.controller;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map.Entry;
-
-import javax.swing.JFileChooser;
 
 import ca.mcgill.emf.democdsl.*;
 import ca.mcgill.emf.democdsl.analysis.VotingAnalysis;
 import ca.mcgill.emf.democdsl.persistence.PersistenceDemocDSL;
 import ca.mcgill.emf.democdsl.view.ModelView;
-import ca.mcgill.emf.democdsl.view.ModelView.DemocIcon;
 
 /**
  * Controller for the EMF generated model DemocDSL
- * @author Yanis
+ * @author Rida, Yanis
  *
  */
 public class Controller {
     
     public DemocDSL democ;
     public ModelView view;
-    private String filename = "model.xml";
-    //public ca.mcgill.emf.democdsl.application.DemocDSL app;
     
     public Controller(DemocDSL d, ModelView v) {
         democ = d;
         view = v;
-        //app =a;
     }
     
     public boolean createConstituent(String name, int independence){
+        
         for (Constituent c : democ.getConstituents()) {
             if(c.getName().toLowerCase().equals(name.toLowerCase()))
                 return false;
@@ -53,6 +45,7 @@ public class Controller {
     }
     
     public boolean createInfluence(Constituent source, Constituent target, int weight) {
+        
         if(!democ.getConstituents().contains(source))
             return false;
 
@@ -75,7 +68,7 @@ public class Controller {
         newInfluence.setInfluencer(source);
         newInfluence.setInfluenced(target);
         democ.getInfluences().add(newInfluence);
-        //TODO add to influencesOut and influencesIn??
+        //influencesOut and influencesIn should be set by the metamodel
         
         view.createInfluence(source.getName(), target.getName(), newInfluence.getWeight());
         
@@ -83,6 +76,7 @@ public class Controller {
     }
     
     public boolean createBelief(String name) {
+        
         for (Belief b : democ.getBeliefs()) {
             if(b.getName().toLowerCase().equals(name.toLowerCase()))
                 return false;
@@ -90,13 +84,14 @@ public class Controller {
         
         Belief newBelief = DemocdslFactory.eINSTANCE.createBelief();
         newBelief.setName(name);
-        //newBelief.setValue(value);
+        //we don't set a value as initial belief
         democ.getBeliefs().add(newBelief);
         
         return true;
     }
     
     public boolean createIdeology(String name) {
+        
         for (Ideology i : democ.getIdeologies()) {
             if(i.getName().toLowerCase().equals(name.toLowerCase()))
                 return false;
@@ -112,6 +107,7 @@ public class Controller {
     }
     
     public boolean linkBeliefToConstituent(Belief b, Constituent c, int value) {
+        
         if(!democ.getConstituents().contains(c))
             return false;
         
@@ -125,6 +121,7 @@ public class Controller {
             }
         }
         
+        //create new belief with same name and given value
         Belief newBelief = DemocdslFactory.eINSTANCE.createBelief();
         newBelief.setName(b.getName());
         newBelief.setValue(value);
@@ -139,6 +136,7 @@ public class Controller {
     }
     
     public boolean linkBeliefToIdeology(Belief b, Ideology i, int value) {
+        
         if(!democ.getIdeologies().contains(i))
             return false;
         
@@ -166,6 +164,9 @@ public class Controller {
     }
     
     public String computeVotes() {
+        /*
+         * Method to run a Vote Analysis and format result in HTML
+         */
         String returnedResults = "<html><body><h3><ul>";
         VotingAnalysis va = new VotingAnalysis(democ);
         
@@ -189,10 +190,10 @@ public class Controller {
     
     /**
      * Saving the model, interacts with DemocDSL (application
-     * @return
+     * @return true if successfully saved, false otherwise
      */
     public boolean saveModel(){
-        //saving model
+        
         String fn = ca.mcgill.emf.democdsl.application.DemocDSL.askSaveLocation();
         
         try {
