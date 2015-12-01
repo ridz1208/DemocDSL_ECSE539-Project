@@ -166,12 +166,12 @@ public class Controller {
     }
     
     public String computeVotes() {
-        String returnedResults = null;
+        String returnedResults = "";
         VotingAnalysis va = new VotingAnalysis(democ);
         
         HashMap<String, Integer> results = va.compute();
         int maxYet = Integer.MIN_VALUE;
-        String winningIdeology = null;
+        String winningIdeology = "";
         for (Entry<String, Integer> e : results.entrySet()) {
             //write results to a string
             if(e.getValue() > maxYet) {

@@ -1,6 +1,7 @@
 package ca.mcgill.emf.democdsl.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.sql.Time;
@@ -13,10 +14,12 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.swing.GroupLayout;
+import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
@@ -401,7 +404,7 @@ public class EditorView extends JFrame {
                         )
                 .addComponent(saveButton,400,400,400)
                 .addComponent(computeButton,400,400,400)
-                .addComponent(winnerMessage)
+                /*.addComponent(winnerMessage)*/
                 );
 
         layout.linkSize(SwingConstants.HORIZONTAL, new java.awt.Component[] {addConstituentButton, constituentNameText});
@@ -486,9 +489,9 @@ public class EditorView extends JFrame {
                         .addComponent(saveButton)
                         )
                 .addGroup(layout.createParallelGroup()
-                        .addComponent(computeButton,400,400,400)
+                        .addComponent(computeButton)
                         )
-                .addComponent(winnerMessage)
+                /*.addComponent(winnerMessage)*/
                 );
 
         pack();
@@ -692,6 +695,12 @@ public class EditorView extends JFrame {
         
         win = dslc.computeVotes();
         winnerMessage.setText(win);
+        JFrame f = new JFrame("Analysis Results");
+        f.getContentPane().add("North", winnerMessage);
+        f.pack();
+        f.setSize(300, 400);
+        f.setLocation(600, 200);
+        f.setVisible(true);
     
     }
     

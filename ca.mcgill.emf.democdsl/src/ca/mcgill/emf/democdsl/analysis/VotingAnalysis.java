@@ -45,7 +45,8 @@ public class VotingAnalysis {
             //choose ideology voted for by finding max value
             
             int maxIndex = preferences.indexOf(Collections.max(preferences));
-            votes[maxIndex] = votes[maxIndex]+1;
+            if(preferences.get(maxIndex) > 0f)
+                votes[maxIndex] = votes[maxIndex]+1;
         }
         
         //compute total votes
