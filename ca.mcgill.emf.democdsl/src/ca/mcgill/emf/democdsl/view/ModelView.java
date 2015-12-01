@@ -283,6 +283,28 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         
     }
     
+    public void setAnalysisView(String target) {
+        //remove previous win
+        unsetAnalysis();
+        //finds first ideology with target name and sets it to winning state
+        for(DemocIcon i : elements) {
+            if(i.name.equals(target)){
+                i.isAnalysisWin = true;
+            }   
+        }
+        
+        repaint();
+        
+    }
+    
+    public void unsetAnalysis() {
+        for(DemocIcon i : elements) {
+            i.isAnalysisWin = false;  
+        }
+        
+        repaint();
+    }
+    
     
     /*
      * Temporary main method, we need an app later
@@ -328,6 +350,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         addInfluence.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ((ModelView) applet).createInfluence("Communism", "Yanis", 50);
+                ((ModelView) applet).unsetAnalysis();
             }
             
         });
@@ -338,6 +361,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         linkBelief.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ((ModelView) applet).linkBelief("Communism", "Equality");
+                ((ModelView) applet).setAnalysisView("Communism");
             }
             
         });
@@ -434,6 +458,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         protected String name;
         public RectangularShape shape;
         protected boolean isSelected = false;
+        protected boolean isAnalysisWin = false;
         
         public DemocIcon(String name) {
             this.name = name;
@@ -446,6 +471,11 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
             g2.draw(shape);
             if(isSelected) {
                 g2.setPaint(selected);
+                g2.fill(shape);
+                g2.setPaint(fg);
+            }
+            else if(isAnalysisWin) {
+                g2.setPaint(Color.green);
                 g2.fill(shape);
                 g2.setPaint(fg);
             }
@@ -502,6 +532,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
          * @param v value of the ideology
          * @param e shape
          */
+        
         public IdeologyIcon(String name, RoundRectangle2D e) {
             super(name);
             this.shape = e;
@@ -563,6 +594,7 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         protected DemocIcon target;
         //this can be used to turn the influence into a belief link
         protected boolean isLink = false;
+        protected boolean isAnalysisLink = false;
         
         /**
          * Influence between an ideology and constituent
@@ -578,8 +610,10 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
         
         public void draw() {
             //Draw line
-            if(isLink)
+            if(isLink && !isAnalysisLink)
                 g2.setStroke(dashed);
+            else if(isLink && isAnalysisLink)
+                g2.setColor(Color.green);
             //set line end to appropriate corner
             double targetX = 0;
             double targetY = 0;
@@ -616,7 +650,10 @@ public class ModelView extends JApplet implements MouseMotionListener, MouseList
                         
             }
             g2.draw(line);
-            g2.setStroke(stroke);
+            if(isLink || isAnalysisLink) {
+                g2.setStroke(stroke);
+                g2.setColor(fg);
+            }
             
             //draw arrow
             arrowHead.addPoint( 0,5);

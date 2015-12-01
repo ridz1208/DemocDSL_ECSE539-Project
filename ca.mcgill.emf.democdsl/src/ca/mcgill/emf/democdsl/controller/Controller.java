@@ -6,10 +6,13 @@ package ca.mcgill.emf.democdsl.controller;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.swing.JFileChooser;
 
 import ca.mcgill.emf.democdsl.*;
+import ca.mcgill.emf.democdsl.analysis.VotingAnalysis;
 import ca.mcgill.emf.democdsl.persistence.PersistenceDemocDSL;
 import ca.mcgill.emf.democdsl.view.ModelView;
 import ca.mcgill.emf.democdsl.view.ModelView.DemocIcon;
@@ -161,6 +164,33 @@ public class Controller {
 
         return true;
     }
+    
+    public String computeVotes() {
+        String returnedResults = null;
+        VotingAnalysis va = new VotingAnalysis(democ);
+        
+        HashMap<String, Integer> results = va.compute();
+        int maxYet = Integer.MIN_VALUE;
+        String winningIdeology = null;
+        for (Entry<String, Integer> e : results.entrySet()) {
+            //write results to a string
+            if(e.getValue() > maxYet) {
+                maxYet = e.getValue();
+                winningIdeology = e.getKey();
+            }
+            returnedResults += (e.getKey()+" : "+e.getValue()+"\n");
+        }
+        
+        view.setAnalysisView(winningIdeology);
+        
+        return returnedResults;
+    }
+    
+    
+    /**
+     * Saving the model, interacts with DemocDSL (application
+     * @return
+     */
     public boolean saveModel(){
         //saving model
         String fn = ca.mcgill.emf.democdsl.application.DemocDSL.askSaveLocation();
